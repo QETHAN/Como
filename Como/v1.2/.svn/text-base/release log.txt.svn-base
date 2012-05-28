@@ -1,6 +1,0 @@
-﻿优化CSS Selector，使速度大幅增加；
-对children, parent, prev, next方法增加了参数支持；
-增加Event.simulate方法(Como().simulate())，模拟事件的触发；
-修正了Como.wait支持字符串式的函数调用；
-对动态绑定的事件，记录了触发事件对象，可以通过Como.Event.target(e)获取；
-为Array对象增加random方法，可在数组中随机取值；

@@ -1,5 +1,0 @@
-1. 修复$.template的值为0时的bug
-2. 增加$.template对象的runList方法
-3。 增加$(window).height方法
-4. 增加Como.filter
-5. 优化Como.Array， 如 "" == 0的Bug

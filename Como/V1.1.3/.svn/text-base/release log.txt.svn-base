@@ -1,9 +1,0 @@
-﻿对up, upWithMe, prevAll, nextAll, Children方法结果进行排重处理； 
-Domd对象为隐藏状态或属于隐藏对象内部时，仍然可以获取其样式中的width,height值；
-解决了Como.template的bug：\\{name\\}模式；
-对children, parent, prev, next方法增加了参数支持；
-增加Event.simulate方法(Como().simulate())，模拟事件的触发；
-修正了Como.wait支持字符串式的函数调用；
-对动态绑定的事件，记录了触发事件对象，可以通过Como.Event.target(e)获取；
-为Array对象增加random方法，可在数组中随机取值；
-对Anim中的stop方法增加了needDone参数，为true时表示立即停止并完成最后的值；
