@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Cookie</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Cookie</div>
+	Como.Cookie对象
+	<div class="tag"><a href="#get">get</a> <a href="#set">set</a> <a href="#del">del</a></div>
+	
+	<a name="get"></a>
+	<div class="sub">get</div>
+	<div class="s">取Cookie值</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Cookie</span>.<span class="cos">get</span>(name);</pre>
+	</div>
+
+	<a name="set"></a>
+	<div class="sub">set</div>
+	<div class="s">设置Cookie值</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Cookie</span>.<span class="cos">set</span>(name, value);
+<span class="cos">Como</span>.<span class="cos">Cookie</span>.<span class="cos">set</span>(name, value, expires);		//expires=0过期时间为永不过期，expires=1为1分钟，expires = null ? '' 过期时间为浏览器关闭时间
+<span class="cos">Como</span>.<span class="cos">Cookie</span>.<span class="cos">set</span>(name, value, expires, path, domain);</pre>
+	</div>
+
+	<a name="del"></a>
+	<div class="sub">del</div>
+	<div class="s">删除Cookie</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Cookie</span>.<span class="cos">del</span>(name, value, domain);</pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Cookie";
+window.pageHight = $(document.body).height();
+</script>
+</html>

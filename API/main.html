@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Object</title>
+  <link rel="stylesheet" type="text/css" href="images/style.css">
+  <script type="text/javascript" src="../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<p>&nbsp;</p>
+	<p>Como JS提供了对full版和only版的切换支持：</p>
+	<p>full版：对JS原生对象如String, Function, Array, Date, Object以及常用的Class和$变量进行了扩展，如可以直接使用" abc ".trim(); $("#test");</p>
+	<p>only版：没有对JS原生对象、Class, Object, $进行扩展，所有对象函数都属于Como对象，故只能使用Como.String.trim(' abc '); Como("#test"); <br/>
+	在使用String, Function, Array, Date等这些对象时，函数的第一个函数为String等这些对象，如Como.Function.bind(function(){}, this, arg1, arg2);</p>
+	<p>默认为full版，若您的网页中有其他JS框架，请选择only版；</p>
+	<p>如何定义版本，在Como JS的src地址上加上"?only"即可，如</p>
+	<div class="code">
+	<pre><span class="key">&lt;script type="text/javascript" src="/js/Como.js<span class="cos">?only</span>"&gt;&lt;/script&gt;</span></pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "main";
+window.pageHight = 600;
+</script>
+</html>

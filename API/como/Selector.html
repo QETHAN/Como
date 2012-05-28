@@ -1,0 +1,625 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Selector</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Selector</div>
+	Dom对象选择器。返回一个原生Element数组（当没有找到Element时，返回null）;<br/>
+	故<span class='cos'>$</span>("#test")[0] = document.getElementById("test");  $("#test") = [document.getElementById("test")];<br/>
+	only版仅支持Como("#test"),不支持$("#test");
+	<br/>
+	<br/>
+	关于CSS选择器，Como支持最常见的几种选择，比如ID, Tag, Class, 子集, 属性（值）等
+	<div class="code">
+<pre><span class='cos'>$</span>("#id")					//通过id取对象
+<span class='cos'>$</span>(".class")					//通过className取对象
+<span class='cos'>$</span>("div.class")					//获取div中含有class样式的对象
+<span class='cos'>$</span>("tag")					//直接通过tagName取对象
+<span class='cos'>$</span>(".test #test1")
+<span class='cos'>$</span>(".test div")					//所有子孙对象
+<span class='cos'>$</span>(".test>div")					//仅包括子对象
+<span class='cos'>$</span>(".test a[attribute]")				//存在某个属性
+<span class='cos'>$</span>(".test a[attribute=value]")			//指定属性值
+<span class='cos'>$</span>("div div")
+<span class='cos'>$</span>(".test>div.class")
+//附加
+<span class='cos'>Como</span>(document.body).pos()			//返回当前页面屏幕所在的坐标</pre>
+	</div>
+	<div class="s">&nbsp;</div>
+	<div class="title">como对象方法</div>
+	<div class="tag"><a href="#como">como</a> <a href="#size">size</a> <a href="#get">get</a> <a href="#each">each</a> <a href="#index">index</a> <a href="#attr">attr</a> <a href="#prop">prop</a> <a href="#remove">remove</a> <a href="#css">css</a> <a href="#text">text</a> <a href="#html">html</a> <a href="#val">val</a> <a href="#inject">inject</a> <a href="#append">append</a> <a href="#prepend">prepend</a> <a href="#before">before</a> <a href="#after">after</a> <a href="#down">down</a> <a href="#up">up</a> <a href="#upWithMe">upWithMe</a> <a href="#on">on</a> <a href="#un">un</a> <a href="#out">out</a> <a href="#unout">unout</a> <a href="#simulate">simulate</a> <a href="#left">left</a> <a href="#top">top</a> <a href="#pos">pos</a> <a href="#height">height</a> <a href="#width">width</a> <a href="#show">show</a> <a href="#hide">hide</a> <a href="#toggle">toggle</a> <a href="#focus">focus</a> <a href="#prev">prev</a> <a href="#prevAll">prevAll</a> <a href="#next">next</a> <a href="#nextAll">nextAll</a> <a href="#first">first</a> <a href="#last">last</a> <a href="#children">children</a> <a href="#parent">parent</a> <a href="#hasClass">hasClass</a> <a href="#addClass">addClass</a> <a href="#removeClass">removeClass</a> <a href="#removeAttr">removeAttr</a> <a href="#removeCSS">removeCSS</a> <a href="#anim">anim</a></div>
+
+	<a name="como"></a>
+	<div class="sub">como</div>
+	<div class="s">获取是否为Como对象</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>como</span>;</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log(!!$('.mgroupitem').como)
+log(!![].como)</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	
+	<a name="size"></a>
+	<div class="sub">size</div>
+	<div class="s">获取选择的Dom集合的数量</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>size</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('.mgroupitem').size())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="get"></a>
+	<div class="sub">get</div>
+	<div class="s">获取选择的Dom集合的第几个，返回Dom Element对象</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>get</span>(1);		//获取第2个Dom对象</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($($('.mgroupitem').get(2)).text())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="each"></a>
+	<div class="sub">each</div>
+	<div class="s">循环Dom集合并执行</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>each</span>(<span class='key'>function</span>(el){
+	<span class='key'>alert</span>(el.<span class='cos'>html</span>());
+});</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('.mgroupitem').each(function(it){
+	log($(it).text());
+})</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="index"></a>
+	<div class="sub">index</div>
+	<div class="s">返回指定Dom在选择Dom集合里面的位置，参数支持原生Dom和como对象</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>index</span>(<span class='cos'>$</span>("#test1"));
+<span class='cos'>$</span>("span").<span class='cos'>index</span>(<span class='key'>document</span>.<span class='key'>getElementById</span>("test1"));</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('.mgroupitem').index($('#selectorTest')));</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="attr"></a>
+	<div class="sub">attr</div>
+	<div class="s">获取或设置对象的attribute属性值</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>attr</span>('class');
+<span class='cos'>$</span>("#test").<span class='cos'>attr</span>('class', 'className');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').attr('id'))</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="prop"></a>
+	<div class="sub">prop</div>
+	<div class="s">获取或设置对象的prototype属性值</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prop</span>('className');
+<span class='cos'>$</span>("#test").<span class='cos'>prop</span>('className', 'className');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').prop('className'))</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="remove"></a>
+	<div class="sub">remove</div>
+	<div class="s">在Document中移除此对象</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>remove</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#logo').remove();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="css"></a>
+	<div class="sub">css</div>
+	<div class="s">获取或设置对象的css样式值</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>css</span>('display');
+<span class='cos'>$</span>("#test").<span class='cos'>css</span>('display', 'none');
+<span class='cos'>$</span>("#test").<span class='cos'>css</span>('opacity');
+<span class='cos'>$</span>("#test").<span class='cos'>css</span>('opacity', 0.5)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').css('opacity'));
+$('#test').css('opacity', 0.5);</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="text"></a>
+	<div class="sub">text</div>
+	<div class="s">获取或设置对象的文本值</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>text</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>text</span>("Hello World!")</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').text());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="html"></a>
+	<div class="sub">html</div>
+	<div class="s">获取或设置对象的HTML值</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>html</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>html</span>("<b>Hello World!</b>")</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').html());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="val"></a>
+	<div class="sub">val</div>
+	<div class="s">获取或设置表单对象的值</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("input").<span class='cos'>val</span>();
+<span class='cos'>$</span>("input").<span class='cos'>val</span>('Hello');
+<span class='cos'>$</span>("radio").<span class='cos'>val</span>();
+<span class='cos'>$</span>("checkbox").<span class='cos'>val</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	
+	<a name="inject"></a>
+	<div class="sub">inject</div>
+	<div class="s">主动将对象本身插入到某个容器</div>
+	<div class="code">
+<pre><span class='cos'>$</span>.createElement('div').html('&lt;span&gt;Hello World!&lt;/span&gt;').<span class='cos'>inject</span>('#testSpan');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$.createElement('div').html('&lt;span&gt;Hello World!&lt;/span&gt;').inject('#testSpan');</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	
+	<a name="append"></a>
+	<div class="sub">append</div>
+	<div class="s">在对象的最后一个子节点插入</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>append</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').append('&lt;span&gt;Hello World!&lt;/span&gt;')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="prepend"></a>
+	<div class="sub">prepend</div>
+	<div class="s">在对象的第一个子节点插入</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prepend</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').prepend('&lt;span&gt;Hello World1!&lt;/span&gt;')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="before"></a>
+	<div class="sub">before</div>
+	<div class="s">在对象的前插入</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>before</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').before('&lt;span&gt;Hello World2!&lt;/span&gt;')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="after"></a>
+	<div class="sub">after</div>
+	<div class="s">在对象的后插入</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>after</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').after('&lt;span&gt;Hello World3&lt;/span&gt;')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="down"></a>
+	<div class="sub">down</div>
+	<div class="s">向下查找，查找所有子节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>down</span>("div");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#menu').down('.mgroupitem').size())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="up"></a>
+	<div class="sub">up</div>
+	<div class="s">向上查找，查找所有父节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>up</span>("div");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#menu').up('div').size())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="upWithMe"></a>
+	<div class="sub">upWithMe</div>
+	<div class="s">向上查找，查找所有包括自己的父节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>upWithMe</span>("div");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#menu').upWithMe('div').size())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="on"></a>
+	<div class="sub">on</div>
+	<div class="s">给对象绑定事件</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>on</span>("click", <span class='key'>function</span>(){});</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+window._bind = function(){
+	log('#test on click');
+};
+$('#test').on('click', window._bind);</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="un"></a>
+	<div class="sub">un</div>
+	<div class="s">给对象解除事件</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>un</span>("click", <span class='key'>function</span>(){});
+//解除的Function必须与绑定时的Function一样（在内存中的地址一样）</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+if(window._bind){
+	$('#test').un('click', window._bind);
+}</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="out"></a>
+	<div class="sub">out</div>
+	<div class="s">绑定对象范围之外触发的事件</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>out</span>("click", <span class='key'>function</span>(){});		//触发不解除
+<span class='cos'>$</span>("#test").<span class='cos'>out</span>("click", <span class='key'>function</span>(){}, <span class='key'>true</span>);	//触发后解除</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+window._bindOut = function(){
+	log('#test out click');
+};
+$('#test').out('click', window._bindOut);</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="unout"></a>
+	<div class="sub">unout</div>
+	<div class="s">解除对象范围之外触发的事件</div>
+	<div class="code">
+<pre></pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+if(window._bindOut){
+	$('#test').unout('click', window._bindOut);
+}</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="simulate"></a>
+	<div class="sub">simulate</div>
+	<div class="s">模拟触发对象上的某个事件</div>
+	<div class="code">
+<pre>$('#test').simulate('click');  //触发id=test的Dom对象的click事件</pre>
+	</div>
+
+	<a name="left"></a>
+	<div class="sub">left</div>
+	<div class="s">获取对象的横坐标</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>left</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').left());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="top"></a>
+	<div class="sub">top</div>
+	<div class="s">获取对象的纵坐标</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>top</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').top());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="pos"></a>
+	<div class="sub">pos</div>
+	<div class="s">获取对象的坐标，返回格式{left: 500, top: 500}</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>pos</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').pos().top);
+log($(document.body).pos().top)</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="height"></a>
+	<div class="sub">height</div>
+	<div class="s">获取或设置对象的高度</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>height</span>()
+<span class='cos'>$</span>("#test").<span class='cos'>height</span>(500)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').height());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="width"></a>
+	<div class="sub">width</div>
+	<div class="s">获取或设置对象的宽度</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>width</span>()
+<span class='cos'>$</span>("#test").<span class='cos'>width</span>(500)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').width());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="show"></a>
+	<div class="sub">show</div>
+	<div class="s">显示对象</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>show</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="hide"></a>
+	<div class="sub">hide</div>
+	<div class="s">隐藏对象</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>hide</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').hide();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="toggle"></a>
+	<div class="sub">toggle</div>
+	<div class="s">更改对象可见样式，之前可见改隐藏，之前隐藏改可见</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>toggle</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').toggle();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="focus"></a>
+	<div class="sub">focus</div>
+	<div class="s">表单对象获取焦点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#input1").<span class='cos'>focus</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="prev"></a>
+	<div class="sub">prev</div>
+	<div class="s">获取该节点前面的第n(索引)个节点， Param: number；为0表示前面第一个，为1表示前面第2个；</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prev</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').prev().size());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="prevAll"></a>
+	<div class="sub">prevAll</div>
+	<div class="s">获取该节点前面的所有节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prevAll</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').prevAll().size());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="next"></a>
+	<div class="sub">next</div>
+	<div class="s">获取该节点后面的第n(索引)节点， Param: number；为0表示后面第一个，为1表示后面第2个；</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>next</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').next().size());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="nextAll"></a>
+	<div class="sub">nextAll</div>
+	<div class="s">获取该节点后面的所有节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>nextAll</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').nextAll().size());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="first"></a>
+	<div class="sub">first</div>
+	<div class="s">获取第一个子节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>first</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').first().html());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="last"></a>
+	<div class="sub">last</div>
+	<div class="s">获取最后一个子节点</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>last</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').last().html());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="children"></a>
+	<div class="sub">children</div>
+	<div class="s">获取所有子节点， [Param: number, 表示获取第n(索引)个字节点]</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>children</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').children().size());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="parent"></a>
+	<div class="sub">parent</div>
+	<div class="s">获取父节点， [Param: number, 表示获取向上第n(索引)代父节点，如parent(0)表示父节点， parent(1)表示父节点的父节点]</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>parent</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').parent()[0].tagName);</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="hasClass"></a>
+	<div class="sub">hasClass</div>
+	<div class="s">检查对象是否含有某个className</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>hasClass</span>('classname');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').hasClass('testName'));
+log($('#test').hasClass('testName1'));</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="addClass"></a>
+	<div class="sub">addClass</div>
+	<div class="s">添加某个className</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>addClass</span>('classname');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').addClass('testName1')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="removeClass"></a>
+	<div class="sub">removeClass</div>
+	<div class="s">删除某个className</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>removeClass</span>('classname');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').removeClass('testName1')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="removeAttr"></a>
+	<div class="sub">removeAttr</div>
+	<div class="s">删除某个属性</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>removeAttr</span>('id');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').removeAttr('id')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="removeCSS"></a>
+	<div class="sub">removeCSS</div>
+	<div class="s">删除某个style下的样式属性, 参数为空时，则删除所有style样式; (v1.1.1更新)<br/>属性名为驼峰式，如backgroundColor, marginTop</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>removeCSS</span>('display');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').removeCSS('display')</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="anim"></a>
+	<div class="sub">anim</div>
+	<div class="s">对象执行动画，相当于como.anim($("#test"))，可参考Anim</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>anim</span>().<span class='cos'>to</span>('height', '50px').<span class='cos'>go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$("#test").show();
+$("#test").anim().to('height', '200px').ondone(function(){
+	$("#test").anim().to('height', '50px').go();
+}).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Selector";
+window.pageHight = $(document.body).height();
+</script>
+</html>

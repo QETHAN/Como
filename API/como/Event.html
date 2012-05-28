@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Event</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Event</div>
+	Como.Event对象。
+	<div class="tag"><a href="#on">on</a> <a href="#un">un</a> <a href="#out">out</a> <a href="#unout">unout</a> <a href="#stop">stop</a> <a href="#stopPropagation">stopPropagation</a> <a href="#element">element</a> <a href="#target">target</a> <a href="#pos">pos</a> <a href="#simulate">simulate</a> <a href="#custom">custom</a></div>
+
+	<a name="on"></a>
+	<div class="sub">on</div>
+	<div class="s">给Dom对象绑定事件, 建议通过$("").on直接绑定；</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">on</span>(Dom, 'click', <span class="key">function</span>(){})</pre>
+	</div>
+
+	<a name="un"></a>
+	<div class="sub">un</div>
+	<div class="s">给Dom对象解除事件</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">un</span>(Dom, 'click', <span class="key">function</span>(){})
+//解除的Function必须与绑定时的Function一样（在内存中的地址一样）</pre>
+	</div>
+
+	<a name="out"></a>
+	<div class="sub">out</div>
+	<div class="s">绑定Dom对象范围之外触发的事件</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">out</span>(Dom, 'click', <span class="key">function</span>(){});			//触发后不解除
+<span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">out</span>(Dom, 'click', <span class="key">function</span>(){}, <span class="key">true</span>);		//触发后解除</pre>
+	</div>
+
+	<a name="unout"></a>
+	<div class="sub">unout</div>
+	<div class="s">解除Dom对象范围之外触发的事件<</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">unout</span>(Dom, 'click', <span class="key">function</span>(){})
+//解除的Function必须与绑定时的Function一样（在内存中的地址一样）</pre>
+	</div>
+
+	<a name="stop"></a>
+	<div class="sub">stop</div>
+	<div class="s">阻止事件传递</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">stop</span>(e);</pre>
+	</div>
+
+	<a name="stopPropagation"></a>
+	<div class="sub">stopPropagation</div>
+	<div class="s">阻止事件冒泡</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">stopPropagation</span>(e);</pre>
+	</div>
+
+	<a name="element"></a>
+	<div class="sub">element</div>
+	<div class="s">根据事件获取触发事件的对象，返回Como对象</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">element</span>(e);</pre>
+	</div>
+
+	<a name="target"></a>
+	<div class="sub">target</div>
+	<div class="s">获取事件触发的对象，此不同于element，这个返回的是事件绑定时的原对象；<br/>V1.1.3中增加；</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">target</span>(e);</pre>
+	</div>
+
+	<a name="pos"></a>
+	<div class="sub">pos</div>
+	<div class="s">事件的绝对坐标{x, y}</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">pos</span>(e);</pre>
+	</div>
+
+	<a name="simulate"></a>
+	<div class="sub">simulate</div>
+	<div class="s">模拟用户触发一个事件，比如</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">simulate</span>(el, 'click'); //触发Dom元素el上的click事件;</pre>
+	</div>
+
+	<a name="custom"></a>
+	<div class="sub">custom: 自定义事件</div>
+	<div class="s">
+		通过Como.Event.custom方法给对象注册一个自定义事件: <b>Como.Event.custom(obj, names, [options]);</b><br/>
+		obj为对象；names为字符串数组格式的事件名，如["run", "stop"]；options为可选对象参数，格式为{ onListener: { }}, <br/>
+		onListener是指当对象有事件绑定时触发，如下面中的例子，当注册run事件时调用函数；<br/><br/>
+		注册事件后，可以通过obj.on监听事件，可以通过obj.fire触发事件；<br/>
+		<b>obj.on(name, callback)</b>;  //name为事件名， callback为触发事件调用的函数, callback接收的参数为e，e对象如下： <br/>
+		&nbsp;&nbsp;&nbsp;{type: name, srcElement: obj, data: data, stop: function};  name为事件名，srcElement事件源，即obj对象，data为fire时传递的数据，stop为函数，可以通过<b>e.stop()</b>停止对事件的传递；<br/><br/>
+		<b>obj.fire(name, data)</b>; 触发事件, data为传递的数据;<br/>
+		<b>obj.un(name, callback)</b>；解除事件绑定；
+		见下面例子：
+	</div>
+	<div class="code">
+<pre><span class="key">var</span> test = {
+    init: <span class="key">function</span>(){
+        <span class="cos">Como.Event.custom</span>(this, ['walk', 'run', 'stop'], {
+            <span class="cos">onListener</span>: { 'run': <span class="key">function</span>(){log('listener run')}}
+        });
+    },
+
+    onWalk: <span class="key">function</span>(){
+        <span class="key">this</span>.<span class="cos">fire</span>('walk', 'you can walk');
+    },
+
+    onRun: <span class="key">function</span>(){
+        <span class="key">this</span>.<span class="cos">fire</span>('run', 'you can run');
+    },
+
+    onStop: <span class="key">function</span>(){
+        <span class="key">this</span>.<span class="cos">fire</span>('stop', 'you can stop');
+    }
+};
+
+test.init();
+
+test.<span class="cos">on</span>('walk', <span class="key">function</span>(e){log('tell me: ' + e.data)});
+test.<span class="cos">on</span>('run', <span class="key">function</span>(e){log('tell me: ' + e.data)});
+test.<span class="cos">on</span>('stop', <span class="key">function</span>(e){log('tell me: ' + e.data)});
+test.<span class="cos">on</span>('walk', <span class="key">function</span>(e){log('tell me: ' + e.data);e.stop();});
+test.<span class="cos">on</span>('walk',<span class="key"> function</span>(e){log('tell me: ' + e.data)});
+
+
+test.onWalk();
+test.onRun();
+test.onStop();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:300px">var test = {
+    init: function(){
+        Como.Event.custom(this, ['walk', 'run', 'stop'], {
+            onListener: { 'run': function(){log('listener run')}}
+        });
+    },
+
+    onWalk: function(){
+        this.fire('walk', 'you can walk');
+    },
+
+    onRun: function(){
+        this.fire('run', 'you can run');
+    },
+
+    onStop: function(){
+        this.fire('stop', 'you can stop');
+    }
+};
+
+test.init();
+
+
+test.on('walk', function(e){log('tell me: ' + e.data)});
+test.on('run', function(e){log('tell me: ' + e.data)});
+test.on('stop', function(e){log('tell me: ' + e.data)});
+test.on('walk', function(e){log('tell me: ' + e.data);e.stop();});
+test.on('walk', function(e){log('tell me: ' + e.data)});
+
+
+test.onWalk();
+test.onRun();
+test.onStop();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Event";
+window.pageHight = $(document.body).height();
+</script>
+</html>

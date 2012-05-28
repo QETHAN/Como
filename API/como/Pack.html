@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Pack</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Pack</div>
+	Como.Pack  包以及页面加载机制。<br/> 
+	<div class="tag"><a href="#include">include</a> <a href="#reg">reg</a> <a href="#onloadHandler">onloadHandler</a> <a href="#onincludeHandler">onincludeHandler</a> <a href="#onunloadHandler">onunloadHandler</a> <a href="#onbeforeunloadHandler">onbeforeunloadHandler</a> <a href="#wait">wait</a> <a href="#url">Como.Pack.url</a> <a href="#debug">Como.Pack.debug</a></div>
+	
+	<a name="include"></a>
+	<div class="sub">Como.include</div>
+	<div class="s">加载一个或多个包、css文件，加载完成后并执行；Como.include(url,callback, options); <br/>注意：url表示包的地址，支持两种方式：1 Como文件的相对地址，如"form/core.js", 2 绝对地址，如"/js/test.js"；url支持两种格式js和css，也支持多个连写，如"form/core.js, form/css.css";options表示可选参数，目前只有{'done': true}, 表示该页面所有包到此加载完成，以便Como.onincludeHandler调用；</div>
+	<div class="code">
+<pre><span class="cos">Como.include</span>('form/core.js', <span class="key">function</span>(){
+		...
+});</pre>
+	</div>
+
+	<a name="reg"></a>
+	<div class="sub">Como.reg</div>
+	<div class="s">注册一个包, Como.reg(url, function, requires); <br/> url表示包的地址，比如'editor/core.js', function表示包的函数内容，requires表示包需要依附的包或者css；url是唯一的，requires可以是多个，逗号分隔；比如下面声明一个编辑器的包，并在Como.js的目录建立"editor/core.js";</div>
+	<div class="code"><pre><span class="cos">Como.reg</span>('editor/core.js', <span class="key">function</span>(){
+	<span class="key">window</span>.Editor = {
+		...
+	};	
+}, 'editor/editor.css, dialog/core.js')</pre></div>
+
+	<a name="onloadHandler"></a>
+	<div class="sub">Como.onloadHandler</div>
+	<div class="s">页面内容加载完毕，也就是DOMContentLoaded时执行方法，Como.onloadHandler(function); <span class="cos">这个比document的load事件要更加提前一步；</span></div>
+	<div class="code"><pre><span class="cos">Como.onloadHandler</span>(<span class="key">function</span>(){log('1')});
+<span class="cos">Como.onloadHandler</span>(<span class="key">function</span>(){log('2')});</pre></div>
+	
+	<a name="onincludeHandler"></a>
+	<div class="sub">Como.onincludeHandler</div>
+	<div class="s">页面include完毕，也就是Como.include加载包都已完成时执行方法，Como.onincludeHandler(function(){})；</div>
+	<div class="code"><pre><span class="cos">Como.onincludeHandler</span>(<span class="key">function</span>(){log('1')});
+<span class="cos">Como.onincludeHandler</span>(<span class="key">function</span>(){log('2')});</pre></div>
+	
+	<a name="onunloadHandler"></a>
+	<div class="sub">Como.onunloadHandler</div>
+	<div class="s">当执行window.onunload操作时，也就是页面被关闭时（不需要用户确认）执行方法，Como.onunloadHandler(function(){});</div>
+	<div class="code"><pre><span class="cos">Como.onunloadHandler</span>(<span class="key">function</span>(){log('onunload')});</pre></div>
+
+	<a name="onbeforeunloadHandler"></a>
+	<div class="sub">Como.onbeforeunloadHandler</div>
+	<div class="s">当执行window.onbeforeunload操作时，也就是页面点击关闭（需要用户确认）时执行方法, Como.onbeforeunloadHandler(function(){});</div>
+	<div class="code"><pre><span class="cos">Como.onbeforeunloadHandler</span>(<span class="key">function</span>(){log('onbeforeunload')});</pre></div>
+	
+	<a name="wait"></a>
+	<div class="sub">Como.wait</div>
+	<div class="s">为页面元素事件提供的方法，表示等所有include包加载完后方可执行，Como.wait(element, e, callback)；element一般是事件源(this), e表示事件(event), callback表示执行的函数或函数形式字符串(element, e为参数)；</div>
+	<div class="code"><pre>&lt;button onclick="<span class="cos">$.wait</span>(<span class="key">this</span>, <span class="key">event</span>, <span class="key">function</span>(a, b){<span class="key">alert</span>('1')})"&gt;&lt;/button&gt;
+	//a=element, b=event</pre></div>
+
+
+	<a name="url"></a>
+	<div class="sub">Como.Pack.url</div>
+	<div class="s">此函数可自定义js及css包的url地址，在包封装的时候用到；当项目发布的时候，可以将多个包压缩在一个js文件内，然后通过此函数做转向；</div>
+	<div class="code"><pre>Como.Pack.url('tip/core.js, form/core.js', 'tool.js');// 将前面两个包的路径指向tool.js，但在使用包的时候include('tip/core.js')不变；
+	Como.Pack.url('tip/core.css, form/core.css', 'tool.css');</pre></div>
+
+	<a name="debug"></a>
+	<div class="sub">Como.Pack.debug</div>
+	<div class="s">切换正式环境或调试环境，也就是确定Como.Pack.url转向是否生效，并且可以动态设定JS路径<br/>V1.2.2增加</div>
+	<div class="code"><pre>Como.Pack.debug(true, 'http://www.comojs.com/js-src/');  //切换到调试环境，并且指定Como.path路径（可选）;
+	Como.Pack.debug(false); //切换到正式环境（默认）， 遵从Pack.url转向规则</pre></div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Pack";
+window.pageHight = $(document.body).height();
+</script>
+</html>

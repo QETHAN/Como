@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>String</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">String</div>
+	对String类的扩展。only版请使用Como.String.trim('')
+	<div class="tag"><a href="#trim">trim</a> <a href="#escapeHTML">escapeHTML</a> <a href="#unescapeHTML">unescapeHTML</a> <a href="#removeHTML">removeHTML</a> <a href="#byteLength">byteLength</a> <a href="#delLast">delLast</a> <a href="#toInt">toInt</a> <a href="#toArray">toArray</a> <a href="#left">left</a> <a href="#right">right</a> <a href="#format">format</a> <a href="#toLower">toLower</a> <a href="#toUpper">toUpper</a> <a href="#on16">on16</a> <a href="#un16">un16</a></div>
+
+	<a name="trim"></a>
+	<div class="sub">trim</div>
+	<div class="s">返回去掉字符首尾空格后的</div>
+	<div class="code">
+<pre>' Hello World!     '.<span class='cos'>trim</span>();			//返回'Hello World!'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log(' Hello World!     '.trim())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="escapeHTML"></a>
+	<div class="sub">escapeHTML</div>
+	<div class="s">返回严格转义了任何 HTML 字符的</div>
+	<div class="code">
+<pre>'&lt;b&gt;test&lt;/b&gt;'.<span class='cos'>escapeHTML</span>();			//返回'&amp;lt;b&amp;gt;test&amp;lt;/b&amp;gt;'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('<b>test</b>'.escapeHTML())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="unescapeHTML"></a>
+	<div class="sub">unescapeHTML</div>
+	<div class="s">与 escapeHTML() 相反</div>
+	<div class="code">
+<pre>'&amp;lt;b&amp;gt;test&amp;lt;/b&amp;gt;'.<span class='cos'>unescapeHTML</span>();		//返回 '&lt;b&gt;test&lt;/b&gt;'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('&amp;lt;b&amp;gt;test&amp;lt;/b&amp;gt;'.unescapeHTML())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="removeHTML"></a>
+	<div class="sub">removeHTML</div>
+	<div class="s">返回移去HTML标签后的字符</div>
+	<div class="code">
+<pre>'&lt;b&gt;test&lt;/b&gt;'.<span class='cos'>removeHTML</span>();		//返回'test'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('&lt;b&gt;test&lt;/b&gt;'.removeHTML())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="byteLength"></a>
+	<div class="sub">byteLength</div>
+	<div class="s">计算字符长度，中文为两个长度</div>
+	<div class="code">
+<pre>'abc你好'.<span class='cos'>byteLength</span>();		//返回7</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('abc你好'.byteLength())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="delLast"></a>
+	<div class="sub">delLast</div>
+	<div class="s">除去最后一个字符</div>
+	<div class="code">
+<pre>'abc你好'.<span class='cos'>delLast</span>();		//返回'abc你'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('abc你好'.delLast())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="toInt"></a>
+	<div class="sub">toInt</div>
+	<div class="s">转换为整型</div>
+	<div class="code">
+<pre>"111".<span class='cos'>toInt</span>();		//返回111
+"aa11".<span class='cos'>toInt</span>();		//返回NaN</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('111'.toInt())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="toArray"></a>
+	<div class="sub">toArray</div>
+	<div class="s">转换为数组</div>
+	<div class="code">
+<pre>"111".<span class='cos'>toArray</span>();		//返回["1", "1", "1"]
+"111".<span class='cos'>toArray</span>('');		//返回["1", "1", "1"]
+"1,1,1".<span class='cos'>toArray</span>(',');		//返回["1", "1", "1"]</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('Hello World!'.toArray())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="left"></a>
+	<div class="sub">left</div>
+	<div class="s">取左边多少字符，汉字占两个字符</div>
+	<div class="code">
+<pre>"test".<span class='cos'>left</span>(2);			//返回"te"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('test '.left(2))</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="right"></a>
+	<div class="sub">right</div>
+	<div class="s">取右边多少字符，汉字占两个字符</div>
+	<div class="code">
+<pre>"test".<span class='cos'>right</span>(2);		//返回"st"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('test'.right(2))</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="format"></a>
+	<div class="sub">format</div>
+	<div class="s">格式化字符串。简单的模板处理。</div>
+	<div class="code">
+<pre>"test{0}test{1}".<span class='cos'>format</span>("A", "B");		//返回"testAtestB"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log("test{0}test{1}".format("A","B"))</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="toLower"></a>
+	<div class="sub">toLower</div>
+	<div class="s">转小写</div>
+	<div class="code">
+<pre>"test".<span class='cos'>toLower</span>();		//返回"test"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('Hello World!'.toLower())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="toUpper"></a>
+	<div class="sub">toUpper</div>
+	<div class="s">转大写</div>
+	<div class="code">
+<pre>"test".<span class='cos'>toUpper</span>();		//返回"TEST"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('Hello World!'.toUpper())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="on16"></a>
+	<div class="sub">on16</div>
+	<div class="s">转16进制</div>
+	<div class="code">
+<pre>"test".<span class='cos'>on16</span>();		//返回"\u0074\u0065\u0073\u0074"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('test'.on16())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="un16"></a>
+	<div class="sub">un16</div>
+	<div class="s">16转10进制</div>
+	<div class="code">
+<pre>"\u0074\u0065\u0073\u0074".<span class='cos'>un16</span>();		//返回"test"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log("\u0074\u0065\u0073\u0074".un16())</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/String";
+window.pageHight = $(document.body).height();
+</script>
+</html>

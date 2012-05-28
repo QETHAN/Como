@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Event</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Event</div>
+	Como.Event
+	<div class="tag"><a href="#on">on</a> <a href="#un">un</a> <a href="#out">out</a> <a href="#unout">unout</a> <a href="#stop">stop</a> <a href="#stopPropagation">stopPropagation</a> <a href="#element">element</a> <a href="#target">target</a> <a href="#pos">pos</a> <a href="#simulate">simulate</a> <a href="#custom">custom</a></div>
+
+	<a name="on"></a>
+	<div class="sub">on</div>
+	<div class="s">attach a handler to an event for the Dom, please use '$(...).on(...)'.</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">on</span>(Dom, 'click', <span class="key">function</span>(){})</pre>
+	</div>
+
+	<a name="un"></a>
+	<div class="sub">un</div>
+	<div class="s">cancel the handler which had bind, please use '$(...).un(...)'.</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">un</span>(Dom, 'click', <span class="key">function</span>(){})</pre>
+	</div>
+
+	<a name="out"></a>
+	<div class="sub">out</div>
+	<div class="s">bind event which will be fired out of the Dom, please use '$(...).out(...)'</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">out</span>(Dom, 'click', <span class="key">function</span>(){});
+<span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">out</span>(Dom, 'click', <span class="key">function</span>(){}, <span class="key">true</span>);</pre>
+	</div>
+
+	<a name="unout"></a>
+	<div class="sub">unout</div>
+	<div class="s">cancel the out(), please use '$(...).unout(...)'</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">unout</span>(Dom, 'click', <span class="key">function</span>(){})</pre>
+	</div>
+
+	<a name="stop"></a>
+	<div class="sub">stop</div>
+	<div class="s">prevent the event delivery</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">stop</span>(e);</pre>
+	</div>
+
+	<a name="stopPropagation"></a>
+	<div class="sub">stopPropagation</div>
+	<div class="s">prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">stopPropagation</span>(e);</pre>
+	</div>
+
+	<a name="element"></a>
+	<div class="sub">element</div>
+	<div class="s">take the event target who fired event, return Como-Dom</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">element</span>(e);</pre>
+	</div>
+
+	<a name="target"></a>
+	<div class="sub">target</div>
+	<div class="s">take the event target who bind event, return Como-Dom</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">target</span>(e);</pre>
+	</div>
+
+	<a name="pos"></a>
+	<div class="sub">pos</div>
+	<div class="s">take the position of the event return {x:50, y:50}</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">pos</span>(e);</pre>
+	</div>
+
+	<a name="simulate"></a>
+	<div class="sub">simulate</div>
+	<div class="s">simulate user to fire event, please use '$(...).simulate(...)'</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Event</span>.<span class="cos">simulate</span>(el, 'click'); //fire the click event;</pre>
+	</div>
+
+	<a name="custom"></a>
+	<div class="sub">custom: custom event mechanism.</div>
+	<div class="s">
+Register a custom event for an object by Como.Event.custom method;<br/>
+obj is the object the event registered to, names is an array contains string of event names, such as ["run", "stop"], options is the optional parameters, e.g. { onListener: { }},<br/>
+onListener will be executed when events attached. In the example below, function(){log('listener run') will be invoked when run event is registered.<br/>
+You can attach to a registered event by calling function obj.on, and fire this event by invoking obj.fire<br/>
+obj.on(name, callback); //name is the name of the event, callback is the event handler, which has a parameter named e. e has following structure:<br/>
+{type: name, srcElement: obj, data: data, stop: function}; name is the event name, srcElement is the event source (which is obj), data is the data attached with the fired event, stop is a function, which can be invoked to stop event propagation.<br/>
+obj.fire(name, data); fire event with data attached<br/>
+obj.un(name, callback)；detach event<br/>
+	</div>
+	<div class="code">
+<pre><span class="key">var</span> test = {
+    init: <span class="key">function</span>(){
+        <span class="cos">Como.Event.custom</span>(this, ['walk', 'run', 'stop'], {
+            <span class="cos">onListener</span>: { 'run': <span class="key">function</span>(){log('listener run')}}
+        });
+    },
+
+    onWalk: <span class="key">function</span>(){
+        <span class="key">this</span>.<span class="cos">fire</span>('walk', 'you can walk');
+    },
+
+    onRun: <span class="key">function</span>(){
+        <span class="key">this</span>.<span class="cos">fire</span>('run', 'you can run');
+    },
+
+    onStop: <span class="key">function</span>(){
+        <span class="key">this</span>.<span class="cos">fire</span>('stop', 'you can stop');
+    }
+};
+
+test.init();
+
+test.<span class="cos">on</span>('walk', <span class="key">function</span>(e){log('tell me: ' + e.data)});
+test.<span class="cos">on</span>('run', <span class="key">function</span>(e){log('tell me: ' + e.data)});
+test.<span class="cos">on</span>('stop', <span class="key">function</span>(e){log('tell me: ' + e.data)});
+test.<span class="cos">on</span>('walk', <span class="key">function</span>(e){log('tell me: ' + e.data);e.stop();});
+test.<span class="cos">on</span>('walk',<span class="key"> function</span>(e){log('tell me: ' + e.data)});
+
+
+test.onWalk();
+test.onRun();
+test.onStop();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:300px">var test = {
+    init: function(){
+        Como.Event.custom(this, ['walk', 'run', 'stop'], {
+            onListener: { 'run': function(){log('listener run')}}
+        });
+    },
+
+    onWalk: function(){
+        this.fire('walk', 'you can walk');
+    },
+
+    onRun: function(){
+        this.fire('run', 'you can run');
+    },
+
+    onStop: function(){
+        this.fire('stop', 'you can stop');
+    }
+};
+
+test.init();
+
+
+test.on('walk', function(e){log('tell me: ' + e.data)});
+test.on('run', function(e){log('tell me: ' + e.data)});
+test.on('stop', function(e){log('tell me: ' + e.data)});
+test.on('walk', function(e){log('tell me: ' + e.data);e.stop();});
+test.on('walk', function(e){log('tell me: ' + e.data)});
+
+
+test.onWalk();
+test.onRun();
+test.onStop();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Event";
+window.pageHight = $(document.body).height();
+</script>
+</html>

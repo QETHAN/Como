@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Anim</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Anim</div>
+	Como.Anim对象。动画库，only版仅支持Como，不支持$
+	<div class="tag"><a href="#to">to</a> <a href="#by">by</a> <a href="#from">from</a> <a href="#duration">duration</a> <a href="#checkpoint">checkpoint</a> <a href="#blind">blind</a> <a href="#hide">hide</a> <a href="#show">show</a> <a href="#ondone">ondone</a> <a href="#go">go</a> <a href="#stop">stop</a> <a href="#ease">ease</a> <a href="#tween">tween</a></div>
+
+
+	<div class="code">
+<pre>//声明一个动画对象
+<span class="key">new</span> <span class="cos">Como</span>.<span class="cos">Anim</span>(<span class="cos">$</span>("#test"));
+<span class="cos">Como</span>.<span class="cos">anim</span>(<span class="cos">$</span>("#test"));
+<span class="cos">$</span>("#test").<span class="cos">anim</span>()
+
+//支持的css样式有：
+<span class="cos">to</span>('backgroundColor', '#000000');
+<span class="cos">to</span>('borderColor', '#000000');
+<span class="cos">to</span>('color', '#000000');
+<span class="cos">to</span>('opacity', 0.5);
+<span class="cos">to</span>('height', 100), ('height', '100px');
+<span class="cos">to</span>('width', 100), ('width', '100px');
+<span class="cos">to</span>('scrollLeft', '100px');
+<span class="cos">to</span>('scrollTop', '100px');
+<span class="cos">to</span>('margin', '10px 5px');
+<span class="cos">to</span>('padding', '10px 5px');
+borderWidth,lineHeight,fontSize,marginBottom,marginLeft,marginRight,marginTop,paddingBottom,
+paddingLeft,paddingRight,paddingTop,bottom,left,right,top ...
+
+<span class="cos">$</span>(document.body).anim().<span class="cos">to</span>('scrollTop', 100).<span class="cos">go</span>();
+</pre>
+	</div>
+
+	<a name="to"></a>
+	<div class="sub">to</div>
+	<div class="s">执行到某个样式结果，to(css, value)</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">anim</span>(<span class="cos">$</span>("#test"))<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();
+<span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();		//目前高度为50</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().to('height', 200).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="by"></a>
+	<div class="sub">by</div>
+	<div class="s">执行到某个样式结果，（在原有样式上追加）</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">by</span>('height', '50px').<span class="cos">go</span>();		//目前高度为原有高度+50</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().by('height', 200).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="from"></a>
+	<div class="sub">from</div>
+	<div class="s">从某个样式开始</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">from</span>('height', '10px').<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().from('height', 50).to('height', 100).go();
+$('#test').anim().from('backgroundColor', '#FF0000').to('backgroundColor', '#666666').go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="duration"></a>
+	<div class="sub">duration</div>
+	<div class="s">设置执行动画的时间，单位毫秒，默认500毫秒</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">duration</span>(1000).<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().from('height', 50).to('height', 200).duration(1000).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="checkpoint"></a>
+	<div class="sub">checkpoint</div>
+	<div class="s">执行到某个一点之后在执行下一步</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '100px').<span class="cos">checkpoint</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().by('right', 100).checkpoint().by('top', 100).duration(1000).checkpoint().by('right', -100).duration(500).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="blind"></a>
+	<div class="sub">blind</div>
+	<div class="s">使用百叶窗</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('opacity', 0).<span class="cos">blind</span>().<span class="cos">hide</span>().<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$("#test").anim().to('opacity', 0).blind().hide().go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="hide"></a>
+	<div class="sub">hide</div>
+	<div class="s">隐藏</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('opacity', 0).<span class="cos">blind</span>().<span class="cos">hide</span>().<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="show"></a>
+	<div class="sub">show</div>
+	<div class="s">显示</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('opacity', 1).<span class="cos">blind</span>().<span class="cos">show</span>().<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="ondone"></a>
+	<div class="sub">ondone</div>
+	<div class="s">在动画播放完后执行方法，参数为执行播放动画的Selector元素如$("#test")</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">ondone</span>($("#test").width(50)).<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().from('height', 50).to('height', 100).ondone(function(){
+	log('anim over');
+}).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="go"></a>
+	<div class="sub">go</div>
+	<div class="s">执行动画（开始）</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$(document.body).anim().to('scrollTop', 300).go(); //滚动条定位</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="stop"></a>
+	<div class="sub">stop</div>
+	<div class="s">停止动画</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>().<span class="cos">stop</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+var a = $('#test').anim().from('height', 50).to('height', 100).duration(2000).go();
+setTimeout(function(){a.stop()}, 1000);</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="ease"></a>
+	<div class="sub">ease</div>
+	<div class="s">动画播放快慢方式，支持三种参数：begin(由慢到快), both(由慢到快，再到慢), end(由快到慢)</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').ease(Como.Anim.ease.begin).<span class="cos">go</span>().<span class="cos">stop</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().to('height', 200).ease(Como.Anim.ease.begin).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	
+	<a name="tween"></a>
+	<div class="sub">tween</div>
+	<div class="s">自定义动画方式，比如可以自己实现Quad，Sine,Expo等播放形式, 默认为Linear(需要实现begin,end,both方法)  <br/>V1.2.2增加</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">tween</span>({...}).<span class="cos">ease</span>(Como.Anim.ease.begin).<span class="cos">go</span>().<span class="cos">stop</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:250px;">
+var Back = {
+	begin: function(t,b,c,d,s){
+		if (s == undefined) s = 1.70158;
+		return c*(t/=d)*t*((s+1)*t - s) + b;
+	},
+	end: function(t,b,c,d,s){
+		if (s == undefined) s = 1.70158;
+		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+	},
+	both: function(t,b,c,d,s){
+		if (s == undefined) s = 1.70158; 
+		if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
+		return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+	}
+};
+$('#test').show();
+$('#test').anim().from('height', 50).to('height', 200).tween(Back).ease(Como.Anim.ease.both).go();</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Anim";
+window.pageHight = $(document.body).height();
+</script>
+</html>

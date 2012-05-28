@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Form Demo  ——  Como JS</title>
+	<style>
+		.hint_blank{color:#999;}
+	</style>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('form/quickedit.js', null, {done:true});
+	</script>
+</head>
+<body>
+<div>你好吗，今天天气很不错～</div>
+
+<div style="margin-top: 50px;">你好吗，今天天气很不错～</div>
+
+<div style="margin-top: 50px;">你好吗，今天天气很不错～</div>
+<script type="text/javascript">
+Como.onincludeHandler(function(){
+	Como('div').on('click', function(e){
+		var el = Como.Event.target(e);
+		new Como.Form.QuickEdit({
+			element: el,
+			className: 'class1',
+			style: {
+				border: '1px solid #333',
+				width: '200px'
+			},
+			onFocus: function(t){
+				t.getInput()[0].select();
+			},
+			callback: function(v){
+				return v;
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

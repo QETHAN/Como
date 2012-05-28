@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Anim</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Anim</div>
+	Animation Object.
+	<div class="tag"><a href="#to">to</a> <a href="#by">by</a> <a href="#from">from</a> <a href="#duration">duration</a> <a href="#checkpoint">checkpoint</a> <a href="#blind">blind</a> <a href="#hide">hide</a> <a href="#show">show</a> <a href="#ondone">ondone</a> <a href="#go">go</a> <a href="#stop">stop</a> <a href="#ease">ease</a></div>
+
+
+	<div class="code">
+<pre>//define an animation object
+<span class="key">new</span> <span class="cos">Como</span>.<span class="cos">Anim</span>(<span class="cos">$</span>("#test"));
+<span class="cos">Como</span>.<span class="cos">anim</span>(<span class="cos">$</span>("#test"));
+<span class="cos">$</span>("#test").<span class="cos">anim</span>()
+
+//the anim object can change most of the css attribute. <br/>
+//see following.
+<span class="cos">to</span>('backgroundColor', '#000000');
+<span class="cos">to</span>('borderColor', '#000000');
+<span class="cos">to</span>('color', '#000000');
+<span class="cos">to</span>('opacity', 0.5);
+<span class="cos">to</span>('height', 100), ('height', '100px');
+<span class="cos">to</span>('width', 100), ('width', '100px');
+<span class="cos">to</span>('scrollLeft', '100px');
+<span class="cos">to</span>('scrollTop', '100px');
+<span class="cos">to</span>('margin', '10px 5px');
+<span class="cos">to</span>('padding', '10px 5px');
+borderWidth,lineHeight,fontSize,marginBottom,marginLeft,marginRight,marginTop,paddingBottom,
+paddingLeft,paddingRight,paddingTop,bottom,left,right,top ...
+
+//use this to change the heigh of scroll.
+<span class="cos">$</span>(document.body).anim().<span class="cos">to</span>('scrollTop', 100).<span class="cos">go</span>();
+</pre>
+	</div>
+
+	<a name="to"></a>
+	<div class="sub">to</div>
+	<div class="s">change the attribute to the value.  to(css, value)</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">anim</span>(<span class="cos">$</span>("#test"))<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();
+<span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();		//current height is 50px</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().to('height', 200).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="by"></a>
+	<div class="sub">by</div>
+	<div class="s">change the attribute by the value. by(css, value)</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">by</span>('height', '50px').<span class="cos">go</span>();		//current height = old height + 50px</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().by('height', 200).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="from"></a>
+	<div class="sub">from</div>
+	<div class="s">change the attribute from the value</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">from</span>('height', '10px').<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().from('height', 50).to('height', 100).go();
+$('#test').anim().from('backgroundColor', '#FF0000').to('backgroundColor', '#666666').go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="duration"></a>
+	<div class="sub">duration</div>
+	<div class="s">
+	set the time when the animation end. 500 millisecond is the default value. (millisecond)</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">duration</span>(1000).<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().from('height', 50).to('height', 200).duration(1000).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="checkpoint"></a>
+	<div class="sub">checkpoint</div>
+	<div class="s">when finish some animation, checkpoint, and then run the next.</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '100px').<span class="cos">checkpoint</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().by('right', 100).checkpoint().by('top', 100).duration(1000).checkpoint().by('right', -100).duration(500).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="hide"></a>
+	<div class="sub">hide</div>
+	<div class="s">hide the element</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('opacity', 0).<span class="cos">blind</span>().<span class="cos">hide</span>().<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="show"></a>
+	<div class="sub">show</div>
+	<div class="s">show the element</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('opacity', 1).<span class="cos">blind</span>().<span class="cos">show</span>().<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="ondone"></a>
+	<div class="sub">ondone</div>
+	<div class="s">
+	when the animation finished,   the ondone will be called. you can give ondone a function (the first argument is the element(como)). </div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">ondone</span>($("#test").width(50)).<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().from('height', 50).to('height', 100).ondone(function(){
+	log('anim over');
+}).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="go"></a>
+	<div class="sub">go</div>
+	<div class="s">run the animation.</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$(document.body).anim().to('scrollTop', 300).go(); </textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="stop"></a>
+	<div class="sub">stop</div>
+	<div class="s">stop the animation. if there is an paramater and it is true, then the animation is finished immediately.</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').<span class="cos">go</span>().<span class="cos">stop</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+var a = $('#test').anim().from('height', 50).to('height', 100).duration(2000).go();
+setTimeout(function(){a.stop()}, 1000);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="ease"></a>
+	<div class="sub">ease</div>
+	<div class="s">
+	set the animation type of playing, 3 values: begin(from slow to fast), both(from slow to fast, then slow down), end(from fast to slow);<br/>
+	like this: $('#test').anim().to('height', 50).ease(Como.Anim.ease.begin).go();
+	</div>
+	<div class="code">
+<pre><span class="cos">$</span>("#test").<span class="cos">anim</span>().<span class="cos">to</span>('height', '50px').ease(Como.Anim.ease.begin).<span class="cos">go</span>().<span class="cos">stop</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#test').anim().to('height', 200).ease(Como.Anim.ease.begin).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Anim";
+window.pageHight = $(document.body).height();
+</script>
+</html>

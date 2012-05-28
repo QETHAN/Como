@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>test</title>
+	<script type="text/javascript" src="Como.unpack.js?only"></script>
+</head>
+<body>
+<div id="test1"><span>This is title...</span>, hahah</div>
+
+<div id="test2"><span>This is title...</span>, hahah</div>
+<script type="text/javascript">
+var fun1 = function(e){
+	alert(Como.Event.target(e).attr('id'));
+}; 
+Como('#test1').on('click', fun1);
+
+Como('#test2').on('click', fun1);
+Como.log(1);
+Como('#test1').un('click', fun1);
+</script>
+</body>
+</html>

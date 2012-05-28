@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Object</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Object</div>
+	Object class.
+	<div class="tag"><a href="#extend">extend</a><a href="#each">each</a><a href="#clone">clone</a></div>
+	
+	<a name="extend"></a>
+	<div class="sub">extend</div>
+	<div class="s">Object.extend(target, src)<br/> Copy all the key and value from an object to the target object.</div>
+	<div class="code">
+<pre><span class='key'>var</span> t = {
+	key1: '111',
+	key2: '222'
+};
+<span class='key'>var</span> s = {
+	key1: '333',
+	key3: <span class='key'>function</span>(){<span class='key'>alert</span>('444')}
+};
+<span class='key'>Object</span>.<span class='cos'>extend</span>(t, s);
+///t = {key1: '333', key2: '222', key3: <span class='key'>function</span>(){<span class='key'>alert</span>('444')}}</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">var t = {
+	key1: '111',
+	key2: '222'
+};
+var s = {
+	key1: '333',
+	key3: function(){alert('444')}
+};
+Object.extend(t, s);
+log(t.key1);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	
+	<a name="each"></a>
+	<div class="sub">each</div>
+	<div class="s">Object.each(obj, function(){}) <br/>Traverse an object and setup a function.</div>
+	<div class="code">
+<pre><span class='key'>var</span> t = {
+	name: 'yanyun',
+	age: 24
+};
+<span class='key'>Object</span>.<span class='cos'>each</span>(t, <span class='key'>function</span>(val, key){
+	<span class='key'>alert</span>('val = ' + val + '; key = ' + key);
+});</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">var t = {
+	name: 'kevin',
+	age: 24
+};
+Object.each(t, function(val, key){
+	log(key + ' = ' + val);
+});</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="clone"></a>
+	<div class="sub">clone</div>
+	<div class="s">Object.clone(obj) <br/> Clone an object totally, support String, Boolean, Date, Array, Function, Object and so on.</div>
+	<div class="code">
+<pre>var t1 = "Hello";
+var r1 = Object.clone(t1);
+log(r1);
+log(r1 == t1);
+
+var t2 = 123;
+var r2 = Object.clone(t2);
+log(r2);
+log(r2 == t2);
+
+var t3 = true;
+var r3 = Object.clone(t3);
+log(r3);
+log(r3 == t3);
+
+var t4 = new Date();
+var r4 = Object.clone(t4);
+log(r4);
+log(r4 == t4);
+
+var t5 = [1,2,3,4,[5,6,7]];
+var r5 = Object.clone(t5);
+log(r5);
+log(r5 == t5);
+
+var t6 = function(){};
+var r6 = Object.clone(t6);
+log(r6);
+log(r6 == t6);
+
+var t7 = function(){};
+t7.name = "kevin";
+t7.prototype.set=function(){};
+var r7 = Object.clone(t7);
+r7.name="kevin1";
+log(r7);
+log(r7 == t7);
+
+var t8 = {name:'kevin', desc: {age:25, sex: 'male'}, friends: ['h1', 'h2']};
+var r8 = Object.clone(t8);
+r8.name = 'kevin1';
+log(r8);
+log(r8 == t8);</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:300px;">var t1 = "Hello";
+var r1 = Object.clone(t1);
+log(r1);
+log(r1 == t1);
+
+var t2 = 123;
+var r2 = Object.clone(t2);
+log(r2);
+log(r2 == t2);
+
+var t3 = true;
+var r3 = Object.clone(t3);
+log(r3);
+log(r3 == t3);
+
+var t4 = new Date();
+var r4 = Object.clone(t4);
+log(r4);
+log(r4 == t4);
+
+var t5 = [1,2,3,4,[5,6,7]];
+var r5 = Object.clone(t5);
+log(r5);
+log(r5 == t5);
+
+var t6 = function(){};
+var r6 = Object.clone(t6);
+log(r6);
+log(r6 == t6);
+
+var t7 = function(){};
+t7.name = "kevin";
+t7.prototype.set=function(){};
+var r7 = Object.clone(t7);
+r7.name="kevin1";
+log(r7);
+log(r7 == t7);
+
+var t8 = {name:'kevin', desc: {age:25, sex: 'male'}, friends: ['h1', 'h2']};
+var r8 = Object.clone(t8);
+r8.name = 'kevin1';
+log(r8);
+log(r8 == t8);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Object";
+window.pageHight = $(document.body).height();
+</script>
+</html>

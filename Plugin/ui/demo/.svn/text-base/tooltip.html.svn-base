@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>UI ToolTip</title>
+	<style>
+		body{font-size:12px;}
+		.test1{border:1px solid #666;background-color:#CCC; padding:3px;}
+	</style>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('ui/tooltip.js', null, {done:true});
+	</script>
+</head>
+<body>
+<button id="test1">Hover Me!</button>
+<button id="test2">Hover Me!</button>
+<br/><br/><br/><br/>
+<button id="test3">Hover Me!</button>
+<button id="test4">Hover Me!</button>
+
+<script type="text/javascript">
+Como.onincludeHandler(function(){
+	new Como.UI.ToolTip({
+		element: '#test1',
+		content: 'such a good guy!',
+		className: 'test1'
+	});
+
+	new Como.UI.ToolTip({
+		element: '#test2',
+		content: 'this is absolute position',
+		positionType: 'absolute',
+		position: [200, 30]
+	});
+
+	new Como.UI.ToolTip({
+		element: '#test3',
+		content: 'this is relative position',
+		positionType: 'relative',
+		position: [0, 30]
+	});
+
+	new Como.UI.ToolTip({
+		element: '#test4',
+		content: 'this is relative position',
+		positionType: 'relative',
+		position: [0, 30]
+	});
+});
+</script>
+</body>
+</html>

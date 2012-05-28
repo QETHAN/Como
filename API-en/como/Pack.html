@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Pack</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Pack</div>
+	Como.Pack. It's the mechanism that Como organize code.<br/>
+	It makes you simple to develop application. You just register pack, include pack and then use pack.
+	<div class="tag"><a href="#include">include</a> <a href="#reg">reg</a> <a href="#onloadHandler">onloadHandler</a> <a href="#onincludeHandler">onincludeHandler</a> <a href="#onunloadHandler">onunloadHandler</a> <a href="#onbeforeunloadHandler">onbeforeunloadHandler</a> <a href="#wait">wait</a> <a href="#url">Como.Pack.url</a> <a href="#debug">Como.Pack.debug</a></div>
+	
+	<a name="include"></a>
+	<div class="sub">Como.include</div>
+	<div class="s">Include some packages or some css files, after finished, call function. <br/>
+	Como.include(packages, callback, options); <br/>
+	1. packages: the path of pack. Support in two ways, relative path and absolute path, like 'form/core.js' and '/js/form/core.js', and it is relative by the path of Como JS file. It also support in two types of file, js and css. So we can write this, Como.include('form/core.js, form/css.css, dialog/core.js', ...). <br/>
+	2. callback: the function will be called when the packages load done. <br/>
+	3. options: it's the optional config. Now it only have the attribute 'done', {done: true}, tell the Como Pack that all the pack load doen, and then can be called Como.onincludeHandler or Como.wait. (I think this point has something improvement. Next version may be solved.)</div>
+	<div class="code">
+<pre><span class="cos">Como.include</span>('form/core.js', <span class="key">function</span>(){
+		...
+});</pre>
+	</div>
+
+	<a name="reg"></a>
+	<div class="sub">Como.reg</div>
+	<div class="s">
+	Register a package. <br/>
+	Como.reg(package path, function, requires); <br/>
+	1. package path, also called package name, like 'form/core.js', and it is the only.<br/>
+	2. function: the body of package.<br/>
+	3. requires: the dependent packages, js or css. It can be more than one. like 'form/core.css, dialog/core.js, dialog/core.css'
+	</div>
+	<div class="code"><pre><span class="cos">Como.reg</span>('editor/core.js', <span class="key">function</span>(){
+	<span class="key">window</span>.Editor = {
+		...
+	};	
+}, 'editor/editor.css, dialog/core.js')</pre></div>
+
+    Now, here is the demo:
+	<div class="code">
+<pre>//write a package
+Como.reg('demo.js', function(){
+	Como.demo = function(){
+		console.log('hello world');
+	};
+});
+
+//use the paceage
+Como.include('demo.js', function(){
+	Como.demo();
+});
+//or user in other package
+Como.reg('demo1.js', function(){
+	Como.demo1 = function(){
+		Como.demo();
+		console.log('thanks');
+	}
+}, 'demo.js');
+		</pre>
+	</div>
+
+
+	<a name="onloadHandler"></a>
+	<div class="sub">Como.onloadHandler</div>
+	<div class="s">
+	when the page load done, it called. It listen DOMContentLoaded, note document.load. <br/>
+	Como.onloadHandler(function);</div>
+	<div class="code"><pre><span class="cos">Como.onloadHandler</span>(<span class="key">function</span>(){log('1')});
+<span class="cos">Como.onloadHandler</span>(<span class="key">function</span>(){log('2')});</pre></div>
+	
+	<a name="onincludeHandler"></a>
+	<div class="sub">Como.onincludeHandler</div>
+	<div class="s">
+	when the package of page include done, it called.<br/>
+	Como.onincludeHandler(function)；</div>
+	<div class="code"><pre><span class="cos">Como.onincludeHandler</span>(<span class="key">function</span>(){log('1')});
+<span class="cos">Como.onincludeHandler</span>(<span class="key">function</span>(){log('2')});</pre></div>
+	
+	<a name="onunloadHandler"></a>
+	<div class="sub">Como.onunloadHandler</div>
+	<div class="s">
+	when the page closed that not be confirmed, just as window.onunload, it called. <br/>
+	Como.onunloadHandler(function);</div>
+	<div class="code"><pre><span class="cos">Como.onunloadHandler</span>(<span class="key">function</span>(){log('onunload')});</pre></div>
+
+	<a name="onbeforeunloadHandler"></a>
+	<div class="sub">Como.onbeforeunloadHandler</div>
+	<div class="s">
+	when the page closed that should be confirmed, it called, like window.onbeforeunload. <br/>
+	Como.onbeforeunloadHandler(function);
+	</div>
+	<div class="code"><pre><span class="cos">Como.onbeforeunloadHandler</span>(<span class="key">function</span>(){log('onbeforeunload')});</pre></div>
+	
+	<a name="wait"></a>
+	<div class="sub">Como.wait</div>
+	<div class="s">
+	When you want to add event on the elements, like onclick, onmouseover, and the function is in some packages, then you can use Como.wait(). <br/>
+	Como.wait(this, event, callback). <br/>
+	1. this: the element. <br/>
+	2. event: the event. <br/>
+	3. callback: the function fired. it could be String or Function, and it takes in two params, the this and the event.</div>
+	<div class="code"><pre>&lt;button onclick="<span class="cos">$.wait</span>(<span class="key">this</span>, <span class="key">event</span>, <span class="key">function</span>(a, b){<span class="key">alert</span>('1')})"&gt;&lt;/button&gt;
+	//a=element, b=event</pre></div>
+
+
+	<a name="url"></a>
+	<div class="sub">Como.Pack.url</div>
+	<div class="s">
+	Rewrite the path of packages. <br/>
+	Usually, when our project goes on line, we pack the js and css files. So we can use Como.Pack.url to rewrite the path. <br/>
+	Como.Pack.url(packages, new package); <br/>
+	Demo: Como.Pack.url('tip/core.js, form/core.js, dialog/core.js', 'pack/tool.js'); <br/>
+    </div>
+	<div class="code"><pre>Como.Pack.url('tip/core.js, form/core.js', 'tool.js');
+	Como.Pack.url('tip/core.css, form/core.css', 'tool.css');</pre></div>
+
+	<a name="debug"></a>
+	<div class="sub">Como.Pack.debug</div>
+	<div class="s">
+	When you want to cancel the Como.Pack.url's feature, use this method, and then you can debug your code unpacked on line. <br/>
+	Como.Pack.debug(true, Como._path);  //use the unpacked version, and attach to the path of Como folder.<br/>
+	Como.Pack.debug(false); // cancel debug.
+	</div>
+	<div class="code"><pre>Como.Pack.debug(true, 'http://www.comojs.com/js-src/');  
+	Como.Pack.debug(false); </pre></div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Pack";
+window.pageHight = $(document.body).height();
+</script>
+</html>

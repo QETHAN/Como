@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Ajax</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Ajax</div>
+	Como.Ajax对象，执行异步请求操作
+	<div class="tag"><a href="#ajax">ajax</a> <a href="#text">text</a> <a href="#xml">xml</a> <a href="#json">json</a> <a href="#model">Model</a></div>
+
+	<a name="ajax"></a>
+	<div class="sub">ajax</div>
+	<div class="s">执行ajax请求,返回XMLHttpRequest对象</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">ajax</span>(url,{
+	<span class="cos">method</span>: 'get',			//请求方式，post or get(默认)
+	<span class="cos">format</span>: 'json',			//返回的格式， text or xml or json(默认)
+	<span class="cos">encode</span>: 'UTF-8',		//请求的编码, UTF-8(默认)
+	<span class="cos">async</span>: true,			//是否异步，true(默认)
+	<span class="cos">data</span>:	null,			//参数
+	<span class="cos">success</span>: function(data){},	//请求成功后执行
+	<span class="cos">failure</span>: function(http){},	//请求失败后执行
+	<span class="cos">whatever</span>: function(){},		//成功失败与否都执行
+	<span class="cos">header</span>: null			//设置Http Header（Object对象） v1.2.2增加
+});</pre>
+	</div>
+
+	<a name="text"></a>
+	<div class="sub">text</div>
+	<div class="s">执行ajax请求,返回格式为text</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">text</span>(url,{
+	<span class="cos">method</span>: 'get',
+	<span class="cos">encode</span>: 'UTF-8',
+	<span class="cos">data</span>:	null,
+	<span class="cos">success</span>: function(data){},
+	<span class="cos">failure</span>: function(http){},
+	<span class="cos">whatever</span>: function(){}
+});</pre>
+	</div>
+
+	<a name="xml"></a>
+	<div class="sub">xml</div>
+	<div class="s">执行ajax请求,返回格式为xml</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">xml</span>(url,{
+	...
+});</pre>
+	</div>
+
+	<a name="json"></a>
+	<div class="sub">json</div>
+	<div class="s">执行ajax请求,,返回格式为json</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">json</span>(url,{
+	...
+});</pre>
+	</div>
+	<div class="s">&nbsp;</div>
+	<a name="model"></a>
+	<div class="title">Ajax.Model</div>
+	一次配置多个ajax请求，返回对象，易扩展，方便操作与管理
+	<div class="sub">声明</div>
+	<div class="code">
+<pre><span class="key">var</span> test = <span class="key">new</span> <span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">Model</span>({
+	add:{
+		<span class="cos">url</span>:	'add.do'	//Ajax请求地址
+		<span class="cos">params</span>:	['name', 'age', 'male']	//参数名数组
+		<span class="cos">method</span>:	 'get'		//请求模式
+		<span class="cos">format</span>:	'json'		//返回格式
+		<span class="cos">cache</span>:	 false		//是否加上时间戳ts，避免服务器缓存结果
+	},
+	del:{
+		...
+	}
+});</pre>
+	</div>
+	<div class="sub">使用</div>
+	<div class="code">
+<pre>test.add({
+	name: 'yanyun',
+	age:	24,
+	male:  true
+}, {
+	<span class="cos">success</span>: <span class="key">function</span>(data){},
+	<span class="cos">failure</span>: <span class="key">function</span>(http){},
+	<span class="cos">whatever</span>: <span class="key">function</span>(){}
+})</pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Ajax";
+window.pageHight = $(document.body).height();
+</script>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>String</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">String</div>
+	Extends String <br/>With the Only mode, like 'Como.String.left('abc', 2)'
+	<div class="tag"><a href="#trim">trim</a> <a href="#escapeHTML">escapeHTML</a> <a href="#unescapeHTML">unescapeHTML</a> <a href="#removeHTML">removeHTML</a> <a href="#byteLength">byteLength</a> <a href="#delLast">delLast</a> <a href="#toInt">toInt</a> <a href="#toArray">toArray</a> <a href="#left">left</a> <a href="#right">right</a> <a href="#format">format</a> <a href="#toLower">toLower</a> <a href="#toUpper">toUpper</a> <a href="#on16">on16</a> <a href="#un16">un16</a></div>
+
+	<a name="trim"></a>
+	<div class="sub">trim</div>
+	<div class="s">remove space of head and end</div>
+	<div class="code">
+<pre>' Hello World!     '.<span class='cos'>trim</span>();			//return 'Hello World!'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log(' Hello World!     '.trim())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="escapeHTML"></a>
+	<div class="sub">escapeHTML</div>
+	<div class="s">Escape HTML</div>
+	<div class="code">
+<pre>'&lt;b&gt;test&lt;/b&gt;'.<span class='cos'>escapeHTML</span>();			//return '&amp;lt;b&amp;gt;test&amp;lt;/b&amp;gt;'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('<b>test</b>'.escapeHTML())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="unescapeHTML"></a>
+	<div class="sub">unescapeHTML</div>
+	<div class="s">be contrary to escapeHTML</div>
+	<div class="code">
+<pre>'&amp;lt;b&amp;gt;test&amp;lt;/b&amp;gt;'.<span class='cos'>unescapeHTML</span>();		//return  '&lt;b&gt;test&lt;/b&gt;'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('&amp;lt;b&amp;gt;test&amp;lt;/b&amp;gt;'.unescapeHTML())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="removeHTML"></a>
+	<div class="sub">removeHTML</div>
+	<div class="s">remove HTML tags </div>
+	<div class="code">
+<pre>'&lt;b&gt;test&lt;/b&gt;'.<span class='cos'>removeHTML</span>();		//return 'test'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('&lt;b&gt;test&lt;/b&gt;'.removeHTML())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="byteLength"></a>
+	<div class="sub">byteLength</div>
+	<div class="s">get the string's length, a Chinese char is two lengths</div>
+	<div class="code">
+<pre>'abc你好'.<span class='cos'>byteLength</span>();		//return 7</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('abc你好'.byteLength())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="delLast"></a>
+	<div class="sub">delLast</div>
+	<div class="s">remove the last char</div>
+	<div class="code">
+<pre>'abc'.<span class='cos'>delLast</span>();		//return 'ab'</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('abc'.delLast())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="toInt"></a>
+	<div class="sub">toInt</div>
+	<div class="s">String to Int</div>
+	<div class="code">
+<pre>"111".<span class='cos'>toInt</span>();		//return 111
+"aa11".<span class='cos'>toInt</span>();		//return NaN</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('111'.toInt())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="toArray"></a>
+	<div class="sub">toArray</div>
+	<div class="s">String to Array</div>
+	<div class="code">
+<pre>"111".<span class='cos'>toArray</span>();		//return ["1", "1", "1"]
+"111".<span class='cos'>toArray</span>('');		//return ["1", "1", "1"]
+"1,1,1".<span class='cos'>toArray</span>(',');		//return ["1", "1", "1"]</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('Hello World!'.toArray())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="left"></a>
+	<div class="sub">left</div>
+	<div class="s">substring, start from head, and a Chinese char is two lengths</div>
+	<div class="code">
+<pre>"test".<span class='cos'>left</span>(2);			//return "te"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('test '.left(2))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="right"></a>
+	<div class="sub">right</div>
+	<div class="s">substring, start from end, and a Chinese char is two lengths</div>
+	<div class="code">
+<pre>"test".<span class='cos'>right</span>(2);		//return "st"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('test'.right(2))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="format"></a>
+	<div class="sub">format</div>
+	<div class="s">format string</div>
+	<div class="code">
+<pre>"test{0}test{1}".<span class='cos'>format</span>("A", "B");		//return "testAtestB"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log("test{0}test{1}".format("A","B"))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="toLower"></a>
+	<div class="sub">toLower</div>
+	<div class="s">toLowerCase</div>
+	<div class="code">
+<pre>"test".<span class='cos'>toLower</span>();		//return "test"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('Hello World!'.toLower())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="toUpper"></a>
+	<div class="sub">toUpper</div>
+	<div class="s">toUpperCase</div>
+	<div class="code">
+<pre>"test".<span class='cos'>toUpper</span>();		//return "TEST"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('Hello World!'.toUpper())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="on16"></a>
+	<div class="sub">on16</div>
+	<div class="s">toString(16)</div>
+	<div class="code">
+<pre>"test".<span class='cos'>on16</span>();		//return "\u0074\u0065\u0073\u0074"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log('test'.on16())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="un16"></a>
+	<div class="sub">un16</div>
+	<div class="s">toString(10)</div>
+	<div class="code">
+<pre>"\u0074\u0065\u0073\u0074".<span class='cos'>un16</span>();		//return "test"</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:30px">log("\u0074\u0065\u0073\u0074".un16())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/String";
+window.pageHight = $(document.body).height();
+</script>
+</html>

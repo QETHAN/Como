@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Browser</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Browser</div>
+	Como.Browser 浏览器相关对象
+	<div class="tag"><a href="#version">version</a> <a href="#ie">ie</a> <a href="#firefox">firefox</a> <a href="#safari">safari</a> <a href="#chrome">chrome</a> <a href="#opera">opera</a></div>
+
+	<a name="version"></a>
+	<div class="sub">version</div>
+	<div class="s">浏览器版本</div>
+	<div class="code">
+<pre><span class="key">var</span> v = <span class="cos">Como</span>.<span class="cos">Browser</span>.<span class="cos">version</span>;</pre>
+	</div>
+
+	<a name="ie"></a>
+	<div class="sub">ie</div>
+	<div class="s">检查是否是IE浏览器 Boolean</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Browser</span>.<span class="cos">ie</span>;</pre>
+	</div>
+
+	<a name="firefox"></a>
+	<div class="sub">firefox</div>
+	<div class="s">检查是否是mozilla内核的浏览器 Boolean</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Browser</span>.<span class="cos">firefox</span>;</pre>
+	</div>
+
+	<a name="safari"></a>
+	<div class="sub">safari</div>
+	<div class="s">检查是否是safari浏览器 Boolean</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Browser</span>.<span class="cos">safari</span>;</pre>
+	</div>
+	
+	<a name="chrome"></a>
+	<div class="sub">chrome</div>
+	<div class="s">检查是否是chrome浏览器 Boolean V1.2.2增加</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Browser</span>.<span class="cos">chrome</span>;</pre>
+	</div>
+
+	<a name="opera"></a>
+	<div class="sub">opera</div>
+	<div class="s">检查是否是opera浏览器 Boolean</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Browser</span>.<span class="cos">opera</span>;</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:100px;">log("ie=" + Como.Browser.ie);
+log("firefox=" + Como.Browser.firefox);
+log("safari=" + Como.Browser.safari);
+log("opera=" + Como.Browser.opera);
+log("chrome=" + Como.Browser.chrome);
+log("version=" +Como.Browser.version);</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Browser";
+window.pageHight = $(document.body).height();
+</script>
+</html>

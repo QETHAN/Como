@@ -1,0 +1,6 @@
+﻿1.给ajax添加headers参数
+2.增加Como.Pack.debug方法
+3.重写Browser函数，增加对chrome, safari的区分
+4.增加Como('').como方法，用于判断el是否为Como对象
+5.对Anim增加tween方法，可以自定义动画算法
+6.修改Model对布尔参数的支持

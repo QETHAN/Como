@@ -1,0 +1,610 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Selector</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Selector</div>
+	CSS Selector, return an array of Dom Element(Como-Dom), just like JQuery. <br/>
+	Attention, if there isn't Element, return null.<br/>
+	We can understand this: <span class='cos'>$</span>("#test")[0] = document.getElementById("test");  $("#test") = [document.getElementById("test")];<br/>
+	With the Only mode, user Como, not $.
+	<br/>
+	<br/>
+	About CSS Selector, Como support some common syntax, such as id, tag, class, child, attribute.<br/>
+	Actually you can use these syntax to solve all the problems. <br/>
+	<a href="http://www.comojs.com/SlickSpeed/" target="_blank">a test of selector speed about Como contrast to other common frameworks. </a><br/> 
+	The following demo:
+	<div class="code">
+<pre><span class='cos'>$</span>("#id")					//by id
+<span class='cos'>$</span>(".class")					//by class name
+<span class='cos'>$</span>("div.class")					//by tag and class name
+<span class='cos'>$</span>("tag")					//by tag
+<span class='cos'>$</span>(".test #test1")
+<span class='cos'>$</span>(".test div")					//
+<span class='cos'>$</span>(".test>div")					//
+<span class='cos'>$</span>(".test a[attribute]")				//by attribute
+<span class='cos'>$</span>(".test a[attribute=value]")			//by attribute and attribute's value
+<span class='cos'>$</span>("div div")
+<span class='cos'>$</span>(".test>div.class")
+
+<span class='cos'>Como</span>(document.body).pos()			//use this fucntion, can get the position of the current page showing</pre>
+	</div>
+	<div class="s">&nbsp;</div>
+	<div class="title">como object's method</div>
+	<div class="tag"><a href="#size">size</a> <a href="#get">get</a> <a href="#each">each</a> <a href="#index">index</a> <a href="#attr">attr</a> <a href="#prop">prop</a> <a href="#remove">remove</a> <a href="#css">css</a> <a href="#text">text</a> <a href="#html">html</a> <a href="#val">val</a> <a href="#append">append</a> <a href="#prepend">prepend</a> <a href="#before">before</a> <a href="#after">after</a> <a href="#down">down</a> <a href="#up">up</a> <a href="#upWithMe">upWithMe</a> <a href="#on">on</a> <a href="#un">un</a> <a href="#out">out</a> <a href="#unout">unout</a> <a href="#simulate">simulate</a> <a href="#left">left</a> <a href="#top">top</a> <a href="#pos">pos</a> <a href="#height">height</a> <a href="#width">width</a> <a href="#show">show</a> <a href="#hide">hide</a> <a href="#toggle">toggle</a> <a href="#focus">focus</a> <a href="#prev">prev</a> <a href="#prevAll">prevAll</a> <a href="#next">next</a> <a href="#nextAll">nextAll</a> <a href="#first">first</a> <a href="#last">last</a> <a href="#children">children</a> <a href="#parent">parent</a> <a href="#hasClass">hasClass</a> <a href="#addClass">addClass</a> <a href="#removeClass">removeClass</a> <a href="#removeAttr">removeAttr</a> <a href="#removeCSS">removeCSS</a> <a href="#anim">anim</a></div>
+
+	<a name="size"></a>
+	<div class="sub">size</div>
+	<div class="s">get Como-Dom's length</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>size</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('.mgroupitem').size())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="get"></a>
+	<div class="sub">get</div>
+	<div class="s">get the index item of Como-Dom，return Como-Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>get</span>(1);		//get the second item of Como-Dom</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($($('.mgroupitem').get(2)).text())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="each"></a>
+	<div class="sub">each</div>
+	<div class="s">loop Como-Dom and setup</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>each</span>(<span class='key'>function</span>(el){
+	<span class='key'>alert</span>(el.<span class='cos'>html</span>());
+});</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('.mgroupitem').each(function(it){
+	log($(it).text());
+})</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="index"></a>
+	<div class="sub">index</div>
+	<div class="s">get the index that gived Dom or Como in Como-Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("span").<span class='cos'>index</span>(<span class='cos'>$</span>("#test1"));
+<span class='cos'>$</span>("span").<span class='cos'>index</span>(<span class='key'>document</span>.<span class='key'>getElementById</span>("test1"));</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('.mgroupitem').index($('#selectorTest')));</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="attr"></a>
+	<div class="sub">attr</div>
+	<div class="s">get or set the value of Dom's attribute</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>attr</span>('class');
+<span class='cos'>$</span>("#test").<span class='cos'>attr</span>('class', 'className');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').attr('id'))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="prop"></a>
+	<div class="sub">prop</div>
+	<div class="s">get or set the value of Dom's prototype</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prop</span>('className');
+<span class='cos'>$</span>("#test").<span class='cos'>prop</span>('className', 'className');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').prop('className'))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="remove"></a>
+	<div class="sub">remove</div>
+	<div class="s">remove Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>remove</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#logo').remove();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="css"></a>
+	<div class="sub">css</div>
+	<div class="s">get or set the style value of Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>css</span>('display');
+<span class='cos'>$</span>("#test").<span class='cos'>css</span>('display', 'none');
+<span class='cos'>$</span>("#test").<span class='cos'>css</span>('opacity');
+<span class='cos'>$</span>("#test").<span class='cos'>css</span>('opacity', 0.5)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').css('opacity'));
+$('#test').css('opacity', 0.5);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="text"></a>
+	<div class="sub">text</div>
+	<div class="s">get or set the innerText of Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>text</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>text</span>("Hello World!")</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').text());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="html"></a>
+	<div class="sub">html</div>
+	<div class="s">get or set the innerHTML of Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>html</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>html</span>("<b>Hello World!</b>")</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').html());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="val"></a>
+	<div class="sub">val</div>
+	<div class="s">get or set the value of form Element</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("input").<span class='cos'>val</span>();
+<span class='cos'>$</span>("input").<span class='cos'>val</span>('Hello');
+<span class='cos'>$</span>("radio").<span class='cos'>val</span>();
+<span class='cos'>$</span>("checkbox").<span class='cos'>val</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="append"></a>
+	<div class="sub">append</div>
+	<div class="s">append Element or String at the end of Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>append</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').append('&lt;span&gt;Hello World!&lt;/span&gt;')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="prepend"></a>
+	<div class="sub">prepend</div>
+	<div class="s">append Element or String at the start of Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prepend</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').prepend('&lt;span&gt;Hello World1!&lt;/span&gt;')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="before"></a>
+	<div class="sub">before</div>
+	<div class="s">append Element or String before the Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>before</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').before('&lt;span&gt;Hello World2!&lt;/span&gt;')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="after"></a>
+	<div class="sub">after</div>
+	<div class="s">append Element or String after the Dom</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>after</span>("&lt;span&gt;Hello World!&lt;/span&gt;");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+$('#testSpan').after('&lt;span&gt;Hello World3&lt;/span&gt;')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="down"></a>
+	<div class="sub">down</div>
+	<div class="s">select dom in the Dom's children, like searching down</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>down</span>("div");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#menu').down('.mgroupitem').size())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="up"></a>
+	<div class="sub">up</div>
+	<div class="s">select dom in those who are parent of the Dom, like searching up</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>up</span>("div");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#menu').up('div').size())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="upWithMe"></a>
+	<div class="sub">upWithMe</div>
+	<div class="s">select dom in those who are parent of the Dom or is the Dom, like searching up; <br/>with up(), the difference is that upWithMe() contains the Dom itself.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>upWithMe</span>("div");</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#menu').upWithMe('div').size())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="on"></a>
+	<div class="sub">on</div>
+	<div class="s">attach a handler to an event for the Dom, like bind() in JQuery.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>on</span>("click", <span class='key'>function</span>(){});</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+window._bind = function(){
+	log('#test on click');
+};
+$('#test').on('click', window._bind);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="un"></a>
+	<div class="sub">un</div>
+	<div class="s">cancel the handler which had bind.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>un</span>("click", <span class='key'>function</span>(){});
+//the function that on() and un() must be the same pointer.</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+if(window._bind){
+	$('#test').un('click', window._bind);
+}</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="out"></a>
+	<div class="sub">out</div>
+	<div class="s">bind event which will be fired out of the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>out</span>("click", <span class='key'>function</span>(){});		//when click out of the id=test, then event fired.
+<span class='cos'>$</span>("#test").<span class='cos'>out</span>("click", <span class='key'>function</span>(){}, <span class='key'>true</span>);	//when click out of the id=test, then event fired, and cancel the bind</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+window._bindOut = function(){
+	log('#test out click');
+};
+$('#test').out('click', window._bindOut);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="unout"></a>
+	<div class="sub">unout</div>
+	<div class="s">cancel the out()</div>
+	<div class="code">
+<pre></pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+if(window._bindOut){
+	$('#test').unout('click', window._bindOut);
+}</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="simulate"></a>
+	<div class="sub">simulate</div>
+	<div class="s">simulate user to fire event</div>
+	<div class="code">
+<pre>$('#test').simulate('click');  //fire the click event at id=test</pre>
+	</div>
+
+	<a name="left"></a>
+	<div class="sub">left</div>
+	<div class="s">get or set the Dom's X position</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>left</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>left</span>(100)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').left());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="top"></a>
+	<div class="sub">top</div>
+	<div class="s">get or set the Dom's Y position</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>top</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>top</span>(100);</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').top());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="pos"></a>
+	<div class="sub">pos</div>
+	<div class="s">get the Dom's position, return {left: 500, top: 500}</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>pos</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').pos().top);
+log($(document.body).pos().top)</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="height"></a>
+	<div class="sub">height</div>
+	<div class="s">get or set the Dom's height</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>height</span>()
+<span class='cos'>$</span>("#test").<span class='cos'>height</span>(500)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').height());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="width"></a>
+	<div class="sub">width</div>
+	<div class="s">get or set the Dom's width</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>width</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>width</span>(500)</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();
+log($('#test').width());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="show"></a>
+	<div class="sub">show</div>
+	<div class="s">show the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>show</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').show();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="hide"></a>
+	<div class="sub">hide</div>
+	<div class="s">hide the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>hide</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').hide();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="toggle"></a>
+	<div class="sub">toggle</div>
+	<div class="s">if the Dom is hiding, then show it, or hide it.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>toggle</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').toggle();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="focus"></a>
+	<div class="sub">focus</div>
+	<div class="s">set the form element on focus.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#input1").<span class='cos'>focus</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt"></textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="prev"></a>
+	<div class="sub">prev</div>
+	<div class="s">get the index item before the Dom, index's default value is 0.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prev</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>prev</span>(2);</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').prev().size());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="prevAll"></a>
+	<div class="sub">prevAll</div>
+	<div class="s">get all Doms  before the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>prevAll</span>()</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').prevAll().size());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="next"></a>
+	<div class="sub">next</div>
+	<div class="s">get the index item after the Dom, index's default value is 0.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>next</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').next().size());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="nextAll"></a>
+	<div class="sub">nextAll</div>
+	<div class="s">get all Doms after the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>nextAll</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').nextAll().size());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="first"></a>
+	<div class="sub">first</div>
+	<div class="s">get the first child of the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>first</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').first().html());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="last"></a>
+	<div class="sub">last</div>
+	<div class="s">get the last child of the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>last</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').last().html());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="children"></a>
+	<div class="sub">children</div>
+	<div class="s">if param exists, return the index child of the Dom, or return all the children.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>children</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>children</span>(2);</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').children().size());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="parent"></a>
+	<div class="sub">parent</div>
+	<div class="s">get the parent element of the Dom, if param exists, then parent * index</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>parent</span>();
+<span class='cos'>$</span>("#test").<span class='cos'>parent</span>(1); //get the parent's parent of the Dom</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').parent()[0].tagName);</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="hasClass"></a>
+	<div class="sub">hasClass</div>
+	<div class="s">whether the Dom include class.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>hasClass</span>('classname');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log($('#test').hasClass('testName'));
+log($('#test').hasClass('testName1'));</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="addClass"></a>
+	<div class="sub">addClass</div>
+	<div class="s">add className to the Dom.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>addClass</span>('classname');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').addClass('testName1')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="removeClass"></a>
+	<div class="sub">removeClass</div>
+	<div class="s">remove className.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>removeClass</span>('classname');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').removeClass('testName1')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="removeAttr"></a>
+	<div class="sub">removeAttr</div>
+	<div class="s">remove attribute.</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>removeAttr</span>('id');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').removeAttr('id')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="removeCSS"></a>
+	<div class="sub">removeCSS</div>
+	<div class="s">remove some keys in the style attribute of the Dom. if param not exist, remove all style attributes.<br/>parameter like this: backgroundColor, marginTop</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>removeCSS</span>('display');</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$('#test').removeCSS('display')</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="anim"></a>
+	<div class="sub">anim</div>
+	<div class="s">perform a custom animation, please see Como.Anim</div>
+	<div class="code">
+<pre><span class='cos'>$</span>("#test").<span class='cos'>anim</span>().<span class='cos'>to</span>('height', '50px').<span class='cos'>go</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">$("#test").show();
+$("#test").anim().to('height', '200px').ondone(function(){
+	$("#test").anim().to('height', '50px').go();
+}).go();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Selector";
+window.pageHight = $(document.body).height();
+</script>
+</html>

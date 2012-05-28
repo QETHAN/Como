@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Array</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Array</div>
+	Extends Array <br/>With the Only mode, like 'Como.Array.each(arr, function(){})'
+	<div class="tag"><a href="#each">each</a> <a href="#collect">collect</a> <a href="#include">include</a> <a href="#index">index</a> <a href="#remove">remove</a> <a href="#unique">unique</a> <a href="#random">random</a></div>
+
+	<a name="each"></a>
+	<div class="sub">each</div>
+	<div class="s">loop array and setup</div>
+	<div class="code">
+<pre>['A', 'B', 'C'].<span class='cos'>each</span>(<span class='key'>function</span>(i){
+	<span class='key'>alert</span>(i);
+});	</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">['A', 'B', 'C'].each(function(i){
+	log(i);
+});	</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="collect"></a>
+	<div class="sub">collect</div>
+	<div class="s">loop array, setup function, and return new array.</div>
+	<div class="code">
+<pre><span class='key'>var</span> test = ['A', 'B', 'C'].<span class='cos'>collect</span>(<span class='key'>function</span>(i){
+	<span class='key'>return</span> i + 'i';
+});
+test = ["Ai", "Bi", "Ci"];</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">var test = ['A', 'B', 'C'].collect(function(i){
+	return i + 'i';
+});
+test.each(function(i){
+	log(i);
+});	</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="include"></a>
+	<div class="sub">include</div>
+	<div class="s">whether an Array include th value or object </div>
+	<div class="code">
+<pre>['A', 'B', 'C'].<span class='cos'>include</span>('A');		//return true</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log(['A', 'B', 'C'].include('A'))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="index"></a>
+	<div class="sub">index</div>
+	<div class="s">take the index that the value in an Array</div>
+	<div class="code">
+<pre>['A', 'B', 'C'].<span class='cos'>index</span>('B');		//return 1</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log(['A', 'B', 'C'].index('B'))</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="unique"></a>
+	<div class="sub">unique</div>
+	<div class="s">unique</div>
+	<div class="code">
+<pre>['A', 'B', 'B', 'C'].<span class='cos'>unique</span>();	</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log(['A', 'B', 'B', 'C'].unique())</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="remove"></a>
+	<div class="sub">remove</div>
+	<div class="s">remove item, the parameter can be value and index</div>
+	<div class="code">
+<pre>['A', 'B', 'C'].<span class='cos'>remove</span>('B');
+['A', 'B', 'C'].<span class='cos'>remove</span>(1);
+//return ["A", "C"]</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log((['A', 'B', 'C'].remove('B'))[1]);
+log(['A', 'B', 'C'].remove(1));</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="random"></a>
+	<div class="sub">random</div>
+	<div class="s">take a random item</div>
+	<div class="code">
+<pre>['A', 'B', 'C'].<span class='cos'>random</span>();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log(['A', 'B', 'C'].random());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Array";
+window.pageHight = $(document.body).height();
+</script>
+</html>

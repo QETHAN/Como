@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Class</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Class</div>
+	This can realize a class of simple feature.
+	<div class="tag"><a href="#create">create</a> <a href="#inherit">inherit</a></div>
+
+	<a name="create"></a>
+	<div class="sub">create</div>
+	<div class="s">Create a class. It must have the initialize function, also called constructor. <br/> With Only mode, like this 'Como.Class.create(...);'</div>
+	<div class="code">
+<pre><span class='key'>var</span> test = <span class='cos'>Class</span>.<span class='cos'>create</span>({
+	<span class='cos'>initialize</span>: <span class='key'>function</span>(name){  //constructor
+		this._name = name;	//prototype
+	},
+	getName: <span class='key'>function</span>(){  //function
+		return this._name;
+	}
+});
+<span class='key'>var</span> test1 = <span class='key'>new</span> test('yanyun'); //instance
+test1.getName();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">var test = Class.create({
+	initialize: function(name){
+		this._name = name;
+	},
+	getName: function(){
+		return this._name;
+	}
+});
+var test1 = new test('kevin'); 
+log(test1.getName());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="inherit"></a>
+	<div class="sub">inherit</div>
+	<div class="s"> inherit a class, and not support multiple</div>
+	<div class="code">
+<pre><span class='key'>var</span> test = <span class='cos'>Class</span>.<span class='cos'>inherit</span>(baseClass, {
+	<span class='cos'>initialize</span>: <span class='key'>function</span>(name){  //constructor
+		<strong><span class='cos'>this.super_</span>(name);  //this.super_: this function must to setup with the same parameters of parent, and then innerit.</strong>
+		this._name = name;
+	},
+	getName: <span class='key'>function</span>(){  //function
+		return this._name;
+	}
+});
+<span class='key'>var</span> test1 = <span class='key'>new</span> test('yanyun'); //intance
+test1.getName();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt" style="height:300px;">var test1 = Class.create({
+	initialize: function(name){
+            this.name = name;
+	},
+	getName: function(){
+            return this.name;
+	},
+	setName: function(name){
+            this.name = name;
+	}
+});
+
+var test2 = Class.inherit(test1, {
+	initialize: function(name, age){
+            this.super_(name);
+            this.age = age;
+	},
+	//extends function
+	getAge: function(){
+            return this.age;
+	},
+	//override function
+	setName: function(name){
+            this.name = name + ' test';
+	}
+});
+
+var test3 = new test2('kevin', 24);
+log('first: ' + test3 .getName());
+test3 .setName('como')
+log('second: ' + test3 .getName());
+log('age: ' + test3 .getAge());</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Class";
+window.pageHight = $(document.body).height();
+</script>
+</html>

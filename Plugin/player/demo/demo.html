@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Player</title>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+</head>
+
+<body>
+<!--
+<div style="position: fixed; left: 2px; top: 2px;" id="como_player_container"><object width="1" height="1" align="middle" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" name="peter-stage" id="play1287550415709_ob"><param value="always" name="allowScriptAccess"><param value="http://plugin.comojs.com/player/MP3Player.swf" name="movie"><param value="high" name="quality"><param value="false" name="allowFullScreen"><param value="transparent" name="wmode"><param value="checkReady=Como.Player.check&amp;ready=Como.Player.ready&amp;listener=Como.Player.listener&amp;id=play1287550415709" name="flashvars"><embed width="1" height="1" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" wmode="transparent" allowfullscreen="false" allowscriptaccess="always" quality="high" flashvars="checkReady=Como.Player.check&amp;ready=Como.Player.ready&amp;listener=Como.Player.listener&amp;id=play1287550415709" src="http://plugin.comojs.com/player/MP3Player.swf" name="peter-stage" id="play1287550415709_em"></object></div>
+-->
+
+	<script type="text/javascript">
+		Como.include('player/core.js', function(){
+			var player = new Como.Player();
+			player.on('ready', function(){
+				Test.init();
+			});
+			player.on('state', function(d){
+				var t = [], d = d.data;
+				t.push('加载： ' + d.load + '%');
+				t.push('当前时间： ' + d.currentTime);
+				t.push('总时间: ' + d.totalTime);
+				t.push(new Date().getTime());
+				Como('#progress').html(t.join('<br/>'));
+			});
+			player.on('complete', function(){
+				Como('#progress').html('播放完成');
+			});
+
+			window.player = player;
+
+			window.Test = {
+				init: function(){
+					var t = [];
+					t.push('<div style="margin-top: 50px;"><button onclick="Test.play()">播放</button>');
+					t.push('<button onclick="Test.pause()">暂停</button>');
+					t.push('<button onclick="Test.volume(1)">+声音</button>');
+					t.push('<button onclick="Test.volume(-1)">-声音</button></div>');
+					t.push('<div id="progress"></div>');
+
+					Como(document.body).append(t.join(''));
+					
+					this.curV = 0.5;
+					this.num = 0;
+
+					this.play();
+				},
+
+				play: function(){
+					if(!this.num)
+						player.play('/player/test.mp3');
+					else
+						player.play();
+
+					this.num++;
+				},
+
+				pause: function(){
+					player.pause();
+				},
+
+				volume: function(n){
+					player.setVolume(this.curV + n * 0.1);
+					this.curV = this.curV + n * 0.1;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

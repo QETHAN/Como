@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Object</title>
+  <link rel="stylesheet" type="text/css" href="images/style.css">
+  <script type="text/javascript" src="../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<p>&nbsp;</p>
+	<p>For compatibility, Como suports two modes to apply your code: Full & Only</p>
+	<p>Full mode: It extends JS's own object, eg. String, Function, Array, Date, Object, and Class, $. Then you can write code like "<b> ' abc '.trim(); $('#test'); </b>"</p>
+	<p>Only mode: It doesn't extend JS's own object. All function of object is belong to Como. So you must write code like "<b> Como.String.trim(' abc '); Como("#test"); </b>"<br/>
+		   When you use these object's functions, the first parameter is the object.
+	</p>
+	<div class="code">
+	<pre>Full: <span class="key">function</span>(){}.<span class="cos">bind</span>(<span class="key">this</span>, p1, p2);
+Only: <span class="cos">Como.Function.bind</span>(<span class="key">function</span>(){}, <span class="key">this</span>, p1, p2);</pre>
+	</div>
+	<p>The default mode is Full. If you have used third framework such as JQuery, you should user the Only mode.</p>
+	<p>How define mode? Plus '?only' to the end of Como file's path.</p>
+	<div class="code">
+	<pre><span class="key">&lt;script type="text/javascript" src="/js/Como.js<span class="cos">?only</span>"&gt;&lt;/script&gt;</span></pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "main";
+window.pageHight = 600;
+</script>
+</html>

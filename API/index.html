@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML>
+ <HEAD>
+  <TITLE>Como API Documentation</TITLE>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <META NAME="Keywords" CONTENT="Como, Como JS, ComoJS, Javascript, JS, Jquery, Prototype">
+  <META NAME="Description" CONTENT="Como JS是一款代码简易而功能强大的Javascript框架，也是作者在工作过程中的经验总结，实用性强；通过它，能够简化Javascript代码开发，增强代码重用性，能够异步按需加载js和css文件，增强page的加载速度。">
+  <link rel="stylesheet" type="text/css" href="images/style.css">
+  <script type="text/javascript" src="../Como.js"></script>
+  <script type="text/javascript" src="images/doc.js"></script>
+  <style>
+	body{background-color:#1d1d20;}
+  </style>
+ </HEAD>
+
+ <BODY>
+<div id="page">
+	<div class="pagecontain">
+		<div class="left">
+			<div id="logo"><a href="http://www.comojs.com" title="Como JS官网" target="_blank"><img src="images/logo.jpg"/></a></div>
+			<div id="menu">
+				<div class="mgroup">
+					<a class="group">Como</a>
+					<div class="mgroupcontent">
+						<div class="mgroupitem"><a data="ComoObject" href="#Como/Object">Object</a></div>
+						<div class="mgroupitem"><a data="ComoClass" href="#Como/Class">Class</a></div>
+						<div class="mgroupitem"><a data="ComoFunction" href="#Como/Function">Function</a></div>
+						<div class="mgroupitem"><a data="ComoString" href="#Como/String">String</a></div>
+						<div class="mgroupitem"><a data="ComoArray" href="#Como/Array">Array</a></div>
+						<div class="mgroupitem"><a data="ComoDate" href="#Como/Date">Date</a></div>
+						<div class="mgroupitem" id="selectorTest"><a data="ComoSelector" href="#Como/Selector">Selector & Como</a></div>
+						<div class="mgroupitem"><a data="ComoEvent" href="#Como/Event">Event</a></div>
+						<div class="mgroupitem"><a data="ComoCookie" href="#Como/Cookie">Cookie</a></div>
+						<div class="mgroupitem"><a data="ComoBrowser" href="#Como/Browser">Browser</a></div>
+						<div class="mgroupitem"><a data="ComoAjax" href="#Como/Ajax">Ajax & Ajax.Model</a></div>
+						<div class="mgroupitem"><a data="ComoAnim" href="#Como/Anim">Anim</a></div>
+						<div class="mgroupitem"><a data="ComoPack" href="#Como/Pack">Pack</a></div>
+						<div class="mgroupitem"><a data="ComoOther" href="#Como/Other">Other</a></div>
+					</div>
+				</div>
+				<div class="mgroup">
+					<a class="group">Ing...</a>
+					<div class="mgroupcontent">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<iframe id="iframe" marginheight="0" marginwidth="0" frameborder="0" width="100%" scrolling="no" src="main.html" ></iframe>
+		</div>
+	</div>
+</div>
+<div id="foot">
+	Documentation by Comsome, Email: KevinComo@gmail.com <br/>
+	做适合自己的Javascript框架。 Como JS交流群：<strong>26878320</strong><br/>
+	Copyright © 2010 comojs.com. All rights reserved. 
+</div>
+
+<div id="debug" style="top: 20px; display:none;">
+	<div class="dinput">
+		<textarea id="debug_txt"></textarea>
+	</div>
+	<div class="dbutton">
+		<button onclick="Debug.clear();">清除</button>  <button onclick="Debug.close();">关闭</button>
+	</div>
+</div>
+<div id="test" class="testName" style="top: 270px;display:none;"><span id="testSpan">testing room</span></div>
+<div id="totop" style="top:500px;" onclick="$(document.body).anim().to('scrollTop', 10).duration(200).go();">↑ TOP</div>
+<img src="http://count.comsome.com/click/comojsapi" style="display:none;" />
+</BODY>
+<script type="text/javascript">
+var m = new menu("#iframe");
+Debug.scroll();
+</script>
+</HTML>

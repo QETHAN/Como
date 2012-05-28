@@ -1,0 +1,6 @@
+/* CSS Document */
+.como_pager{font-size:12px;}
+.como_pager a{text-decoration:none;}
+.como_pager a:hover{background-color:#999; color:#FFF;}
+.como_pager .pager_item{border:1px solid #999; color:#333;padding:1px 5px; margin:2px 5px;}
+.como_pager .pagerNow{margin:2px 5px;}

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Function</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Function</div>
+	Extends function <br/>With the Only mode, like 'Como.Function.timeout(funName, 1000);'
+	<div class="tag"><a href="#timeout">timeout</a><a href="#interval">interval</a><a href="#bind">bind</a><a href="#bindEvent">bindEvent</a></div>
+
+	
+	<a name="timeout"></a>
+	<div class="sub">timeout</div>
+	<div class="s">like setTimeout</div>
+	<div class="code">
+<pre><span class='key'>function</span> test(){
+	<span class='key'>alert</span>("111");
+};
+test.<span class='cos'>timeout</span>(1000) //setup after one second</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">function test(){
+	log("111");
+};
+test.timeout(1000)</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="interval"></a>
+	<div class="sub">interval</div>
+	<div class="s">like setInterval</div>
+	<div class="code">
+<pre><span class='key'>function</span> test(){
+	<span class='key'>alert</span>("111");
+};
+test.<span class='cos'>interval</span>(1000)//setup pre second</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">function test(){
+	log("111");
+};
+test.interval(1000)</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+	
+	<a name="bind"></a>
+	<div class="sub">bind</div>
+	<div class="s">apply scope, and can transfer some arguments</div>
+	<div class="code">
+<pre><span class='key'>var</span> test = <span class='key'>function</span>(){
+	<span class='key'>var</span> a = [1, 2, 3, 4];
+	a.<span class='cos'>each</span>(<span class='key'>function</span>(i){
+		...
+	}.<span class='cos'>bind</span>(<span class='key'>this</span>));
+	//Como.Function.bind(function(i){}, this);
+	//attention
+	var test = Como.Function.bind(function(a, b, c){
+		//the weight of binded paramters is more higher then function's own paramters.
+		//eg. a=1, b=2, c=3
+		//also bindEvent
+	}, this, 1, 2);
+	test(3);
+}</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">function test(){
+	var a = [1, 2, 3, 4];
+	a.each(function(i){
+		this.write(i);
+	}.bind(this));
+};
+test.prototype.write=log;
+new test();</textarea>
+		<button class="debugBtn">Setup</button>
+	</div>
+
+	<a name="bindEvent"></a>
+	<div class="sub">bindEvent</div>
+	<div class="s">apply scope, and transfer event and some ohter arguments，the same as bindAsEventListener of Prototype.</div>
+	<div class="code">
+<pre><span class='key'>var</span> _bind = <span class='key'>function</span>(e,param1){
+	...
+};
+<span class='cos'>$</span>("span").<span class='cos'>on</span>('click', _bind.<span class='cos'>bindEvent</span>(this, param1));</pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Function";
+window.pageHight = $(document.body).height();
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>UI ContextMenu</title>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('ui/contextmenu.js', null, {done:true});
+	</script>
+</head>
+<body>
+<div id="test" style="width: 100px; height: 100px; background: #eee;">
+
+</div>
+
+<script type="text/javascript">
+Como.onincludeHandler(function(){
+	var contextMenu = new Como.UI.ContextMenu({
+		element: '#test',
+		text: ['选项1', '选项2', '选项3', '选项4'],
+		onSelect: function(v, t, _this){
+			
+		}
+	});
+});
+</script>
+</body>
+</html>

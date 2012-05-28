@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>demo</title>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('tree/core.js', function(){
+			Como.onloadHandler(function(){
+				window.tree1 = new Como.Tree({
+					element: '#tree1'
+				});
+			});
+		});
+	</script>
+</head>
+
+<body>
+<div id="tree1" class="como-tree">
+	<ul class="tree-folder">
+		<li class="tree-item expanded">
+			<p><a class="tree-title actived" data-key="privateAll">私有分类</a></p>
+			<ul class="tree-folder">
+				<li class="tree-item expanded">
+					<p><a class="tree-title" data-key="privateOne">默认分类</a></p>
+					<ul class="tree-folder">
+						<li class="tree-item collapsed">
+							<p><a class="tree-title" data-key="privateOneOne">子分类1</a></p>
+						</li>
+						<li class="tree-item collapsed">
+							<p><a class="tree-title" data-key="privateOneTwo">子分类2</a></p>
+						</li>
+					</ul>
+				</li>
+				<li class="tree-item collapsed"><p><a class="tree-title" data-key="privateTwo">All</a></p></li>
+				<li class="tree-item collapsed">
+					<p><a class="tree-title" data-key="privateThree">Document</a></p>
+					<ul class="tree-folder">
+						<li class="tree-item">
+							<p><a class="tree-title" data-key="privateThreeOne">子分类3</a></p>
+						</li>
+						<li class="tree-item">
+							<p><a class="tree-title" data-key="privateThreeTwo">子分类4</a></p>
+						</li>
+					</ul>
+				</li>
+				<li class="tree-item collapsed"><p><a class="tree-title" data-key="privateFour">Mobile</a></p></li>
+				<li class="tree-item collapsed"><p><a class="tree-title" data-key="privateFive">Research</a></p></li>
+			</ul>
+		</li>
+		<li class="tree-item collapsed">
+			<p><a class="tree-title" data-key="publicAll">公开分类</a></p>
+			<ul class="tree-folder">
+				<li class="tree-item collapsed"><p><a class="tree-title" data-key="publicOne">默认分类</a></p></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</body>
+</html>

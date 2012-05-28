@@ -1,0 +1,16 @@
+/* CSS Document */
+body{padding:0; margin:0; font-size:12px;background-color:#3E403D;}
+table,td{font-size:12px;}
+
+.packBody{padding:0 10px;line-height:1.5; color:#B3B5B1;}
+.packBody pre{background-color:#4A4D49;padding:10px;margin:10px;color:#FFF; font-style: italic; font-family: Courier New;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;}
+.packBody table{background-color:#4A4B4A;margin:10px;border-collapse:collapse;}
+.packBody table th{text-align:left;padding:5px 10px;background-color:#373B35;}
+.packBody table td{padding:5px 5px;background-color:#373B35;}
+.packBody a{color:#B3B5B1;}
+.packBody p{padding:5px 0;margin:0;}
+.packTitle{font-size:20px;font-weight:bold;font-family:Courier New;font-style:italic;font-weight:bold;color:#82BA09;}
+.packAuthor span{text-decoration:underline; }
+.packAPI h2{font-size:14px;}
+.packDemo h2{font-size:14px;}
+.packDemo h3{font-size:12px;}

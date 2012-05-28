@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>UI Menu</title>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('ui/menu.js', null, {done:true});
+	</script>
+</head>
+<body>
+<button onclick="Como.wait(this, event, 'test1')">Add Item</button>
+<button onclick="Como.wait(this, event, 'test6')">Add Split</button>
+<button onclick="Como.wait(this, event, 'test2')">Remove Sina</button>
+<button onclick="Como.wait(this, event, 'test3')">Set 163 On</button>
+<button onclick="Como.wait(this, event, 'test4')">hide</button>
+<button onclick="Como.wait(this, event, 'test5')">show</button>
+
+<div id="menu2" style="position:absolute;top:10px;right:10px;width:200px;">
+	checkbox: <p id="menu2Txt">163</p>
+</div>
+<script type="text/javascript">
+Como.onincludeHandler(function(){
+	window.menu1 = new Como.UI.Menu({
+		text: ['sohu', 'sina', '163', '|', 'qq', '|', 'snda', 'snda'],
+		value: ['sohu.com', 'sina.com', '163.com', '|', 'qq.com', '|', 'snda.com', 'snda1.com'],
+		listenerKeyAction: true,
+		onSelect: function(v, t, _this){
+			alert(v);
+		}
+	}).add('disabled', 'disabled', true);
+
+	window.menu2 = new Como.UI.Menu({
+		container: '#menu2',
+		text: ['sohu', 'sina', '163', '|', 'qq', '|', 'snda'],
+		checked: true,
+		onSelect: function(v,t,_this){
+			Como('#menu2Txt').html(_this.getChecked().join('<br/>'));
+		}
+	}).disabled('sina').checked('163');
+
+	window.test1 = function(){
+		menu1.add('hello', 'hello world!');
+	}
+
+	window.test6 = function(){
+		menu1.add('|');
+	}
+
+	window.test2 = function(){
+		menu1.clear('sina');
+	}
+
+	window.test3 = function(){
+		menu1.setOn('163');
+	}
+
+	window.test4 = function(){
+		menu1.hide();
+	}
+
+	window.test5 = function(){
+		menu1.show();
+	}
+});
+</script>
+</body>
+</html>

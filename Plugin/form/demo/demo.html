@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Form Demo  ——  Como JS</title>
+	<style>
+		.hint_blank{color:#999;}
+	</style>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('form/core.js', null, {done:true});
+	</script>
+</head>
+<body>
+<form action="post.html" id="mytest" method="post">
+<div>
+		<div>请输入姓名： <input type="text" id="hint_test" name="username" /><span id="tips"></span></div>
+		<div>请输入密码： <input type="password" name="password" /></div>
+		<div>请选择城市： <select name="city">
+										 <option value="上海">上海</option>
+										 <option value="北京">北京</option>
+									</select>
+		</div>
+		<div>请选择性别： <input type="radio" name="sex" value="1" />男  <input type="radio" name="sex" value="2" />女</div>
+		<div>喜欢的国家： <input type="checkbox" name="love" value="china" />中国  <input type="checkbox" name="love" value="american" />美国  <input type="checkbox" name="love" value="england" />英国</div>
+		<div>请输入信息： <textarea name="desc"></textarea></div>
+		<div><input type="submit" value="check and post" /></div>
+</div>
+<br/>
+</form>
+<div>
+		<input type="button" value="toJson" onclick="Como.wait(this, event, 'Test_toJson')" />
+		<input type="button" value="toStr" onclick="Como.wait(this, event, 'Test_toStr')" /> 
+		<input type="button" value="toStr(false)" onclick="Como.wait(this, event, 'Test_toStr1')" />  
+		<input type="button" value="setValue" onclick="Como.wait(this, event, 'Test_setValue')" /> 
+		<input type="button" value="disabled all" onclick="Como.wait(this, event, 'Test_disabled')" /> 
+		<input type="button" value="undisabled all" onclick="Como.wait(this, event, 'Test_undisabled')" /> 
+		<input type="button" value="disabled some" onclick="Como.wait(this, event, 'Test_disabled1')" /> 
+		<input type="button" value="undisabled some" onclick="Como.wait(this, event, 'Test_undisabled1')" /> 
+	</div>
+<div style="height:20px;"></div>
+<form action="http://www.google.com" id="mytest2" method="post">
+<div>
+		<div>请输入姓名： <input type="text" name="username" /></div>
+		<div>请输入密码： <input type="password" name="password" /></div>
+		<div><input type="submit" value="check and ajax" /></div>
+</div>
+<br/>
+</form>
+
+<script type="text/javascript">
+Como.onincludeHandler(function(){
+	window.handler_blur = function(o){
+		var form = o.form;
+		var span = Como('#tips');
+		form.check(o.name, {
+			success: function(){
+				span.html('正确');
+			},
+			failure: function(msg){
+				span.html(msg)
+			},
+			progress: function(){
+				span.html('loading...');
+			}
+		});
+	};
+
+	window.Test_Check = function(){
+		var re = form1.checks();
+		if(!re) return true;
+		var s = [];
+		for(var i in re){
+			s.push(re[i]);
+		}
+		alert(s.join('\r\n'));
+		return false;
+	};
+	
+	window.form1 = new Como.Form('#mytest', {
+		check: {
+			'username': {
+				'require': "请输入姓名",
+				'async': function(v, call, form){
+					setTimeout(function(){
+						if(v == "test"){
+							call(true);
+						} else {
+							call(false, "请输入正确的姓名，为test");
+						}
+					}, 1000);
+				}
+			},
+			'password': {
+				'require': '请输入密码',
+				'length': {param: [3,8], msg: '密码长度在3-8个字符内'}
+			}
+		}
+	}).onBlur('username', window.handler_blur).onSubmit(window.Test_Check, false);
+	
+	window.Test_ajax = function(){
+		return form2.ajax({
+			onValidate: function(re){
+				var s = [];
+				for(var i in re){
+					s.push(re[i]);
+				}
+				alert(s.join('\r\n'));
+			},
+			onSubmit: function(form){
+				form.disabled();
+			}
+		});
+	};
+
+	window.form2 = new Como.Form('#mytest2', {
+		check: {
+			'username': {
+				'require': "请输入姓名"
+			},
+			'password': {
+				'require': '请输入密码',
+				'length': {param: [3,8], msg: '密码长度在3-8个字符内'}
+			}
+		}
+	}).onSubmit(window.Test_ajax, true);
+
+
+	window.Test_toJson = function(){
+		var v = form1.toJson(), r=[];
+		Como.Object.each(v, function(it, i){
+			r.push(i + ": " + it);
+		});
+		alert(r.join('\n'));
+	};
+
+	window.Test_toStr = function(){
+		alert(form1.toStr());
+	};
+
+	window.Test_toStr1 = function(){
+		alert(form1.toStr(false));
+	};
+
+	window.Test_setValue = function(){
+		form1.setValue({
+			username: 'kevincomo',
+			password: '123',
+			sex: '2',
+			city: '北京',
+			love: 'american,england',
+			desc: 'ttttt'
+		});
+	};
+
+	window.Test_disabled = function(){
+		form1.disabled();
+	}
+
+	window.Test_undisabled = function(){
+		form1.undisabled();
+	}
+
+	window.Test_disabled1 = function(){
+		form1.disabled('password', 'love', 'desc');
+	}
+
+	window.Test_undisabled1 = function(){
+		form1.undisabled('password', 'love', 'desc');
+	}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/52/trunk/Plugin/dialog/images
+END
+dialog_border.png
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/52/trunk/Plugin/dialog/images/dialog_border.png
+END
+dialog_bottom_left.png
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/52/trunk/Plugin/dialog/images/dialog_bottom_left.png
+END
+dialog_top_right.png
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/52/trunk/Plugin/dialog/images/dialog_top_right.png
+END
+dialog_bottom_right.png
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/52/trunk/Plugin/dialog/images/dialog_bottom_right.png
+END
+dialog-sprite.png
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/52/trunk/Plugin/dialog/images/dialog-sprite.png
+END
+closedialog.gif
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/52/trunk/Plugin/dialog/images/closedialog.gif
+END

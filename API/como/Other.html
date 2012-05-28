@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Other</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Other</div>
+	其他常用小工具
+	<div class="tag"><a href="#extend">Como.extend</a> <a href="#template">Como.template</a> <a href="#isFunction">Como.isFunction</a> <a href="#createElement">Como.createElement</a></div>
+
+	<a name="extend"></a>
+	<div class="sub">Como.extend</div>
+	<div class="s">扩展Como里面的属性和方法</div>
+	<div class="code">
+<pre><span class='cos'>Como</span>.<span class='cos'>extend</span>({
+	getMyName : <span class='key'>function</span>(){
+		<span class='key'>return</span> "kevin";
+	}
+});
+<span class='key'>var</span> name = <span class='cos'>Como</span>.getMyName();
+<span class='key'>var</span> name1 = <span class='cos'>$</span>.getMyName();</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">Como.extend({
+	getMyName : function(){
+		return "yanyun";
+	}
+});
+log($.getMyName());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="template"></a>
+	<div class="sub">Como.template</div>
+	<div class="s">模板机制(v1.1.1更新)；除了String.format提供简单模板实现外，这里又提供一个基于Key的模板机制, 通过{key}来匹配;
+	<br/>方法有两个： set(key, value)或者set(object), run()取得最后模板的值， (value支持任意Object), 如例子</div>
+	<div class="code">
+<pre><span class='key'>var</span> test = <span class='cos'>Como</span>.<span class='cos'>template</span>("my name is {name}, i am \\{sex\\}, i am {old} years old!");
+test.<span class='cos'>set</span>('name', 'kevin').<span class='cos'>set</span>('old', 25).<span class='cos'>set</span>('sex', 'body');
+//这里也可以test.set({'name':'kevin', 'old': 25});
+//为什么sex没有出来，因为通过\\将匹配符过滤掉了
+log(test.<span class='cos'>run</span>());</div>
+	<div class="debug">
+		<textarea class="debugTxt">var test = Como.template("my name is {name}, i am \\{sex\\}, i am {old} years old!");
+test.set('name', 'kevin').set('old', 25);
+log(test.run());</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+
+	<a name="isFunction"></a>
+	<div class="sub">Como.isFunction &  $.isFunction</div>
+	<div class="s">检查是否为函数</div>
+	<div class="code">
+<pre><span class='cos'>Como</span>.<span class='cos'>isFunction</span>('111');		//false
+<span class='cos'>$</span>.<span class='cos'>isFunction</span>(function test(){});	//true</pre>
+	</div>
+	<div class="debug">
+		<textarea class="debugTxt">log(Como.isFunction('111'));
+log($.isFunction(function test(){}));</textarea>
+		<button class="debugBtn">测试</button>
+	</div>
+	
+	<a name="createElement"></a>
+	<div class="sub">Como.createElement &  $.createElement</div>
+	<div class="s">快速创建Element对象, 返回Como对象</div>
+	<div class="code">
+<pre><span class='cos'>Como</span>.<span class='cos'>createElement</span>('div', {
+	class: '...',
+	id: 'test1',
+	...
+});</pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Other";
+window.pageHight = $(document.body).height();
+</script>
+</html>

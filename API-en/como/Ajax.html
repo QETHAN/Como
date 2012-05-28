@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>Ajax</title>
+  <link rel="stylesheet" type="text/css" href="../images/style.css">
+  <script type="text/javascript" src="../../Como.js"></script>
+</head>
+<body>
+<div id="main">
+	<!-- Content Begin -->
+	<div class="title">Ajax</div>
+	Como.Ajax
+	<div class="tag"><a href="#ajax">ajax</a> <a href="#text">text</a> <a href="#xml">xml</a> <a href="#json">json</a> <a href="#model">Model</a></div>
+
+	<a name="ajax"></a>
+	<div class="sub">ajax</div>
+	<div class="s">declare an ajax request, return XMLHttpRequest</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">ajax</span>(url,{
+	<span class="cos">method</span>: 'get',			//request method，post or get(default)
+	<span class="cos">format</span>: 'json',			//return data type， text or xml or json(default)
+	<span class="cos">encode</span>: 'UTF-8',		//request encode, UTF-8(default)
+	<span class="cos">async</span>: true,			//is asynchronous，true(default)
+	<span class="cos">data</span>:	null,			//request parameters
+	<span class="cos">success</span>: function(data){},	//request successed and setup, HttpStatus >= 200 or < 300
+	<span class="cos">failure</span>: function(http){},	//request failured and setup
+	<span class="cos">whatever</span>: function(){}	//setup after request whatever success or failure
+});</pre>
+	</div>
+
+	<a name="text"></a>
+	<div class="sub">text</div>
+	<div class="s">declare an ajax that data type = text</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">text</span>(url,{
+	<span class="cos">method</span>: 'get',
+	<span class="cos">encode</span>: 'UTF-8',
+	<span class="cos">data</span>:	null,
+	<span class="cos">success</span>: function(data){},
+	<span class="cos">failure</span>: function(http){},
+	<span class="cos">whatever</span>: function(){}
+});</pre>
+	</div>
+
+	<a name="xml"></a>
+	<div class="sub">xml</div>
+	<div class="s">declare an ajax that data type = xml</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">xml</span>(url,{
+	...
+});</pre>
+	</div>
+
+	<a name="json"></a>
+	<div class="sub">json</div>
+	<div class="s">declare an ajax that data type = json</div>
+	<div class="code">
+<pre><span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">json</span>(url,{
+	...
+});</pre>
+	</div>
+	<div class="s">&nbsp;</div>
+	<a name="model"></a>
+	<div class="title">Ajax.Model</div>
+	you can use Como.Ajax.Model to declare some ajax request together, and then use them. 
+	<div class="sub">define</div>
+	<div class="code">
+<pre><span class="key">var</span> test = <span class="key">new</span> <span class="cos">Como</span>.<span class="cos">Ajax</span>.<span class="cos">Model</span>({
+	add:{
+		<span class="cos">url</span>:	'add.do'	//request url path
+		<span class="cos">params</span>:	['name', 'age']	//parameter name
+		<span class="cos">method</span>:	 'get'		//request method, default get
+		<span class="cos">format</span>:	'json'		//return data type, default json
+		<span class="cos">cache</span>:	 false		//whether remove the timestamp, default plus it, to clear cache
+	},
+	del:{
+		...
+	}
+});</pre>
+	</div>
+	<div class="sub">use</div>
+	<div class="code">
+<pre>test.add({
+	name: 'yanyun',
+	age:	'24'
+}, {
+	<span class="cos">success</span>: <span class="key">function</span>(data){},
+	<span class="cos">failure</span>: <span class="key">function</span>(http){},
+	<span class="cos">whatever</span>: <span class="key">function</span>(){}
+})</pre>
+	</div>
+	<!-- Content End -->
+</div>
+</body>
+<script type="text/javascript">
+window.pagename = "Como/Ajax";
+window.pageHight = $(document.body).height();
+</script>
+</html>
