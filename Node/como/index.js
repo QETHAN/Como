@@ -1,22 +1,24 @@
-(function(){
 
+var como = {
+	'core': require('./lib/core'),
 
+	'array': require('./lib/array'),
 
-	module.exports = {
-		extend: function(target, src){
-			for(var it in src){
-				target[it] = src[it];
-			}
-			return target;
-		},
+	'class': require('./lib/class'),
 
-		each: function (obj, cb) {
-			var i = 0;
-			for (var it in obj) {
-				if(cb(obj[it], it ,i++)=='break') break;
-			}
-			return obj;
-		}
-	};
+	'date': require('./lib/date'),
 
-})();
+	'file': require('./lib/file'),
+
+	'http': require('./lib/http'),
+
+	'log': require('./lib/log'),
+
+	'string': require('./lib/string'),
+
+	'validate': require('./lib/validate');
+};
+
+como.core.extend(como, como.core);
+
+module.exports = como;
