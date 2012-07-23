@@ -9,7 +9,7 @@ module.exports = {
 	get: function(url, callback){
 		var u = require('url').parase(url);
 		var connection = http.createClient(80, u['host']);
-		var request = connection.request("GET", u['pathname'], {
+		var request = connection.request("GET", u['path'], {
 				'host': u['host'],
 				'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0'
 			});
@@ -35,7 +35,7 @@ module.exports = {
 	post: function(url, data, callback){
 		var u = require('url').parase(url);
 		var connection = http.createClient(80, u['host']);
-		var request = connection.request("POST", u['pathname'], {
+		var request = connection.request("POST", u['path'], {
 				'host': u['host'],
 				'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0'
 			});
