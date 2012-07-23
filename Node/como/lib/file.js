@@ -6,10 +6,7 @@ module.exports = {
 	},
 
 	readAsyn: function(path, callback){
-		fs.readFile(path, function(err, data){
-			if(err) throw err;
-			callback(data);
-		});
+		fs.readFile(path, callback);
 	},
 
 	write: function(path, body){

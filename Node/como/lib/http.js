@@ -1,5 +1,5 @@
 
-var sys = require('sys'), http = require('http');
+var http = require('http');
 
 module.exports = {
 	IP: function(req){
@@ -7,7 +7,7 @@ module.exports = {
 	},
 
 	get: function(url, callback){
-		var u = require('url').parase(url);
+		var u = require('url').parse(url);
 		var connection = http.createClient(80, u['host']);
 		var request = connection.request("GET", u['path'], {
 				'host': u['host'],
