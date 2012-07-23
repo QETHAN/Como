@@ -6,7 +6,7 @@ exports.extend = function(target, src){
 	return target;
 };
 
-exports.extend = function(obj, cb){
+exports.each = function(obj, cb){
 	var i = 0;
 	for (var it in obj) {
 		if(cb(obj[it], it ,i++)=='break') break;

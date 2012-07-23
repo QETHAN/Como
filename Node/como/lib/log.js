@@ -4,7 +4,7 @@ module.exports = {
 		return console.log.apply(null, arguments);
 	},
 
-	error: function{
+	error: function(){
 		return console.warn.apply(null, arguments);
 	},
 
