@@ -75,5 +75,14 @@ module.exports = {
     md5: function(str){
     	var hash = require('crypto').createHash('md5');
     	return hash.update(str).digest('hex');
+    },
+
+    hash: function(key, prime){
+    	key = key instanceof Buffer ? key : new Buffer(key);
+		prime = prime == undefined ? 0xffffffff : prime;
+		for (var hash = key.length, i = 0; i < key.length; i++) {
+			hash += key[i];
+		}
+		return (hash % prime);
     }
 };
