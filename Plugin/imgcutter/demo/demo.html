@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Image Cutter Demo  ——  Como JS</title>
+	<style>
+
+	</style>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<script type="text/javascript">
+		Como.include('imgcutter/core.js', null, {done:true});
+	</script>
+</head>
+<body>
+
+<div id="demo1"></div>
+
+<script type="text/javascript">
+Como.onincludeHandler(function(){
+	window.cut = new Como.ImgCutter({
+		imgUrl: 'http://pic1.xihuan.me/dr/680__90/t0272d1b7250f8a2e25.jpg',
+		containerEl: '#demo1',
+		fixed_height: true
+	})
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+.como_imgcut{position: relative;}
+.como_imgcutframe{position:absolute;cursor:move;}
+.como_imgcutframe span,
+.como_imgcutframe em{display:block;overflow:hidden;position:absolute;font:0/0 sans-serif;}
+.como_imgcutframe span{z-index:1;background:#6699b6 url(frameline.gif);}
+.como_imgcutframe em{z-index:2;width:7px;height:7px;border:1px solid #6699b6;background:#fff;}
+.como_imgcutframe span.t,
+.como_imgcutframe span.b{width:100%;height:1px;}
+.como_imgcutframe span.l,
+.como_imgcutframe span.r{width:1px;height:100%;}
+.como_imgcutframe span.t{top:0;left:0;}
+.como_imgcutframe span.r{top:0;right:0;}
+.como_imgcutframe span.b{bottom:0;left:0;}
+.como_imgcutframe span.l{top:0;left:0;}
+.como_imgcutframe em.n{top:-4px;left:50%;margin:0 0 0 -5px;cursor:n-resize;}
+.como_imgcutframe em.e{top:50%;right:-4px;margin:-5px 0 0 0;cursor:e-resize;}
+.como_imgcutframe em.w{top:50%;left:-4px;margin:-5px 0 0 0;cursor:w-resize;}
+.como_imgcutframe em.s{bottom:-4px;left:50%;margin:0 0 0 -5px;cursor:s-resize;}
+.como_imgcutframe em.nw{top:-4px;left:-4px;cursor:nw-resize;}
+.como_imgcutframe em.ne{top:-4px;right:-4px;cursor:ne-resize;}
+.como_imgcutframe em.se{right:-4px;bottom:-4px;cursor:se-resize;}
+.como_imgcutframe em.sw{bottom:-4px;left:-4px;cursor:sw-resize;}
+
+.como_imgcutmask{position:absolute;}
+.como_imgcutmask span.tt,
+.como_imgcutmask span.rr,
+.como_imgcutmask span.ll,
+.como_imgcutmask span.bb{background-color: #000; display: block;position: absolute; opacity: 0.5; filter: Alpha(Opacity=50);}
+.como_imgcutmask span.tt{right:0; top:0;}
+.como_imgcutmask span.rr{bottom:0; right:0;}
+.como_imgcutmask span.ll{left:0; top:0;}
+.como_imgcutmask span.bb{bottom:0; left:0;}

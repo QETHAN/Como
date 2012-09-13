@@ -16,6 +16,7 @@
 				ignoreMargin: false,		//是否忽略鼠标着力点与拖动元素之间的间隔
 				position: [0,0],				//拖动时的元素坐标偏移
 				setCloneContent: null,	//设置拖动时跟随鼠标的内容，默认为拖动元素的拷贝, Param: [this, _curTarget, _fireElement]
+				isAutoRightAndRight: true,
 				onDown: null,				//鼠标在控制器范围内按下时触发，通过它可以确定是否为拖动对象, Param: [this, _fireElement]
 				onStart: null,					//准备拖动时回调（鼠标按下时），Param: [this, _curTarget, index]
 				onDrag: null,					//拖动过程中的回调, Param: [this, _curTarget, _mouseMoveXY, _cloneXY]
@@ -123,7 +124,7 @@
 				if(op.setCloneContent){
 					this._clone.innerHTML = op.setCloneContent(this, this._curTarget, this._fireElement);
 				} else {
-					this._curTarget.css('right', 'auto').css('bottom', 'auto');
+					if(op.isAutoRightAndRight) this._curTarget.css('right', 'auto').css('bottom', 'auto');
 					var _ta = this._curTarget[0].cloneNode(true);
 					this._clone.appendChild(_ta);
 					Como(_ta).css('position', 'static').removeCSS('left').removeCSS('top');
