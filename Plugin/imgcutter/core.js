@@ -90,7 +90,7 @@ Como.reg('imgcutter/core.js', function(){
 				},
 				onStart: bind(this._start, this),
 				onDrag: bind(this._drag, this),
-				onStop: bind(this._stop, this),
+				onStop: bind(this._stop, this)
 			});
 
 			new Como.Resize({
