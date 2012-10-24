@@ -125,13 +125,13 @@ Como.reg('scrollbar/core.js', function(){
 		//触发轨道位置
 		_scrollWrap: function(e){
 			Como.Event.stop(e);
-			var mouse_top = e.clientY + document.body.scrollTop - this.els.barWrapEl.top();
+			var mouse_top = this._getMouseY(e) + document.body.scrollTop - this.els.barWrapEl.top();
 			var top = mouse_top - this._handleHeight / 2;
 			this._scrollTo(top);
 		},
 		//拖拽滚动条
 		_scrollHandle: function(e){
-			this._mouseY = e.clientY;
+			this._mouseY = this._getMouseY(e);
 			if(!this._e_drag)this._e_drag = Como.Function.bindEvent(this._onDrag, this); 
 			if(!this._e_up) this._e_drag_up = Como.Function.bindEvent(this._onDragStop, this);
 			Como(document).on('mousemove', this._e_drag);
@@ -139,8 +139,13 @@ Como.reg('scrollbar/core.js', function(){
 			Como.Event.stop(e);
 		},
 
+		_getMouseY: function(e){
+			if (e.pageY) return  e.pageY;
+	        return e.clientY + document.body.scrollTop - document.body.clientTop;
+		},
+
 		_onDrag: function(e){
-			var _mouseY = e.clientY;
+			var _mouseY = this._getMouseY(e);
 			this._scrollBy(_mouseY - this._mouseY);
 			this._mouseY = _mouseY;
 			Como.Event.stop(e);
