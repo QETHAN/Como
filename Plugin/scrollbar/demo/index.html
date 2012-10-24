@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Dialog Demo1</title>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+	<style type="text/css">
+	#view{width: 200px; height: 200px; overflow: hidden;position: relative;}
+	#content{position:absolute; top:0; left:0; width: 100%;}
+	#bar{position: absolute; top: 8px; left: 205px; height: 200px}
+	#bar div.scrollbar{width: 17px; height: 100%;position: relative;}
+	#bar div.scrollbar em{display:block; width: 17px; position: absolute; }
+	#bar div.scrollbar em.scrollbar_up,
+	#bar div.scrollbar em.scrollbar_down{height: 17px; background:#999; top:0; left:0; }
+	#bar div.scrollbar em.scrollbar_handle{background:#aaa;}
+	#bar div.scrollbar em.scrollbar_wrap{background:#ccc;}
+	</style>
+</head>
+<body>
+<div id="view">
+	<div id="content">
+		Infragistics 最近发布了Ignite UI。Ignite UI是一组HTML和JavaScript界面控件，主要用于基于浏览器的触摸平板、移动终端和桌面应用程序。
+
+Ignite UI基于jQuery Core、jQuery UI和jQuery Mobile JavaScript库，并包含了全套22种基于jQuery的移动控件，同时还支持adaptive CSS 以开发iPhone、Android和Windows Phone等应用程序。
+
+除了Ignite UI核心引擎、数据图表、地理空间图（geospatial mapping）、数据网格、数据访问、数据绑定和HTML编辑控件之外， Ignite UI框架还支持几乎所有主流浏览器的最新版本。另外，通过Loader组件，Ignite UI可以限制发送给客户端的JavaScript的大小。
+
+HTML5数据图表控件支持鼠标或触摸的范围框选、挤夹式缩放、组合表格、动作框架和饼图等功能。同时，数据图表控件还包含了多种类型图表，包括极坐标图表、径向坐标图表和财务报表等。
+
+Ignite UI中的控件配置器使开发者可以通过友好的设计编辑器来创建控件，设计编辑器包含属性窗口和事件窗口等。你只需要将控件放置在需要的位置，与其相关的JavaScript将会自动生成。
+
+Ignite UI的地理空间图控件让你可以绑定和渲染海量数据，并且支持bing、cloudmade、openstreet、ESRI图形文件等。同时，该控件还包括轮廓线、折线、散射区域、地理形状和标志等。
+
+Infragistics产品管理部门的负责人 Jason Beres说：
+	</div>
+</div>
+<div id="bar"></div>
+
+<script type="text/javascript">
+Como.include('scrollbar/core.js', function(){
+	var scrollBar = new Como.ScrollBar({
+		barEl: '#bar',
+		viewEl: '#view',
+		contentEl: '#content',
+		onScroll: function(t){
+			console.log(t.getDistances());
+		}
+	});
+});
+</script>
+</body>
+</html>
