@@ -1,6 +1,6 @@
 {
 	"name": "como",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"author": "Kevin Como <kevincomo@gmail.com>",
 	"description": "Common function for Node.js",
 	"homepage": "http://www.comojs.com",
