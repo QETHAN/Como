@@ -9,8 +9,10 @@ function task(steps){
 
 task.prototype._next = function(err, result){
 	if(this._steps.length == 0) {
-	   if(this._callback) this._callback(err, result);
-	   return;
+		var args = [err].concat(this._passResults).concat(result);
+		this._passResults = [];
+		if(this._callback) this._callback.apply(this, args);
+		return;
 	}
 
 	var fn = this._steps.shift();
@@ -32,8 +34,10 @@ task.prototype._next = function(err, result){
 
 task.prototype.result = function(err, result){
     while(this._steps.length) this._steps.shift();
-    if(this._callback) this._callback(err, result);
-    return this;
+    var args = [err].concat(this._passResults).concat(result);
+	this._passResults = [];
+	if(this._callback) this._callback.apply(this, args);
+    return;
 };
 
 task.prototype.skip = function(index){
