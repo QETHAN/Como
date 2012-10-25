@@ -16,7 +16,9 @@ var como = {
 
 	'string': require('./lib/string'),
 
-	'validate': require('./lib/validate')
+	'validate': require('./lib/validate'),
+
+	'task': require('./lib/task')
 };
 
 como.core.extend(como, como.core);
