@@ -1,16 +1,8 @@
-/***
-como.task(
-    function(){ var t = this; setTimeout(function(){t.next(false, 10); }, 100); },
-	function(err, data){ var t = this; setTimeout(function(){t.next(false, 20); }, 100); },
-	function(err, data){ this.result(false, 100); },
-	function(err, data){ var t = this; setTimeout(function(){t.next(false, 40); }, 100); }
-)
-.start(function(err, data){ console.log('result: ' + data); });
-***/
 
 function task(steps){
 	this._steps = steps;
 	this._callback = null;
+	this._passResults = [];
 	this.next = require('./core').bind(this._next, this);
 	return this;
 };
@@ -23,7 +15,13 @@ task.prototype._next = function(err, result){
 
 	var fn = this._steps.shift();
 	try{
-		var _result = fn.apply(this, [err, result]);
+		var args = [err];
+		if(this._passResults.length > 0){
+			args = args.concat([this._passResults]);
+			this._passResults = [];
+		}
+		args.push(result);
+		var _result = fn.apply(this, args);
 		if(_result != undefined){
 			this._next(null, _result);
 		}
@@ -42,6 +40,10 @@ task.prototype.skip = function(index){
     for(var i = 0; i < index; i++){
         this._steps.shift();
     }
+};
+
+task.prototype.pass = function(result){
+	this._passResults.push(result);
 };
 
 task.prototype.start = function(callback){
