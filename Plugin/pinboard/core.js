@@ -7,6 +7,7 @@ Como.reg('pinboard/core.js', function(){
 				padding: 5,
 				resize: true,
 				center: true,
+				buttomLine: false,
 				onMore: null
 			}, options || {});
 			
@@ -70,16 +71,30 @@ Como.reg('pinboard/core.js', function(){
 				for(var i = 0; i < this.column; i++) this.columnY.push(0);
 			}
 			
-			var boxes = this.element.children(), top = 0, left = 0;
-			for(var i = this._start, index, il = boxes.length, it; i < il; i++){
-				it = boxes.get(i);
+			var boxes = this.element[0].childNodes, top = 0, left = 0, len = 0;
+			var temp = document.createElement('div');
+			for(var i = 0, it, il = boxes.length; i < il; i++){
+				it = boxes[i];
+				if(!it.nodeType || it.nodeType != 1) continue;
+				it = Como(it);
 				index = this._getMinY();
 				top = this.columnY[index] + op.padding; left = (op.width + op.padding) * index + this.marginLeft;
 				this.columnY[index] = top + it.height();
-				it.css('position', 'absolute').top(top).left(left);
+				var clone = it[0].cloneNode(true);
+				Como(clone).css('position', 'absolute').top(top).left(left);
+				temp.appendChild(clone);
+				len++
 			}
-			this.element.height(Math.max.apply(Math, this.columnY));
-			this._start = boxes.length;
+			this.element.html(temp.innerHTML);
+			temp = null;
+
+			this._start = len;
+
+			if(op.buttomLine){
+				this.element.height(Math.min.apply(Math, this.columnY)).css('overflow', 'hidden');
+			} else {
+				this.element.height(Math.max.apply(Math, this.columnY));
+			}
 		},
 		
 		append: function(items){

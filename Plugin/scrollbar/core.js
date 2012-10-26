@@ -212,6 +212,10 @@ Como.reg('scrollbar/core.js', function(){
 			this.els.element.hide();
 		},
 
+		resize: function(){
+			this._initProperties();
+		},
+		
 		scrollTo: function(top){
 			this._scrollTo(top + this._handleTopMin);
 		},
