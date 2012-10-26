@@ -371,7 +371,7 @@ var _como_prototype = {
 				el = el[0];
 				while((el = el.parentNode)){
 					if(Como.Array.include(selector, el)){
-						els = _onlyPush(els, el);
+						els.push(el);
 					}
 				}
 			});
@@ -386,7 +386,7 @@ var _como_prototype = {
 				el = el[0];
 				while(el){
 					if(Como.Array.include(selector, el)){
-						els = _onlyPush(els, el);
+						els.push(el);
 					}
 					el = el.parentNode
 				}
@@ -561,7 +561,7 @@ var _como_prototype = {
         var els = [], el = this[0];
         while ((el = el.previousSibling)){
             if(el.nodeType && el.nodeType ==1){
-				els = _onlyPush(els, el);
+				els.push(el);
             }
         }
         return Como(els);
@@ -582,7 +582,7 @@ var _como_prototype = {
         var els = [], el = this[0];
         while ((el = el.nextSibling)){
             if(el.nodeType && el.nodeType ==1){
-				els = _onlyPush(els, el);
+				els.push(el);
             }
         }
         return Como(els);
@@ -599,8 +599,7 @@ var _como_prototype = {
         var nodes = this[0].childNodes, els = [] ,it;
         for(var i = 0, il = nodes.length; i < il; i++){
             it = nodes[i];
-            if(it.nodeType && it.nodeType == 1)
-                els = _onlyPush(els, it);
+            if(it.nodeType && it.nodeType == 1) els.push(it);
         }
         return typeof n != 'undefined' ? Como(els).get(n) : Como(els);
     },

@@ -3,3 +3,4 @@
 3。 增加$(window).height方法
 4. 增加Como.filter
 5. 优化Como.Array， 如 "" == 0的Bug
+6. 优化了Como().children\first\next\prevAll\nextAll等方法的速度

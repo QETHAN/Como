@@ -13,7 +13,6 @@ Como.reg('pinboard/core.js', function(){
 			
 			this._hasArraged = false;
 			this.columnY = [];
-			this._start = 0;
 			
 			if(op.resize) this._bind_resize();
 			if(op.onMore) this._bind_scroll();
@@ -56,24 +55,21 @@ Como.reg('pinboard/core.js', function(){
 			for(var i = 0; i < this.columnY.length; i++) if(this.columnY[i] == m) return i;
 		},
 		
-		arrange: function(isMore){
+		arrange: function(){
 			var op = this.op;
 			if(!this._hasArraged){
 				this.element = Como(this.op.element).css('position', 'relative');
 			}
-			if(!isMore){
-				this._start = 0;
-				this.width = this.element.width();
-				this.column = Math.floor((this.width + op.padding) / (op.width + op.padding));
-				this.marginLeft = 0;
-				if(op.center) this.marginLeft = (this.width - ((op.width + op.padding) * this.column - op.padding)) / 2; 
-				this.columnY = [];
-				for(var i = 0; i < this.column; i++) this.columnY.push(0);
-			}
+			this.width = this.element.width();
+			this.column = Math.floor((this.width + op.padding) / (op.width + op.padding));
+			this.marginLeft = 0;
+			if(op.center) this.marginLeft = (this.width - ((op.width + op.padding) * this.column - op.padding)) / 2; 
+			this.columnY = [];
+			for(var i = 0; i < this.column; i++) this.columnY.push(0);
 			
-			var boxes = this.element[0].childNodes, top = 0, left = 0, len = 0;
+			var boxes = this.element[0].childNodes, top = 0, left = 0;
 			var temp = document.createElement('div');
-			for(var i = 0, it, il = boxes.length; i < il; i++){
+			for(var i = 0, index, it, il = boxes.length; i < il; i++){
 				it = boxes[i];
 				if(!it.nodeType || it.nodeType != 1) continue;
 				it = Como(it);
@@ -83,12 +79,9 @@ Como.reg('pinboard/core.js', function(){
 				var clone = it[0].cloneNode(true);
 				Como(clone).css('position', 'absolute').top(top).left(left);
 				temp.appendChild(clone);
-				len++
 			}
 			this.element.html(temp.innerHTML);
 			temp = null;
-
-			this._start = len;
 
 			if(op.buttomLine){
 				this.element.height(Math.min.apply(Math, this.columnY)).css('overflow', 'hidden');
@@ -96,24 +89,38 @@ Como.reg('pinboard/core.js', function(){
 				this.element.height(Math.max.apply(Math, this.columnY));
 			}
 		},
+
+		_append: function(item){
+			this.element.append(item);
+			var op = this.op, top = 0, left = 0;
+			var it = this.element.last();
+			var index = this._getMinY();
+			top = this.columnY[index] + op.padding; left = (op.width + op.padding) * index + this.marginLeft;
+			this.columnY[index] = top + it.height();
+			it.css('position', 'absolute').top(top).left(left);
+		},
 		
 		append: function(items){
-			var op = this.op, top = 0, left = 0;
 			if(typeof items == "string"){
-				this.element.append(items);
-				this.arrange(true);
+				var temp = document.createElement('div');
+				temp.innerHTML = items;
+				var items = temp.childNodes;
+				for(var i = 0, it, il = items.length; i < il; i++){
+					it = items[i];
+					if(!it.nodeType || it.nodeType != 1) continue;
+					this._append(it);
+				}
+				temp = null;
 			} else {
 				for(var i = 0, index, il = items.length, it; i < il; i++){
-					this.element.append(items[i]);
-					it = this.element.last();
-					index = this._getMinY();
-					top = this.columnY[index] + op.padding; left = (op.width + op.padding) * index + this.marginLeft;
-					this.columnY[index] = top + it.height();
-					it.css('position', 'absolute').top(top).left(left);
+					this._append(items[i]);
 				}
-				this._start += items.length;
 			}
-			this.element.height(Math.max.apply(Math, this.columnY));
+			if(this.op.buttomLine){
+				this.element.height(Math.min.apply(Math, this.columnY)).css('overflow', 'hidden');
+			} else {
+				this.element.height(Math.max.apply(Math, this.columnY));
+			}
 			this.isWaiting = false;
 		}
 	});
