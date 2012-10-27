@@ -91,7 +91,7 @@ Como.reg('pinboard/core.js', function(){
 		},
 
 		_append: function(item){
-			this.element.append(item);
+			this.element.append(item.cloneNode(true));
 			var op = this.op, top = 0, left = 0;
 			var it = this.element.last();
 			var index = this._getMinY();
@@ -105,8 +105,11 @@ Como.reg('pinboard/core.js', function(){
 				var temp = document.createElement('div');
 				temp.innerHTML = items;
 				var items = temp.childNodes;
+				console.log(items);
+				console.log(items.length);
 				for(var i = 0, it, il = items.length; i < il; i++){
 					it = items[i];
+					console.log(it);
 					if(!it.nodeType || it.nodeType != 1) continue;
 					this._append(it);
 				}
