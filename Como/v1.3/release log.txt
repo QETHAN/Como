@@ -4,3 +4,4 @@
 4. 增加Como.filter
 5. 优化Como.Array， 如 "" == 0的Bug
 6. 优化了Como().children\first\next\prevAll\nextAll等方法的速度
+7. 修复document上的绑定和取消绑定事件
