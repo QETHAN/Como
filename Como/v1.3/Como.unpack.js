@@ -367,7 +367,7 @@ var _como_prototype = {
 		var selector = Como(exp, parent);
 		var els = [];
 		if(selector)
-			this.each(function(el){
+			this.get(0).each(function(el){
 				el = el[0];
 				while((el = el.parentNode)){
 					if(Como.Array.include(selector, el)){
@@ -382,7 +382,7 @@ var _como_prototype = {
     	var selector = Como(exp, parent);
 		var els = [];
 		if(selector)
-			this.each(function(el){
+			this.get(0).each(function(el){
 				el = el[0];
 				while(el){
 					if(Como.Array.include(selector, el)){
