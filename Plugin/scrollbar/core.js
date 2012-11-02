@@ -132,8 +132,8 @@ Como.reg('scrollbar/core.js', function(){
 		//拖拽滚动条
 		_scrollHandle: function(e){
 			this._mouseY = this._getMouseY(e);
-			if(!this._e_drag)this._e_drag = Como.Function.bindEvent(this._onDrag, this); 
-			if(!this._e_up) this._e_drag_up = Como.Function.bindEvent(this._onDragStop, this);
+			if(!this._e_drag) this._e_drag = Como.Function.bindEvent(this._onDrag, this); 
+			if(!this._e_drag_up) this._e_drag_up = Como.Function.bindEvent(this._onDragStop, this);
 			Como(document).on('mousemove', this._e_drag);
 			Como(document).on('mouseup', this._e_drag_up);
 			Como.Event.stop(e);
@@ -146,14 +146,16 @@ Como.reg('scrollbar/core.js', function(){
 
 		_onDrag: function(e){
 			var _mouseY = this._getMouseY(e);
-			this._scrollBy(_mouseY - this._mouseY);
+			var v = _mouseY - this._mouseY;
 			this._mouseY = _mouseY;
+			this._scrollBy(v);
 			Como.Event.stop(e);
 		},
 
-		_onDragStop: function(){
+		_onDragStop: function(e){
 			Como(document).un('mousemove', this._e_drag);
 			Como(document).un('mouseup', this._e_drag_up);
+			Como.Event.stop(e);
 		},
 
 		_onWheel: function(e){

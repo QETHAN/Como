@@ -1194,14 +1194,18 @@ Como.Event = {
 		} : function(el, name, fun){
 			if(!el) return;
 			if(el.como) el = el[0];
-			var ns = new Date().getTime();
-			if(!el.__e_ns) el.__e_ns = ns;
-			if(!fun.__e_ns) fun.__e_ns = ns;
-			this.__e_handlers[el.__e_ns+'_'+fun.__e_ns] = function(e){
-				e.currentTarget = el;
-				fun(e);
-			};
-			el.attachEvent('on' + name, this.__e_handlers[el.__e_ns+'_'+fun.__e_ns]);
+            if(el == document){
+                el.attachEvent('on' + name, fun);
+            } else {
+                var ns = new Date().getTime();
+                if(!el.__e_ns) el.__e_ns = ns;
+                if(!fun.__e_ns) fun.__e_ns = ns;
+                this.__e_handlers[el.__e_ns+'_'+fun.__e_ns] = function(e){
+                    e.currentTarget = el;
+                    fun(e);
+                };
+                el.attachEvent('on' + name, this.__e_handlers[el.__e_ns+'_'+fun.__e_ns]);
+            }
 	},
     un: document.removeEventListener ? function(el, name, fun){
 			if(!el) return;
@@ -1210,8 +1214,13 @@ Como.Event = {
 		} : function(el, name, fun){
 				if(!el) return;
 				if(el.como) el = el[0];
-				if(el.__e_ns && fun.__e_ns)
-					el.detachEvent('on' + name, this.__e_handlers[el.__e_ns+'_'+fun.__e_ns]);
+                if(el == document){
+                    el.detachEvent('on' + name, fun);
+                } else {
+                    if(el.__e_ns && fun.__e_ns)
+                        el.detachEvent('on' + name, this.__e_handlers[el.__e_ns+'_'+fun.__e_ns]);
+                }
+				
     },
     out: function(el, name, fun, one){
         one = one || false;
