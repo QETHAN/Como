@@ -9,7 +9,8 @@ function task(steps){
 
 task.prototype._next = function(err, result){
 	if(this._steps.length == 0) {
-		var args = [err].concat(this._passResults).concat(result);
+		var args = [err].concat(this._passResults);
+		args.push(result);
 		this._passResults = [];
 		if(this._callback) this._callback.apply(this, args);
 		return;
