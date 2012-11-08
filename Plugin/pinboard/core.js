@@ -97,8 +97,8 @@ Como.reg('pinboard/core.js', function(){
 			var op = this.op, top = 0, left = 0;
 			var it = this.element.last();
 			var index = this._getMinY();
-			top = this.columnY[index] + op.padding; left = (op.width + op.padding) * index + this.marginLeft;
-			this.columnY[index] = top + it.height();
+			top = this.columnY[index]; left = (op.width + op.padding) * index + this.marginLeft;
+			this.columnY[index] = top + it.height() + op.padding;
 			it.css('position', 'absolute').top(top).left(left);
 		},
 		
