@@ -8,6 +8,7 @@ Como.reg('pinboard/core.js', function(){
 				resize: true,
 				center: true,
 				buttomLine: false,
+				buttomFire: 0,
 				onMore: null
 			}, options || {});
 			
@@ -44,7 +45,7 @@ Como.reg('pinboard/core.js', function(){
 			if(this.isWaiting) return;
 			var bottomH = Como(document.body).pos().top + document.documentElement.clientHeight;
 			var index = this._getMinY();
-			if(bottomH > this.columnY[index]){
+			if(bottomH > (this.columnY[index] - this.op.buttomFire)){
 				this.isWaiting = true;
 				this.op.onMore(this);
 			}
@@ -74,8 +75,9 @@ Como.reg('pinboard/core.js', function(){
 				if(!it.nodeType || it.nodeType != 1) continue;
 				it = Como(it);
 				index = this._getMinY();
-				top = this.columnY[index] + op.padding; left = (op.width + op.padding) * index + this.marginLeft;
-				this.columnY[index] = top + it.height();
+				top = this.columnY[index]; 
+				left = (op.width + op.padding) * index + this.marginLeft;
+				this.columnY[index] = top + it.height() + op.padding;
 				var clone = it[0].cloneNode(true);
 				Como(clone).css('position', 'absolute').top(top).left(left);
 				temp.appendChild(clone);
@@ -105,11 +107,8 @@ Como.reg('pinboard/core.js', function(){
 				var temp = document.createElement('div');
 				temp.innerHTML = items;
 				var items = temp.childNodes;
-				console.log(items);
-				console.log(items.length);
 				for(var i = 0, it, il = items.length; i < il; i++){
 					it = items[i];
-					console.log(it);
 					if(!it.nodeType || it.nodeType != 1) continue;
 					this._append(it);
 				}

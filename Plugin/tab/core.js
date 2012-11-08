@@ -52,12 +52,18 @@ Como.reg('tab/core.js', function(){
 			Como.Array.each(this._curIndexs, bind(function(it){
 				if(it > -1){
 					this.tabs.get(it).addClass(op.activeClass);
-					if(this._canPanelToggle) this.panels.get(it).show();
+					if(this._canPanelToggle){
+						this.panels.get(it).show();
+					} 
 				}
+
+				if(op.onActive) op.onActive(this.tabs.get(it).attr('tab-key'), it, this);
 			}, this));
 
 			this._active_handler = Como.Function.bindEvent(this._activeHandler, this);
 			tabs.on(op.activeEvent, this._active_handler);
+
+
 		},
 
 		_activeHandler: function(e){
