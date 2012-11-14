@@ -9,6 +9,7 @@ Como.reg('pinboard/core.js', function(){
 				center: true,
 				buttomLine: false,
 				buttomFire: 0,
+				topLines: 0,		//顶部每列从制定高度开始计算，比如[10, 20, 10, 30]
 				onMore: null
 			}, options || {});
 			
@@ -66,7 +67,14 @@ Como.reg('pinboard/core.js', function(){
 			this.marginLeft = 0;
 			if(op.center) this.marginLeft = (this.width - ((op.width + op.padding) * this.column - op.padding)) / 2; 
 			this.columnY = [];
-			for(var i = 0; i < this.column; i++) this.columnY.push(0);
+			for(var i = 0; i < this.column; i++){
+				if(!op.topLines || typeof op.topLines == 'number'){
+					this.columnY.push(op.topLines || 0)	
+				} else {
+					if(i < op.topLines.length) this.columnY.push(op.topLines[i]);
+						else this.columnY.push(0);
+				}
+			};
 			
 			var boxes = this.element[0].childNodes, top = 0, left = 0;
 			var temp = document.createElement('div');

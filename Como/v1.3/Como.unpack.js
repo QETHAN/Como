@@ -1725,9 +1725,9 @@ Como.Pack = {
 		var url = pack.url;
 		if(!this._urlLoads[url]){
 			this._urlLoads[url] = 1;
-			if(/.css$/.test(url))
+			if(/.css/.test(url))
 				this._p_loadCSS(url);
-			else if(/.js$/.test(url))
+			else if(/.js/.test(url))
 				this._p_loadJS(url);
 		} else if(this._urlLoads[url] == 2){
 			pack.status = 3;

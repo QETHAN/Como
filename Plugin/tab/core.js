@@ -11,6 +11,7 @@ Como.reg('tab/core.js', function(){
 				activeEvent: 'click',		//tab激活的事件
 				activeClass: '',				//tab激活时的className
 				defaultActive: null,		//默认激活的Tab的索引(数组), 数据类型为Number时，表示Panel显示互相排斥；为Array时，表示Panel显示不互相排斥
+				defaultOnActive: true,		//默认选择的情况下是否触发onActive
 				onActive: null
 			}, options || {});
 			
@@ -27,12 +28,16 @@ Como.reg('tab/core.js', function(){
 			this._tabKeys = [];
 			this.tabs = tabs;
 			this.panels = Como(op.panels);
-			if(typeof op.defaultActive == 'number'){
-				this._isNumberType = true;
-				this._curIndexs = [op.defaultActive];
-			} else{
-				this._isNumberType = false;
-				this._curIndexs = op.defaultActive;
+			this._isNumberType = true;
+			this._curIndexs = [-1];
+			if(op.defaultActive != null){
+				if(typeof op.defaultActive == 'number'){
+					this._isNumberType = true;
+					this._curIndexs = [op.defaultActive];
+				} else{
+					this._isNumberType = false;
+					this._curIndexs = op.defaultActive;
+				}
 			}
 			
 			tabs.each(bind(function(it, i){
@@ -49,17 +54,19 @@ Como.reg('tab/core.js', function(){
 				this._canPanelToggle = true;
 				this.panels.hide();
 			}
-			Como.Array.each(this._curIndexs, bind(function(it){
-				if(it > -1){
-					this.tabs.get(it).addClass(op.activeClass);
-					if(this._canPanelToggle){
-						this.panels.get(it).show();
-					} 
-				}
+			if(op.defaultActive != null){
+				Como.Array.each(this._curIndexs, bind(function(it){
+					if(it > -1){
+						this.tabs.get(it).addClass(op.activeClass);
+						if(this._canPanelToggle){
+							this.panels.get(it).show();
+						} 
+					}
 
-				if(op.onActive) op.onActive(this.tabs.get(it).attr('tab-key'), it, this);
-			}, this));
-
+					if(op.defaultOnActive && op.onActive) op.onActive(this.tabs.get(it).attr('tab-key'), it, this);
+				}, this));
+			}
+			
 			this._active_handler = Como.Function.bindEvent(this._activeHandler, this);
 			tabs.on(op.activeEvent, this._active_handler);
 
@@ -73,7 +80,13 @@ Como.reg('tab/core.js', function(){
 
 		//激活某一个tab
 		active: function(key){
-			var index = Como.Array.index(this._tabKeys, key), op = this.op;
+			var index = -1, op = this.op;
+			if(typeof key == 'number'){
+				index = key;
+				key = this.tabs.get(index).attr('tab-key');
+			} else {
+				index = Como.Array.index(this._tabKeys, key)
+			}
 			if(index < 0) return;
 			
 			if(this._isNumberType){
