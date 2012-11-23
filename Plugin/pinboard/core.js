@@ -106,7 +106,6 @@ Como.reg('pinboard/core.js', function(){
 		},
 
 		_setHeight: function(){
-			console.log('_setHeight');
 			var op = this.op;
 			if(op.bottomLine){
 				if(!op.bottomLineForMax){
@@ -176,9 +175,7 @@ Como.reg('pinboard/core.js', function(){
 			}
 			
 			this.isWaiting = false;
-			console.log('set begin ' + new Date().getTime());
 			this._setHeight();
-			console.log('set end ' + new Date().getTime());
 		}
 	});
 });
