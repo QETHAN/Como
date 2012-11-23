@@ -2,16 +2,18 @@ Como.reg('pinboard/core.js', function(){
 	Como.Pinboard = Como.Class.create({
 		initialize: function(options){
 			var op = this.op = Como.Object.extend({
-				element: null,
-				width: 200,
-				padding: 5,
-				resize: true,
-				center: true,
-				bottomLine: false,
-				bottomLineForMax: false,
-				bottomFire: 0,
-				topLines: 0,		//顶部每列从制定高度开始计算，比如[10, 20, 10, 30]
-				onMore: null
+				element: null,					//瀑布流的容器
+				width: 200,						//单个Board的宽度
+				padding: 5,						//每个Board之间的间隔
+				resize: true,					//在窗口resize时是否重新调整布局
+				center: true,					//Board是否为居中显示
+				bottomLine: false,				//瀑布流是否底部对齐
+				bottomLineForMax: false,		//瀑布流底部对齐时，是否按最大值底部对齐（默认最小值）
+				rightColumnIndexs: [],			//固定在右边的Board索引
+				leftColumnIndexs: [],			//固定在左边的Board索引
+				bottomFire: 0,					//当拖动滚动条时，距离底部最小高度的Board的某个值时触发onMore
+				topLines: 0,					//顶部每列从指定高度开始计算，比如[10, 20, 10, 30]
+				onMore: null 					//触发onMore时回调
 			}, options || {});
 			
 			this.columnY = [];
@@ -81,11 +83,17 @@ Como.reg('pinboard/core.js', function(){
 			
 			var boxes = this.element[0].childNodes, top = 0, left = 0;
 			var temp = document.createElement('div');
-			for(var i = 0, index, it, il = boxes.length; i < il; i++){
+			for(var i = 0, ii = 0, index, it, il = boxes.length; i < il; i++){
 				it = boxes[i];
 				if(!it.nodeType || it.nodeType != 1) continue;
 				it = Como(it);
-				index = this._getMinY();
+				if(op.rightColumnIndexs.indexOf(ii) > -1){
+					index = this.columnY.length - 1;
+				} else if(op.leftColumnIndexs.indexOf(ii) > -1){
+					index = 0;
+				} else {
+					index = this._getMinY();	
+				}
 				top = this.columnY[index]; 
 				left = (op.width + op.padding) * index + this.marginLeft;
 				this.columnY[index] = top + it.height() + op.padding;
@@ -98,6 +106,7 @@ Como.reg('pinboard/core.js', function(){
 				}
 				this.lastElesY[index] = id;
 				temp.appendChild(clone);
+				ii++;
 			}
 			this.element.html(temp.innerHTML);
 			temp = null;
