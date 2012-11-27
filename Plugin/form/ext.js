@@ -52,7 +52,10 @@ Como.reg('form/ext.js', function(){
 		for(var i = 0, il = els.length; i < il; i++){
 			el = Como(els[i]);
 			hint = el.attr('hint');
-			if(hint)el.val(hint).addClass('hint_blank').on('focus', onFocus).on('blur', onBlur);
+			if(hint){
+				el.on('focus', onFocus).on('blur', onBlur);
+				if(!el.val()) el.val(hint).addClass('hint_blank')
+			}
 		}
 	};
 	

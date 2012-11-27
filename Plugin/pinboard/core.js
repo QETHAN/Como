@@ -15,9 +15,10 @@ Como.reg('pinboard/core.js', function(){
 				topLines: 0,					//顶部每列从指定高度开始计算，比如[10, 20, 10, 30]
 				onMore: null 					//触发onMore时回调
 			}, options || {});
-			
+			this.element = Como(this.op.element);
+			if(!this.element) return;
+			this.element.css('position', 'relative');
 			this.columnY = [];
-			
 			if(op.resize) this._bind_resize();
 			if(op.onMore) this._bind_scroll();
 		},
@@ -60,10 +61,8 @@ Como.reg('pinboard/core.js', function(){
 		},
 		
 		arrange: function(){
+			if(!this.element) return;
 			var op = this.op;
-			if(!this.element){
-				this.element = Como(this.op.element).css('position', 'relative');
-			}
 			this.width = this.element.width();
 			var column = Math.floor((this.width + op.padding) / (op.width + op.padding));
 			if(this.column == column) return;
@@ -157,6 +156,7 @@ Como.reg('pinboard/core.js', function(){
 		},
 		
 		append: function(items){
+			if(!this.element) return;
 			var op = this.op;
 			if(op.bottomLine && op.bottomLineForMax){
 				for(var i = 0; i < this.lastElesY.length; i++){
