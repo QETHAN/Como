@@ -86,9 +86,9 @@ Como.reg('pinboard/core.js', function(){
 				it = boxes[i];
 				if(!it.nodeType || it.nodeType != 1) continue;
 				it = Como(it);
-				if(op.rightColumnIndexs.indexOf(ii) > -1){
+				if(Como.Array.index(op.rightColumnIndexs, ii) > -1){
 					index = this.columnY.length - 1;
-				} else if(op.leftColumnIndexs.indexOf(ii) > -1){
+				} else if(Como.Array.index(op.leftColumnIndexs, ii) > -1){
 					index = 0;
 				} else {
 					index = this._getMinY();	
