@@ -19,8 +19,7 @@ Como.reg('pinboard/core.js', function(){
 			if(!this.element) return;
 			this.element.css('position', 'relative');
 			this.columnY = [];
-			if(op.resize) this._bind_resize();
-			if(op.onMore) this._bind_scroll();
+			this.start();
 		},
 		
 		_bind_resize: function(){
@@ -61,6 +60,7 @@ Como.reg('pinboard/core.js', function(){
 		},
 		
 		arrange: function(){
+			if(!this.running) return;
 			if(!this.element) return;
 			var op = this.op;
 			this.width = this.element.width();
@@ -156,6 +156,7 @@ Como.reg('pinboard/core.js', function(){
 		},
 		
 		append: function(items){
+			if(!this.running) return;
 			if(!this.element) return;
 			var op = this.op;
 			if(op.bottomLine && op.bottomLineForMax){
@@ -185,6 +186,24 @@ Como.reg('pinboard/core.js', function(){
 			
 			this.isWaiting = false;
 			this._setHeight();
+		},
+
+		stop: function(){
+			var op = this.op;
+			if(op.resize){
+				 Como(window).un('resize', this._handler_resize);
+			}
+			if(op.onMore){
+				Como(window).un('scroll', this._handler_scroll);
+			}
+			this.running = false;
+		},
+
+		start: function(){
+			var op = this.op;
+			if(op.resize) this._bind_resize();
+			if(op.onMore) this._bind_scroll();
+			this.running = true;
 		}
 	});
 });
