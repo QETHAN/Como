@@ -12,6 +12,7 @@ Como.reg('slide/core.js', function(){
 				direction: 'top',				//方向,  top, left, opacity
 				index: 0,						//当前索引
 				distance: null,					//高度，默认为List的第一项元素高度或宽度
+				autoScroll: true, 				//自动滚动
 				onSwitch: null				//开始轮播时触发，Param: [index, this]
 			}, options || {});		
 			this.element = Como(op.element);
@@ -22,8 +23,10 @@ Como.reg('slide/core.js', function(){
 					op.distance = this.element.first().width();
 			}
 			this._initElement();
-			this._initInterval();
-			this._initBind();
+			if(op.autoScroll){
+				this._initInterval();
+				this._initBind();
+			}
 		},
 
 		_initElement: function(){
@@ -117,6 +120,16 @@ Como.reg('slide/core.js', function(){
 
 		switchTo: function(index){
 			this._switchTo(this._getIndex(index));
+			return this;
+		},
+
+		switchLeft: function(){
+			this._switchTo(this._getIndex(this.op.index - 1));
+			return this;
+		},
+
+		switchRight: function(){
+			this._switchTo(this._getIndex(this.op.index + 1));
 			return this;
 		}
 	});

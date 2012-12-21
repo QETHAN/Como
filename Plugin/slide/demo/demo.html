@@ -8,12 +8,12 @@
 		img{border:0 none;}
 		#demo0{overflow:hidden; height:20px;}
 		#demo0 li{height: 20px;}
-		#demo1, #demo2, #demo3{overflow:hidden; height:150px; width: 470px;}
-		#demo1 ul, #demo3 ul{position:absolute;top:120px; right: 10px;}
-		#demo1 ul li, #demo3 ul li{float:left; margin:0 5px;padding:2px 5px;background-color:#999;font-size:12px;cursor:pointer}
-		#demo1 ul li.on, #demo3 ul li.on{background-color:#FFF;}
-		#demo2 ol{width: 1880px;}
-		#demo2 ol li{float:left;}
+		#demo1, #demo2, #demo3, #demo4{overflow:hidden; height:150px; width: 470px;}
+		#demo1 ul, #demo3 ul, #demo4 ul{position:absolute;top:120px; right: 10px;}
+		#demo1 ul li, #demo4 ul li, #demo3 ul li{float:left; margin:0 5px;padding:2px 5px;background-color:#999;font-size:12px;cursor:pointer}
+		#demo1 ul li.on, #demo4 ul li.on, #demo3 ul li.on{background-color:#FFF;}
+		#demo2 ol, #demo4 ol{width: 1880px;}
+		#demo2 ol li, #demo4 ol li{float:left;}
 		
 	</style>
 	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
@@ -73,6 +73,20 @@
 	</ul>
 </div>
 
+<br/><br/>
+<div id="demo4">
+	<ol>
+		 <li><img src="T1HllqXjXpXXXXXXXX-470-150.jpg" title="" /></li>
+		 <li><img src="091224170529.gif" title="" /></li>
+		 <li><img src="091229160359.jpg" title="" /></li>
+		 <li><img src="T1qS0qXhBhXXXXXXXX-470-150.jpg" title="" /></li>
+	</ol>
+	<ul>
+		<li onclick="demo4.switchLeft()"><</li>
+		<li onclick="demo4.switchRight()">></li>
+	</ul>
+</div>
+
 <script type="text/javascript">
 Como.onincludeHandler(function(){
 	window.demo0 = new Como.Slide({
@@ -103,6 +117,12 @@ Como.onincludeHandler(function(){
 			els.removeClass('on');
 			els.get(index).addClass('on');
 		}
+	});
+
+	window.demo4 = new Como.Slide({
+		element: '#demo4 ol',
+		direction: 'left',
+		autoScroll: false
 	});
 });
 </script>

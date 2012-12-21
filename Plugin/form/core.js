@@ -176,7 +176,7 @@ Como.reg('form/core.js', function(){
 			return this._bindItemEvent(names, callback, 'blur');
 		},
 		onChange: function(names, callback){
-			return this._bindItemEvent(names, callback, $.Browser.ie ? 'onpropertychange' : 'input');
+			return this._bindItemEvent(names, callback, Como.Browser.ie ? 'onpropertychange' : 'input');
 		},
 		
 		disabled: function(){
