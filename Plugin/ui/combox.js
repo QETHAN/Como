@@ -17,9 +17,15 @@ Como.reg('ui/combox.js', function(){
 			this.super_();
 			this._input = Como(op.element).attr('autocomplete', 'off');
 			this._input.on('blur', Como.Function.bind(this._onBlur, this));
-			this._value = this._input.val();
+			this._value = this.getValue();
 			this._startTimer();
 			return this;
+		},
+
+		getValue: function(){
+			var v = this._input.val(), hint = this._input.attr('hint');
+			if(hint && v == hint) return '';
+			return v;
 		},
 
 		_startTimer: function(){
@@ -61,7 +67,7 @@ Como.reg('ui/combox.js', function(){
 
 		_checked: function(){
 
-			var v = this._input.val();
+			var v = this.getValue();
 			if(v != this._value){
 				this._value = v;
 				this._changed();
@@ -91,7 +97,7 @@ Como.reg('ui/combox.js', function(){
 			this._endTimer();
 			if(this.op.onSelect){
 				this.op.onSelect(v, t);
-				this._value = this._input.val();
+				this._value = this.getValue();
 			}
 			this._startTimer();
 		},

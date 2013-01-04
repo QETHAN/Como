@@ -97,7 +97,9 @@ Como.reg('ui/menu.js', function(){
 					var index = Como.Array.index(this.element.down(Config.ItemEl), this._curItemEl[0]);
 					this.op.onSelect(this._value[index], this._text[index], this);
 				}
+				return true;
 			}
+			return false;
 		},
 		/**
 		 * 键盘上下,Enter, Tab操作
@@ -108,16 +110,17 @@ Como.reg('ui/menu.js', function(){
 			switch(event.keyCode){
 				case 38:
 					this.setOnPrev();
+					Como.Event.stop(event);
 					break;
 				case 40:
 					this.setOnNext();
+					Como.Event.stop(event);
 					break;
 				case 13:
 				case 9:
-					this._handleSelectActioin();
+					if(this._handleSelectActioin()) Como.Event.stop(event);;
 					break;
 			}
-			Como.Event.stop(event);
 		},
 
 		setOn: function(s){

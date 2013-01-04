@@ -36,7 +36,7 @@ Como.reg('pinboard/core.js', function(){
 		
 		_fire_resize: function(){
 			if(this._handler_timeout) clearTimeout(this._handler_timeout);
-			this._handler_timeout = setTimeout(Como.Function.bind(this.arrange, this, false), 500);
+			this._handler_timeout = setTimeout(Como.Function.bind(this.arrange, this, true), 500);
 		},
 		
 		_fire_scroll: function(){
@@ -59,13 +59,13 @@ Como.reg('pinboard/core.js', function(){
 			for(var i = 0; i < this.columnY.length; i++) if(this.columnY[i] == m) return i;
 		},
 		
-		arrange: function(){
+		arrange: function(isResize){
 			if(!this.running) return;
 			if(!this.element) return;
 			var op = this.op;
 			this.width = this.element.width();
 			var column = Math.floor((this.width + op.padding) / (op.width + op.padding));
-			if(this.column == column) return;
+			if(isResize && this.column == column) return;
 			this.column = column;
 			this.marginLeft = 0;
 			if(op.center) this.marginLeft = (this.width - ((op.width + op.padding) * this.column - op.padding)) / 2; 
