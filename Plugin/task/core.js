@@ -51,7 +51,7 @@ Como.reg('task/core.js', function(){
 
 		pass: function(){
 			var results = Array.prototype.slice.call(arguments);
-			this._passResults.concat(results);
+			this._passResults = this._passResults.concat(results);
 		},
 
 		start: function(callback){
