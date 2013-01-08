@@ -22,7 +22,7 @@ Como.reg('task/core.js', function(){
 			try{
 				var args = [err];
 				if(this._passResults.length > 0){
-					args = args.concat([this._passResults]);
+					args = args.concat(this._passResults);
 					this._passResults = [];
 				}
 				args.push(result);
@@ -49,8 +49,9 @@ Como.reg('task/core.js', function(){
 		    }
 		},
 
-		pass: function(result){
-			this._passResults.push(result);
+		pass: function(){
+			var results = Array.prototype.slice.call(arguments);
+			this._passResults.cancat(results);
 		},
 
 		start: function(callback){

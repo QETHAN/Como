@@ -20,7 +20,7 @@ task.prototype._next = function(err, result){
 	try{
 		var args = [err];
 		if(this._passResults.length > 0){
-			args = args.concat([this._passResults]);
+			args = args.concat(this._passResults);
 			this._passResults = [];
 		}
 		args.push(result);
@@ -47,8 +47,9 @@ task.prototype.skip = function(index){
     }
 };
 
-task.prototype.pass = function(result){
-	this._passResults.push(result);
+task.prototype.pass = function(){
+	var results = Array.prototype.slice.call(arguments);
+	this._passResults.cancat(results);
 };
 
 task.prototype.start = function(callback){
