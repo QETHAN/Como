@@ -49,7 +49,7 @@ task.prototype.skip = function(index){
 
 task.prototype.pass = function(){
 	var results = Array.prototype.slice.call(arguments);
-	this._passResults.cancat(results);
+	this._passResults.concat(results);
 };
 
 task.prototype.start = function(callback){
