@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Grid</title>
+	<style>
+		div.box{float:left;background:#000; padding: 5px; width:200px; margin-right: 10px; color:#fff;}
+	</style>
+	<script type="text/javascript" src="../../Como.unpack.js?only"></script>
+</head>
+
+<body>
+
+<div class="grid">
+
+</div>
+
+
+<button onclick="append()">append</button>
+
+<script type="text/javascript">
+	Como.include('grid/core.js', function(){
+		var grid = new Como.Grid({
+			element: 'div.grid',
+			padding:10
+			onMore: function(p){
+				// p.append('<div class="box"><img src="http://i6.cvimage.cn/art_image/4ec3/5ff5/6c96631411400ee3" width="200" height="151" /><p>美好的时节：秋季插画欣赏（上）</p></div>    <div class="box"><img src="http://i6.cvimage.cn/art_image/4ec3/5ff5/6c96631411400ee3" width="200" height="151" /><p>美好的时节：秋季插画欣赏（上）</p></div>   ');
+			}
+		});
+		grid.arrange();
+		
+		window.append = function(){
+			grid.append('<div class="box"><img src="http://i6.cvimage.cn/art_image/4ec3/5ff5/6c96631411400ee3" width="200" height="151" /><p>美好的时节：秋季插画欣赏（上）</p></div>    <div class="box"><img src="http://i6.cvimage.cn/art_image/4ec3/5ff5/6c96631411400ee3" width="200" height="151" /><p>美好的时节：秋季插画欣赏（上）</p></div>');
+		}
+	});
+</script>
+</body>
+</html>
