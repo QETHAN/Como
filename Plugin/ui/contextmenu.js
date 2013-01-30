@@ -56,10 +56,10 @@ Como.reg('ui/contextmenu.js', function(){
 				var t = this.op.onActive(e, this);
 				if(!t) return;
 			}
-			if(this._isOutActionMe){
-				this._isOutActionMe = false;
-				return;
-			}
+			// if(this._isOutActionMe){
+			// 	this._isOutActionMe = false;
+			// 	return;
+			// }
 			if(!this._isShowing){
 				this.show(e);
 			} else{
@@ -96,6 +96,25 @@ Como.reg('ui/contextmenu.js', function(){
 				this.menu.element.unout('mousedown', this._out_binder);
 		},
 
+		_wheel_handler: function(){
+			this._unwheel_handler();
+			if(!this._wheel_binder)
+				this._wheel_binder = Como.Function.bindEvent(function(e){
+					var el = Como.Event.element(e);
+					if(el && el.upWithMe(this.op.element)){
+						this.hide();
+					} else {
+						Como.Event.stop(e);
+					}
+				}, this);
+			Como(window).on(Como.Browser.firefox ? 'DOMMouseScroll' : 'mousewheel', this._wheel_binder);
+		},
+
+		_unwheel_handler: function(){
+			if(this._wheel_binder)
+				Como(window).un('mousewheel', this._wheel_binder);
+		},
+
 		show: function(e){
 			if(this._isShowing) return this;
 			this._isShowing = true;
@@ -104,6 +123,7 @@ Como.reg('ui/contextmenu.js', function(){
 				position:this.op.position
 			});
 			this._out_handler();
+			this._wheel_handler();
 			return this;
 		},
 
@@ -113,6 +133,7 @@ Como.reg('ui/contextmenu.js', function(){
 			if(!this.menu) this._initMenu();
 			this.menu.hide();
 			this._unout_handler();
+			this._unwheel_handler();
 			return this;
 		},
 

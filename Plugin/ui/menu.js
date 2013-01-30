@@ -171,6 +171,12 @@ Como.reg('ui/menu.js', function(){
 		},
 
 		checked: function(s){
+			if(!this.op.checked){
+				var items = this.element.down(Config.ItemEl);
+				items.each(function(it){
+					it.removeClass(Config.Item_Checked);
+				});
+			}
 			var el = this.getItem(s);
 			if(el){
 				el.addClass(Config.Item_Checked);
@@ -183,6 +189,7 @@ Como.reg('ui/menu.js', function(){
 			if(el){
 				el.removeClass(Config.Item_Checked);
 			}
+			return this;
 		},
 		
 		checkedToggle: function(s){

@@ -7,20 +7,22 @@
 		initialize: function(options){
 			var op = this.op = Como.Object.extend({
 				element: null,				//拖动控制器对象，支持多个
-				target: null,					//拖动的元素
-				parent: null,					//可拖动的范围，即在某个容器范围内
+				target: null,				//拖动的元素
+				parent: null,				//可拖动的范围，即在某个容器范围内
 				cursor: 'move',				//拖动控制器鼠标样式
-				dragClass: '',					//移动时的样式名
-				clone: false,					//是否是克隆拖拽
-				opacity: 1,						//拖动时的透明度
+				dragClass: '',				//移动时的样式名
+				dragHorizontal: true,		//允许横向拖拽
+				dragVertical: true,			//允许纵向拖拽
+				clone: false,				//是否是克隆拖拽
+				opacity: 1,					//拖动时的透明度
 				ignoreMargin: false,		//是否忽略鼠标着力点与拖动元素之间的间隔
-				position: [0,0],				//拖动时的元素坐标偏移
-				setCloneContent: null,	//设置拖动时跟随鼠标的内容，默认为拖动元素的拷贝, Param: [this, _curTarget, _fireElement]
+				position: [0,0],			//拖动时的元素坐标偏移
+				setCloneContent: null,		//设置拖动时跟随鼠标的内容，默认为拖动元素的拷贝, Param: [this, _curTarget, _fireElement]
 				isAutoRightAndRight: true,
 				onDown: null,				//鼠标在控制器范围内按下时触发，通过它可以确定是否为拖动对象, Param: [this, _fireElement]
-				onStart: null,					//准备拖动时回调（鼠标按下时），Param: [this, _curTarget, index]
-				onDrag: null,					//拖动过程中的回调, Param: [this, _curTarget, _mouseMoveXY, _cloneXY]
-				onStop: null					//拖动完成后的回调（松开鼠标），Param: [this, curTarget, _mouseMoveXY, _cloneXY]
+				onStart: null,				//准备拖动时回调（鼠标按下时），Param: [this, _curTarget, index]
+				onDrag: null,				//拖动过程中的回调, Param: [this, _curTarget, _mouseMoveXY, _cloneXY]
+				onStop: null				//拖动完成后的回调（松开鼠标），Param: [this, curTarget, _mouseMoveXY, _cloneXY]
 			}, options || {});
 			this.element = Como(op.element);
 			if(!this.element) return;
@@ -33,6 +35,14 @@
 					left: this._minXY.left + pa.width() - this.target.width(),
 					top: this._minXY.top + pa.height() - this.target.height()
 				};
+			}
+			if(!op.dragHorizontal){
+				this._minXY.left = this.target.left();
+				this._maxXY.left = this._minXY.left;
+			}
+			if(!op.dragVertical){
+				this._minXY.top = this.target.top();
+				this._maxXY.top = this._minXY.top;
 			}
 
 			this._bind();
@@ -141,8 +151,8 @@
 				}
 			}
 			var _cloneXY = {
-				x:this._repos('left', this._mouseMoveXY.x - this._margin.x + op.position[0]), 
-				y:this._repos('top', this._mouseMoveXY.y - this._margin.y + op.position[1])
+				x: this._repos('left', this._mouseMoveXY.x - this._margin.x + op.position[0]), 
+				y: this._repos('top', this._mouseMoveXY.y - this._margin.y + op.position[1])
 			};
 			this._cloneXY = _cloneXY;
 			this._clone.style.left = _cloneXY.x + 'px';

@@ -66,13 +66,18 @@ Como.reg('ui/core.js', function(){
 			if(!op.type) op.type = ['left', 'bottom'];
 			if(!op.position) op.position = [0, 0];
 			el = Como(el);
-			this.element.css('position', 'absolute');
+			this.element.css('position', op.fixed ? 'fixed' : 'absolute');
 			var pos = el.pos(),
 				w = el.width(),
 				h = el.height(),
 				wl = this.element.width(),
 				hl = this.element.height(),
-				_left = 0, top = 0;
+				_left = 0, _top = 0;
+			if(op.fixed){
+				var p = Como(document.body).pos();
+				pos.left = pos.left - p.left;
+				pos.top = pos.top - p.top;
+			}
 			if(op.type[0] == 'left') _left = pos.left;
 			else _left = pos.left + w - wl;
 
@@ -81,7 +86,7 @@ Como.reg('ui/core.js', function(){
 			
 			_left += op.position[0];
 			_top += op.position[1];
-
+			
 			this.element.left(_left).top(_top);
 			return this;
 		},
@@ -92,6 +97,17 @@ Como.reg('ui/core.js', function(){
 			var _left = pos.x, _top = pos.y;
 			_left += op.position[0];
 			_top += op.position[1];
+			if(_left < 0) _left = 0;
+			if(_top < 0) _top = 0;
+
+			var pos = Como(document.body).pos();
+			var w = Como(window).width();
+			var h = Como(window).height();
+			var width = this.element.width();
+			var height = this.element.height();
+
+			if(_left > (pos.left + w - width)) _left = pos.left + w - width;
+			if(_top > (pos.top + h - height)) _top = pos.top + h - height;
 			this.element.left(_left).top(_top);
 			return this;
 		}
