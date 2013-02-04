@@ -32,13 +32,16 @@ Como.reg('scrollbar/core.js', function(){
 				template: Template,
 				config: Config,
 				step: 20,
-				fade: true,
-				onScroll: null
+				fade: false,
+				hide: false,
+				range: 100,
+				onScroll: null,
+				onMore: null
 			}, options);
-
+			this.isWaitingMore = false;
 			this._initElements();
 			this._initEvents();
-			this._initProperties();
+			this._initProperties(true);
 		},
 
 		_initElements: function(){
@@ -66,17 +69,17 @@ Como.reg('scrollbar/core.js', function(){
 			this.els.element.on('mouseout', bind(this._unactiveBar, this));
 
 			this._e_wheel = bind(this._onWheel, this);
-			Como(document).on('mousewheel', this._e_wheel);
-			Como(document).on('DOMMouseScroll', this._e_wheel);
+			Como(this.els.viewEl).on('mousewheel', this._e_wheel);
+			Como(this.els.viewEl).on('DOMMouseScroll', this._e_wheel);
 		},
 
-		_initProperties: function(){
+		_initProperties: function(isInit){
 			this.els.element.css('opacity', 0).show();
 
 			this._viewableHeight = this.els.viewEl.height();
 			this._contentHeight = this.els.contentEl.height();
 			if(this._contentHeight <= 0) this._contentHeight = this._viewableHeight;
-			this.els.contentEl.top(0);
+			if(isInit) this.els.contentEl.top(0);
 
 			this._barOffsetTop = this.els.element.pos().top;
 			this._barHeight = this.els.element.height();
@@ -92,23 +95,31 @@ Como.reg('scrollbar/core.js', function(){
 				this.els.barDownEl.top(this._barHeight - this._buttonUpHeight);
 			}
 			this._wrapHeight = this._barHeight - this._buttonUpHeight - this._buttonDownHeight;
-			this.els.barWrapEl.top(this._buttonUpHeight).height(this._wrapHeight);
-
+			this.els.barWrapEl.height(this._wrapHeight).top(this._buttonUpHeight);
 			this._handleHeight = (this._wrapHeight * this._viewableHeight) / this._contentHeight;
 
 			this._handleTopMin = this._buttonUpHeight;
 			this._handleTopMax = this._barHeight - this._buttonDownHeight - this._handleHeight;
-			this._handleTop = this._handleTopMin;
-			this.els.barHandleEl.height(this._handleHeight).top(this._handleTop);
+			if(isInit) this._handleTop = this._handleTopMin;
+			this.els.barHandleEl.height(this._handleHeight);
+			if(isInit) this.els.barHandleEl.top(this._handleTop);
 
 			//滚动比例
 			this._rate = (this._contentHeight - this._viewableHeight)/(this._wrapHeight - this._handleHeight);
-			this.els.element.css('opacity', 100).hide();
+			this.els.element.css('opacity', 100);
 
 			if(this._contentHeight <= this._viewableHeight){
 				this.hide();
 			} else {
 				this.show();
+			}
+			if(this.op.onMore){
+				if(this.isWaitingMore) return;
+				var dis = this.getDistances();
+				if(dis.bottom < this.op.range){
+					if(this.op.onMore) this.op.onMore(this);
+					this.isWaitingMore = true;
+				}
 			}
 		},
 
@@ -145,6 +156,7 @@ Como.reg('scrollbar/core.js', function(){
 		},
 
 		_onDrag: function(e){
+			this._isDraging = true;
 			var _mouseY = this._getMouseY(e);
 			var v = _mouseY - this._mouseY;
 			this._mouseY = _mouseY;
@@ -153,6 +165,7 @@ Como.reg('scrollbar/core.js', function(){
 		},
 
 		_onDragStop: function(e){
+			this._isDraging = false;
 			Como(document).un('mousemove', this._e_drag);
 			Como(document).un('mouseup', this._e_drag_up);
 			Como.Event.stop(e);
@@ -167,7 +180,7 @@ Como.reg('scrollbar/core.js', function(){
 			    direct = e.detail < 0 ? -1 : 1;
 			}
 			this._scrollBy(direct * this.op.step);
-			Como.Event.stop(e);
+			// Como.Event.stop(e);
 		},
 
 		_activeBar: function(e){
@@ -181,6 +194,7 @@ Como.reg('scrollbar/core.js', function(){
 		_unactiveBar: function(e){
 			this._canWheel = false;
 			if(this.op.fade){
+				if(this._isDraging) return;
 				this._hide_timer = setTimeout(Como.Function.bind(function(){
 					this.els.element.anim().to('opacity', 0).duration(200).go();
 				}, this), 1000);
@@ -201,12 +215,28 @@ Como.reg('scrollbar/core.js', function(){
 			this._handleTop = top;
 			this.els.contentEl.top(- (this._handleTop - this._handleTopMin) * this._rate);
 			if(this.op.onScroll) this.op.onScroll(this);
+			if(this.op.onMore){
+				if(this.isWaitingMore) return;
+				var dis = this.getDistances();
+				if(dis.bottom < this.op.range){
+					if(this.op.onMore) this.op.onMore(this);
+					this.isWaitingMore = true;
+				}
+			}
+		},
+
+		stopWait: function(){
+			this.isWaitingMore = false;
 		},
 
 		show: function(){
-			this.els.element.show();
-			if(this.op.fade){
-				this.els.element.css('opacity', 0);
+			if(!this.op.hide){
+				this.els.element.show();
+				if(this.op.fade && this.els.element.css('opacity') != 100){
+					this.els.element.css('opacity', 0);
+				}
+			} else {
+				this.els.element.hide();
 			}
 		},
 
@@ -214,16 +244,27 @@ Como.reg('scrollbar/core.js', function(){
 			this.els.element.hide();
 		},
 
+		reinit: function(){
+			this._initProperties(false);
+		},
+
 		resize: function(){
-			this._initProperties();
+			var old_handleTop = this._handleTop;
+			var old_rate = this._rate;
+			this._initProperties(false);
+			this._handleTop = old_handleTop * old_rate / this._rate;
+			if(this._handleTop < this._handleTopMin) this._handleTop = this._handleTopMin;
+			if(this._handleTop > this._handleTopMax) this._handleTop = this._handleTopMax;
+			this.els.barHandleEl.top(this._handleTop);
+			// this.els.contentEl.top(- (this._handleTop - this._handleTopMin) * this._rate);
 		},
 		
 		scrollTo: function(top){
-			this._scrollTo(top + this._handleTopMin);
+			this._scrollTo(top / this._rate  + this._handleTopMin);
 		},
 
 		scrollBy: function(top){
-			this._scrollBy(top);
+			this._scrollBy(top / this._rate + this._handleTopMin);
 		},
 
 		getDistances: function(){
@@ -235,5 +276,4 @@ Como.reg('scrollbar/core.js', function(){
 			}
 		}
 	});
-
 });
