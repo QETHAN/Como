@@ -3,6 +3,7 @@ function task(steps){
 	this._steps = steps;
 	this._callback = null;
 	this._passResults = [];
+	this._waiting = 0;
 	this.next = require('./core').bind(this._next, this);
 	return this;
 };
@@ -14,6 +15,11 @@ task.prototype._next = function(err, result){
 		this._passResults = [];
 		if(this._callback) this._callback.apply(this, args);
 		return;
+	}
+
+	if(this._waiting > 0){
+		var stop = new Date().getTime() + this._waiting;
+		while(new Date().getTime() < stop){ }
 	}
 
 	var fn = this._steps.shift();
@@ -29,13 +35,14 @@ task.prototype._next = function(err, result){
 			this._next(null, _result);
 		}
 	} catch(e){
-	   this._next(e, null);
+		this._next(e, null);
 	}
 };
 
 task.prototype.result = function(err, result){
     while(this._steps.length) this._steps.shift();
-    var args = [err].concat(this._passResults).concat(result);
+    var args = [err].concat(this._passResults);
+    args.push(result);
 	this._passResults = [];
 	if(this._callback) this._callback.apply(this, args);
     return;
@@ -54,8 +61,16 @@ task.prototype.pass = function(){
 
 task.prototype.start = function(callback){
     this._callback = callback;
+    this._waiting = 0;
     this._next(null, null);
     return this;
+};
+
+task.prototype.startInterval = function(time, callback){
+	this._callback = callback;
+	this._waiting = time;
+	this._next(null, null);
+	return this;
 };
 
 module.exports = function(){
