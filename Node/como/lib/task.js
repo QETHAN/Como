@@ -1,4 +1,3 @@
-
 function task(steps){
 	this._steps = steps;
 	this._callback = null;
@@ -35,6 +34,7 @@ task.prototype._next = function(err, result){
 			this._next(null, _result);
 		}
 	} catch(e){
+		console.log(e.stack);
 		this._next(e, null);
 	}
 };
