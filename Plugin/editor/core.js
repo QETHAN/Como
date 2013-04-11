@@ -350,11 +350,16 @@ Como.reg('editor/core.js', function(){
 			return this.textarea.val();
 		},
 
-		setValue: function(){
-			if(!this._codeStatus){
-				this.textarea.val(this.iframe.contentWindow.document.getElementsByTagName("BODY")[0].innerHTML);
+		setValue: function(str){
+			if(typeof str == 'string'){
+				this.textarea.val(str);
+				this.iframe.contentWindow.document.getElementsByTagName("BODY")[0].innerHTML = str;
 			} else {
-				this.iframe.contentWindow.document.getElementsByTagName("BODY")[0].innerHTML = this.textarea.val();
+				if(!this._codeStatus){
+					this.textarea.val(this.iframe.contentWindow.document.getElementsByTagName("BODY")[0].innerHTML);
+				} else {
+					this.iframe.contentWindow.document.getElementsByTagName("BODY")[0].innerHTML = this.textarea.val();
+				}
 			}
 			this._checkMenuState();
 		},

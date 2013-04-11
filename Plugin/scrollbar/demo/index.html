@@ -35,7 +35,7 @@ Infragistics产品管理部门的负责人 Jason Beres说：
 	</div>
 </div>
 <div id="bar"></div>
-
+<button onclick="append()">append</button>
 <script type="text/javascript">
 Como.include('scrollbar/core.js', function(){
 	var scrollBar = new Como.ScrollBar({
@@ -46,6 +46,11 @@ Como.include('scrollbar/core.js', function(){
 			console.log(t.getDistances());
 		}
 	});
+
+	window.append = function(){
+		Como('#content').append("Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>Hello<br/>");
+		scrollBar.resize();
+	}
 });
 </script>
 </body>
