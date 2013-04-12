@@ -1095,6 +1095,7 @@ Como.Array = {
 Como.Date = {
 	//eg. new Date().format('yyyy-MM-dd');
 	format: function(date, f){
+        if(typeof date == 'string') date = new Date(date);
         var o = {
             "M+": date.getMonth() + 1,
             "d+": date.getDate(),

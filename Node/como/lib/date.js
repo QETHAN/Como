@@ -1,5 +1,6 @@
 module.exports = {
 	format: function(date, f){
+        if(typeof date == 'string') date = new Date(date);
         var o = {
             "M+": date.getMonth() + 1,
             "d+": date.getDate(),
