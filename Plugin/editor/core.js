@@ -181,7 +181,7 @@ Como.reg('editor/core.js', function(){
 		toolGrp: '<div class="editor_toolsgrp">{0}</div>',
 		toolItem: '<a class="editor_icon e_{0}" title="{1}" style="{2}" href="javascript:void(0)" key="{0}">{1}</a>',
 		body: '<div class="editor_body"><div class="editor_textareaparent" style="display:none;"></div><div class="editor_iframeparent"><iframe class="editor_iframe" frameborder="0" width="100%"></iframe></div></div><div class="editor_foot"><div class="editor_tips"></div><div class="editor_resize"></div></div>',
-		iframeContent: '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style>p {*margin:0.2em auto;}body {margin: 10px; padding: 0;word-wrap: break-word;overflow: scroll;overflow-x: auto;}body, td, textarea, input, br, div, span{font-size: 14px;font-family: "宋体", Verdana,Arial, Helvetica, sans-serif;line-height:1.5;}img{border: 0;}html{height: 100%;cursor: text;}form{margin: 0;}</style></head><body></body></html>',
+		iframeContent: '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style>p {*margin:0.2em auto;}body {background: #f5f5f5; margin: 10px; padding: 0;word-wrap: break-word;overflow: scroll;overflow-x: auto;}body, td, textarea, input, br, div, span{font-size: 14px;font-family: "宋体", Verdana,Arial, Helvetica, sans-serif;line-height:1.5;}img{border: 0;}html{height: 100%;cursor: text;}form{margin: 0;}</style></head><body></body></html>',
 		pannel: '<div class="editor_psub"></div><div class="editor_pcontent"></div>'
 	};
 
@@ -567,7 +567,10 @@ Como.reg('editor/core.js', function(){
 			this.iframe.contentWindow.focus();
 			var doc = this.iframe.contentWindow.document;
 			var html = doc.body.innerHTML;
-			html = html.replace(/\ style="[\s\S]*?"/ig, '');
+			// html = html.replace(/\ style="[\s\S]*?"/ig, '');
+			html = html.replace(/background-color:[\s\S]*?;/ig, '');
+			html = html.replace(/\<a[\s\S]*?>([\s\S]*?)\<\/a>/ig, "$1");
+			
 			doc.body.innerHTML = html;
 			this.iframe.contentWindow.focus();
 			this.setValue();
