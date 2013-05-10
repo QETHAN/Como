@@ -3,11 +3,13 @@ function task(steps){
 	this._callback = null;
 	this._passResults = [];
 	this._waiting = 0;
-	this.next = require('./core').bind(this._next, this);
+	this._bind = require('./core').bind;
+	this.next = this._bind(this._next, this);
 	return this;
 };
 
 task.prototype._next = function(err, result){
+	if(this._isStopping) return;
 	if(this._steps.length == 0) {
 		var args = [err].concat(this._passResults);
 		args.push(result);
@@ -16,27 +18,26 @@ task.prototype._next = function(err, result){
 		return;
 	}
 
-	if(this._waiting > 0){
-		var stop = new Date().getTime() + this._waiting;
-		while(new Date().getTime() < stop){ }
-	}
-
-	var fn = this._steps.shift();
-	try{
-		var args = [err];
-		if(this._passResults.length > 0){
-			args = args.concat(this._passResults);
-			this._passResults = [];
+	var fun = this._bind(function(){
+		var fn = this._steps.shift();
+		try{
+			var args = [err];
+			if(this._passResults.length > 0){
+				args = args.concat(this._passResults);
+				this._passResults = [];
+			}
+			args.push(result);
+			var _result = fn.apply(this, args);
+			if(_result != undefined){
+				this._next(null, _result);
+			}
+		} catch(e){
+			console.log(e.stack);
+			this._next(e, null);
 		}
-		args.push(result);
-		var _result = fn.apply(this, args);
-		if(_result != undefined){
-			this._next(null, _result);
-		}
-	} catch(e){
-		console.log(e.stack);
-		this._next(e, null);
-	}
+	}, this);
+	if(this._ts) clearTimeout(this._ts);
+	this._ts = setTimeout(fun, this._waiting);
 };
 
 task.prototype.result = function(err, result){
@@ -60,15 +61,22 @@ task.prototype.pass = function(){
 };
 
 task.prototype.start = function(callback){
-    this._callback = callback;
+    if(callback) this._callback = callback;
     this._waiting = 0;
+    this._isStopping = false;
     this._next(null, null);
     return this;
 };
 
+task.prototype.stop = function(){
+	this._isStopping = true;
+	if(this._ts) clearTimeout(this._ts);
+};
+
 task.prototype.startInterval = function(time, callback){
-	this._callback = callback;
+	if(callback) this._callback = callback;
 	this._waiting = time;
+	this._isStopping = false;
 	this._next(null, null);
 	return this;
 };
@@ -81,7 +89,8 @@ function tasks(list, step, stepOpt){
 	this._callback = null;
 	this._passResults = [];
 	this._waiting = 0;
-	this.next = require('./core').bind(this._next, this);
+	this._bind = require('./core').bind;
+	this.next = this._bind(this._next, this);
 	
 	this._indexes = [];
 	this._items = [];
@@ -100,6 +109,7 @@ function tasks(list, step, stepOpt){
 };
 
 tasks.prototype._next = function(err, result){
+	if(this._isStopping) return;
 	//run last option
 	var args = [err];
 	if(this._passResults.length > 0){
@@ -118,22 +128,20 @@ tasks.prototype._next = function(err, result){
 		return;
 	}
 
-	//run next asyn
-	if(this._waiting > 0){
-		var stop = new Date().getTime() + this._waiting;
-		while(new Date().getTime() < stop){ }
-	}
-
-	this.cur_index = this._indexes.shift();
-	try{
-		var _result = this._step.apply(this, [this._items[this.cur_index], this.cur_index]);
-		if(_result != undefined){
-			this._next(null, _result);
+	var fun = this._bind(function(){
+		this.cur_index = this._indexes.shift();
+		try{
+			var _result = this._step.apply(this, [this._items[this.cur_index], this.cur_index]);
+			if(_result != undefined){
+				this._next(null, _result);
+			}
+		} catch(e){
+			console.log(e.stack);
+			this._next(e, null);
 		}
-	} catch(e){
-		console.log(e.stack);
-		this._next(e, null);
-	}
+	}, this);
+	if(this._ts) clearTimeout(this._ts);
+	this._ts = setTimeout(fun, this._waiting);
 };
 
 tasks.prototype.result = function(err, result){
@@ -156,16 +164,23 @@ tasks.prototype.pass = function(){
 	this._passResults = this._passResults.concat(results);
 };
 
+task.prototype.stop = function(){
+	this._isStopping = true;
+	if(this._ts) clearTimeout(this._ts);
+};
+
 tasks.prototype.start = function(callback){
-    this._callback = callback;
+    if(callback) this._callback = callback;
     this._waiting = 0;
+    this._isStopping = false;
     this._next(null, null);
     return this;
 };
 
 tasks.prototype.startInterval = function(time, callback){
-	this._callback = callback;
+	if(callback) this._callback = callback;
 	this._waiting = time;
+	this._isStopping = false;
 	this._next(null, null);
 	return this;
 };
