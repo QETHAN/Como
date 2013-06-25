@@ -1576,7 +1576,10 @@ Como.extend({
 		//js file: synchronous load
 		var scr =document.getElementsByTagName('SCRIPT');
 		var url = scr[scr.length - 1].src;
-		if(url.indexOf('?only') > 0){Como._version = 'only'};
+		if(url.indexOf('?') > 0){
+            Como._version_params = url.substring(url.indexOf('?'));
+            if(Como._version_params.indexOf('only') > 0) Como._version = 'only';
+        };
 		url = url.replace(/\\/g, '/');
 		url =  (url.lastIndexOf('/')<0 ? '.' : url.substring(0, url.lastIndexOf('/'))) + '/';
 		var t = url.charAt(0);
@@ -1673,7 +1676,7 @@ Como.Pack = {
 		names = names.replace(/\s/g, '');
 		if(names == '') return;
 		if(url.indexOf('/') != 0 && url.indexOf('http://') != 0)
-				url = Como._path + url;
+				url = Como._path + url + (Como._version_params || '');
 		var a = names.split(',');
 		Como.Array.each(a, function(it){
 			Como.Pack._customUrls[it] = url;
@@ -1712,7 +1715,7 @@ Como.Pack = {
 			} else {
 				p.url = name;
 				if(name.indexOf('/') != 0 && name.indexOf('http://') !=0 ){
-					p.url = Como._path + name;
+					p.url = Como._path + name + (Como._version_params || '');
 				}
 			}
 			this._packs[name] = p;

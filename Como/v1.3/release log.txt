@@ -5,3 +5,4 @@
 5. 优化Como.Array， 如 "" == 0的Bug
 6. 优化了Como().children\first\next\prevAll\nextAll等方法的速度
 7. 修复document上的绑定和取消绑定事件
+8. 通过Como包机制的资源文件，也会自动加上como.js后面的参数，这样可以方便控制版本号

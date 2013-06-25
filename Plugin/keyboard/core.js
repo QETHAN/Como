@@ -74,7 +74,7 @@
 		
 		_getId: function(el){
 			if(el[0].getAttribute){
-				return el.attr('keyboardId')
+				return el.attr('keyboardId');
 			} else {
 				return el[0];
 			}
