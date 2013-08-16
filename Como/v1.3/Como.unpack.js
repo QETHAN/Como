@@ -1418,16 +1418,21 @@ Como.Ajax = {
             if(!!s && s>= 200 && s < 300){
                 if(!Como.isFunction(op.success)) return;
                 if(typeof(op.format) == 'string'){
-                    switch (op.format){
-                        case 'text':
-                            tmp = http.responseText;
-                            break;
-                        case 'json':
-                            tmp = eval('(' + http.responseText + ')');
-                            break;
-                        case 'xml':
-                            tmp = http.responseXML;
-                            break;
+                    try{
+                        switch (op.format){
+                            case 'text':
+                                tmp = http.responseText;
+                                break;
+                            case 'json':
+                                tmp = eval('(' + http.responseText + ')');
+                                break;
+                            case 'xml':
+                                tmp = http.responseXML;
+                                break;
+                        }
+                    } catch(e){
+                        if(Como.isFunction(op.failure)) op.failure(http)
+                        return;
                     }
                 }
                 op.success(tmp);
