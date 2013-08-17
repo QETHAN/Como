@@ -1418,26 +1418,26 @@
                 if(!!s && s>= 200 && s < 300){
                     if(!Como.isFunction(op.success)) return;
                     if(typeof(op.format) == 'string'){
-                        switch (op.format){
-                            case 'text':
-                                tmp = http.responseText;
-                                break;
-                            case 'json':
-                                try{
+                        try{
+                            switch (op.format){
+                                case 'text':
+                                    tmp = http.responseText;
+                                    break;
+                                case 'json':
                                     tmp = eval('(' + http.responseText + ')');
-                                } catch(e){
-                                    if(Como.isFunction(op.failure)) op.failure(e);
-                                    return;
-                                }
-                                break;
-                            case 'xml':
-                                tmp = http.responseXML;
-                                break;
+                                    break;
+                                case 'xml':
+                                    tmp = http.responseXML;
+                                    break;
+                            }
+                        } catch(e){
+                            if(Como.isFunction(op.failure)) op.failure(http)
+                            return;
                         }
+                        op.success(tmp);
+                    } else {
+                        if(Como.isFunction(op.failure)) op.failure(http);
                     }
-                    op.success(tmp);
-                } else {
-                    if(Como.isFunction(op.failure)) op.failure(http);
                 }
             }
         }
@@ -1581,7 +1581,10 @@
     		//js file: synchronous load
     		var scr =document.getElementsByTagName('SCRIPT');
     		var url = scr[scr.length - 1].src;
-    		if(url.indexOf('?only') > 0){Como._version = 'only'};
+    		if(url.indexOf('?') > 0){
+                Como._version_params = url.substring(url.indexOf('?'));
+                if(Como._version_params.indexOf('only') > 0) Como._version = 'only';
+            };
     		url = url.replace(/\\/g, '/');
     		url =  (url.lastIndexOf('/')<0 ? '.' : url.substring(0, url.lastIndexOf('/'))) + '/';
     		var t = url.charAt(0);
@@ -1678,7 +1681,7 @@
     		names = names.replace(/\s/g, '');
     		if(names == '') return;
     		if(url.indexOf('/') != 0 && url.indexOf('http://') != 0)
-    				url = Como._path + url;
+    				url = Como._path + url + (Como._version_params || '');
     		var a = names.split(',');
     		Como.Array.each(a, function(it){
     			Como.Pack._customUrls[it] = url;
@@ -1717,7 +1720,7 @@
     			} else {
     				p.url = name;
     				if(name.indexOf('/') != 0 && name.indexOf('http://') !=0 ){
-    					p.url = Como._path + name;
+    					p.url = Como._path + name + (Como._version_params || '');
     				}
     			}
     			this._packs[name] = p;
