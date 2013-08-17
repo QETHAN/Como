@@ -164,7 +164,7 @@ tasks.prototype.pass = function(){
 	this._passResults = this._passResults.concat(results);
 };
 
-task.prototype.stop = function(){
+tasks.prototype.stop = function(){
 	this._isStopping = true;
 	if(this._ts) clearTimeout(this._ts);
 };
